@@ -46,6 +46,14 @@ hr {
 
 .iconimg {
     display: block;
-    width: 60%;
-    height: 60%;
+    /*max-width: 100%;*/
+    /*height: auto;*/
+    /*width: auto\9; !* ie8 *!*/
+    width: 76%;
+    /*height: 60%;*/
+}
+
+.container-cell {
+    display: table-cell;
+    width: auto;
 }
