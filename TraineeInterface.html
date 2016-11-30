@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BreakingVAD: VAD Display Simulation</title>
+    <link rel="stylesheet" href="./TraineeInterface.css">
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="TraineeInterface.js"></script>
+    <script type="text/javascript" src="canvasjs.min.js"></script>
+</head>
+<body>
+<div class="row">
+    <div class="col-md-12" id="header">&nbsp;</div>
+    <div class="row">
+        <div class="col-md-3" id="values">
+            <h1 id="flowRateVal" class="values">0.0</h1>
+            <p class="units">L/min</p>
+            <h1 id="rpmVal" class="values">0</h1>
+            <p class="units">RPM</p>
+            <h1 id="powerVal" class="values">0.0</h1>
+            <p class="units">Watts</p>
+            <hr>
+            <p class="FixedSx">Fixed</p>
+            <hr>
+            <p class="FixedSx">Sx On</p>
+        </div>
+        <div class="col-md-2" id="icons">
+            <img class="iconimg" src="images/homeIcon.png">
+            <br>
+            <img class="iconimg" src="images/bellIcon.png">
+            <br>
+            <img class="iconimg" src="images/graphIcon.png">
+            <br>
+            <img class="iconimg" src="images/pumpIcon.png">
+            <br>
+            <img class="iconimg" src="images/powerIcon.png">
+        </div>
+        <div class="col-md-7" id="graphs">
+            <div id="powerChartContainer" style="height: 300px; width:100%;"></div>
+            <div id="flowChartContainer" style="height: 300px; width:100%;"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12" id="footer">
+            <p style="float:left">HW1234567&nbsp;&nbsp;&nbsp;&nbsp;POD:&nbsp;&nbsp;&nbsp;8</p>
+            <img style="width:20%; height:20%; float:right" src="images/heartwareLogo.png">
+            <img style="width:10%; height:10%; float:right;" src="images/batteryIcon.png">
+            <h2 style="color:black; float:right">&nbsp;2&nbsp;&nbsp;</h2>
+            <img style="width:5%; height:5%; float:right;" src="images/plugIcon.png">
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,51 @@
+div {
+    display: block;
+    padding: 10px;
+    font-family: Arial;
+}
+
+#header, #values {
+    background-color: #000000;
+    /*border: 2px solid white;*/
+}
+
+#values {
+    color: white;
+    text-align: right;
+}
+
+.values {
+    font-size: 5em;
+    font-weight: bold;
+}
+
+.units {
+    font-size: 2em;
+}
+
+.FixedSx {
+    text-align:center;
+    padding: 0;
+    font-family: "Century Gothic";
+    font-size: 2em;
+}
+
+#icons {
+    background-color: darkgray;
+    horiz-align: center;
+}
+
+#footer {
+    background-color: #ccccff;
+    border: 2px solid black;
+}
+
+hr {
+    color: #ccccff;
+}
+
+.iconimg {
+    display: block;
+    width: 60%;
+    height: 60%;
+}
