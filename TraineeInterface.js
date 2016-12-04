@@ -85,16 +85,16 @@ window.onload = function () {
             for (var j = 0; j < count; j++) {
                 var flowRate = parseFloat(output.flowrate);
                 var power = parseFloat(output.power);
+                var powerAmp = parseFloat(output.powerAmplitude);
+                var flowAmp = parseFloat(output.flowAmplitude);
                 flowData.push({
                     x: tVal,
-                    y: Math.sin(tVal) + flowRate
+                    y: flowAmp*Math.sin(tVal) + flowRate
                 });
                 powerData.push({
                     x: tVal,
-                    y: .5*Math.sin(tVal) + power
+                    y: powerAmp*Math.sin(tVal) + power
                 });
-                console.log(power);
-                console.log(flowRate);
                 tVal = tVal + .3;
             }
             if (powerData.length > dataLength) {
