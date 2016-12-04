@@ -6,14 +6,16 @@ window.onload = function () {
     var powerChart = new CanvasJS.Chart("powerChartContainer",{
         data: [{
             type: "line",
-            dataPoints: powerData
+            dataPoints: powerData,
+            color: "black"
         }],
         axisX:{
             title : "Time (s)",
             titleFontColor: "red",
             titleFontFamily: "arial",
             lineColor: "black",
-            lineThickness: 5
+            lineThickness: 5,
+            tickColor: "black"
         },
         axisY:{
             title : "Power (Watts)",
@@ -22,7 +24,9 @@ window.onload = function () {
             lineColor: "black",
             lineThickness: 5,
             minimum: 0,
-            maximum: 15
+            maximum: 15,
+            tickColor: "black",
+            gridColor: "white"
         }
     });
 
@@ -36,7 +40,8 @@ window.onload = function () {
             titleFontColor: "blue",
             titleFontFamily: "arial",
             lineColor: "black",
-            lineThickness: 5
+            lineThickness: 5,
+            tickColor: "black"
         },
         axisY:{
             title : "Flow (L/min)",
@@ -45,7 +50,9 @@ window.onload = function () {
             lineColor: "black",
             lineThickness: 5,
             minimum: 0,
-            maximum: 10
+            maximum: 10,
+            tickColor: "black",
+            gridColor: "white"
         }
     });
 
@@ -76,16 +83,18 @@ window.onload = function () {
             // count is number of times loop runs to generate random dataPoints.
 
             for (var j = 0; j < count; j++) {
-                var flowrate = output.flowrate;
-                var power = output.power;
+                var flowRate = parseFloat(output.flowrate);
+                var power = parseFloat(output.power);
                 flowData.push({
                     x: tVal,
-                    y: flowrate*Math.sin(tVal) + 5
+                    y: Math.sin(tVal) + flowRate
                 });
                 powerData.push({
                     x: tVal,
-                    y: power*Math.sin(tVal) + 5
+                    y: .5*Math.sin(tVal) + power
                 });
+                console.log(power);
+                console.log(flowRate);
                 tVal = tVal + .3;
             }
             if (powerData.length > dataLength) {
