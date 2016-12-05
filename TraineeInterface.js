@@ -4,6 +4,9 @@ window.onload = function () {
     var flowData = []; // dataPoints
 
     var powerChart = new CanvasJS.Chart("powerChartContainer",{
+        toolTip:{
+            enabled: false
+        },
         data: [{
             type: "line",
             dataPoints: powerData,
@@ -35,6 +38,9 @@ window.onload = function () {
     });
 
     var flowChart = new CanvasJS.Chart("flowChartContainer",{
+        toolTip:{
+            enabled: false
+        },
         data: [{
             type: "line",
             dataPoints: flowData
