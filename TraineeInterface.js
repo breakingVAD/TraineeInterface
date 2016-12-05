@@ -15,7 +15,9 @@ window.onload = function () {
             titleFontFamily: "arial",
             lineColor: "black",
             lineThickness: 5,
-            tickColor: "black"
+            tickColor: "black",
+            labelFontColor: "black",
+            labelFontSize: 20
         },
         axisY:{
             title : "Power (Watts)",
@@ -26,7 +28,9 @@ window.onload = function () {
             minimum: 0,
             maximum: 15,
             tickColor: "black",
-            gridColor: "white"
+            gridColor: "white",
+            labelFontColor: "black",
+            labelFontSize: 20
         }
     });
 
@@ -41,7 +45,9 @@ window.onload = function () {
             titleFontFamily: "arial",
             lineColor: "black",
             lineThickness: 5,
-            tickColor: "black"
+            tickColor: "black",
+            labelFontColor: "black",
+            labelFontSize: 20
         },
         axisY:{
             title : "Flow (L/min)",
@@ -52,7 +58,9 @@ window.onload = function () {
             minimum: 0,
             maximum: 10,
             tickColor: "black",
-            gridColor: "white"
+            gridColor: "white",
+            labelFontColor: "black",
+            labelFontSize: 20
         }
     });
 
@@ -80,7 +88,7 @@ window.onload = function () {
 
         var updateChart = function (count) {
             count = count || 1;
-            // count is number of times loop runs to generate random dataPoints.
+            // count is number of times loop runs to generate dataPoints.
 
             for (var j = 0; j < count; j++) {
                 var flowRate = parseFloat(output.flowrate);
