@@ -119,7 +119,6 @@ window.onload = function () {
                     y: powerAmp*Math.sin(2*tVal) + power
                 });
                 tVal = tVal + .3;
-                console.log(flowData);
                 if (powerData.length > dataLength) {
                     powerData.shift();
                 }
