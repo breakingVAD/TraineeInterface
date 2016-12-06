@@ -2,7 +2,10 @@ window.onload = function () {
 
     var powerData = []; // dataPoints
     var flowData = []; // dataPoints
-
+    var flowRate;
+    var power;
+    var powerAmp;
+    var flowAmp;
     var powerChart = new CanvasJS.Chart("powerChartContainer",{
         toolTip:{
             enabled: false
@@ -16,16 +19,18 @@ window.onload = function () {
             title : "Time (s)",
             titleFontColor: "red",
             titleFontFamily: "arial",
+            labelFontFamily: "arial",
             lineColor: "black",
             lineThickness: 5,
             tickColor: "black",
             labelFontColor: "black",
-            labelFontSize: 20
+            // labelFontSize: 0
         },
         axisY:{
             title : "Power (Watts)",
             titleFontColor: "red",
             titleFontFamily: "arial",
+            labelFontFamily: "arial",
             lineColor: "black",
             lineThickness: 5,
             minimum: 0,
@@ -49,16 +54,18 @@ window.onload = function () {
             title : "Time (s)",
             titleFontColor: "blue",
             titleFontFamily: "arial",
+            labelFontFamily: "arial",
             lineColor: "black",
             lineThickness: 5,
             tickColor: "black",
             labelFontColor: "black",
-            labelFontSize: 20
+            // labelFontSize: 1
         },
         axisY:{
             title : "Flow (L/min)",
             titleFontColor: "blue",
             titleFontFamily: "arial",
+            labelFontFamily: "arial",
             lineColor: "black",
             lineThickness: 5,
             minimum: 0,
@@ -92,35 +99,38 @@ window.onload = function () {
         document.getElementById("rpmVal").innerHTML = output.RPM;
         document.getElementById("flowRateVal").innerHTML = output.flowrate;
 
+        flowRate = parseFloat(output.flowrate);
+        power = parseFloat(output.power);
+        powerAmp = parseFloat(output.powerAmplitude);
+        flowAmp = parseFloat(output.flowAmplitude);
+
         var updateChart = function (count) {
             count = count || 1;
             // count is number of times loop runs to generate dataPoints.
 
             for (var j = 0; j < count; j++) {
-                var flowRate = parseFloat(output.flowrate);
-                var power = parseFloat(output.power);
-                var powerAmp = parseFloat(output.powerAmplitude);
-                var flowAmp = parseFloat(output.flowAmplitude);
+
                 flowData.push({
                     x: tVal,
-                    y: flowAmp*Math.sin(tVal) + flowRate
+                    y: flowAmp*Math.sin(2*tVal) + flowRate
                 });
                 powerData.push({
                     x: tVal,
-                    y: powerAmp*Math.sin(tVal) + power
+                    y: powerAmp*Math.sin(2*tVal) + power
                 });
                 tVal = tVal + .3;
+                console.log(flowData);
+                if (powerData.length > dataLength) {
+                    powerData.shift();
+                }
+                if (flowData.length > dataLength) {
+                    flowData.shift();
+                }
             }
-            if (powerData.length > dataLength) {
-                powerData.shift();
-            }
-            if (flowData.length > dataLength) {
-                flowData.shift();
-            }
+
             flowChart.render();
             powerChart.render();
         };
-
         // generates first set of dataPoints
         updateChart(dataLength);
 
