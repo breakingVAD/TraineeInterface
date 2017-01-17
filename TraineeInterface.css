@@ -49,7 +49,7 @@ hr {
     /*max-width: 100%;*/
     /*height: auto;*/
     /*width: auto\9; !* ie8 *!*/
-    width: 76%;
+    width: 95%;
     /*height: 60%;*/
 }
 
@@ -57,3 +57,4 @@ hr {
     display: table-cell;
     width: auto;
 }
+
