@@ -1,86 +1,4 @@
 window.onload = function () {
-
-    var powerData = []; // dataPoints
-    var flowData = []; // dataPoints
-    var flowRate;
-    var power;
-    var powerAmp;
-    var flowAmp;
-    var powerChart = new CanvasJS.Chart("powerChartContainer",{
-        toolTip:{
-            enabled: false
-        },
-        data: [{
-            type: "line",
-            dataPoints: powerData,
-            color: "black"
-        }],
-        axisX:{
-            title : "Time (s)",
-            titleFontColor: "red",
-            titleFontFamily: "arial",
-            labelFontFamily: "arial",
-            lineColor: "black",
-            lineThickness: 5,
-            tickColor: "black",
-            labelFontColor: "black",
-            // labelFontSize: 0
-        },
-        axisY:{
-            title : "Power (Watts)",
-            titleFontColor: "red",
-            titleFontFamily: "arial",
-            labelFontFamily: "arial",
-            lineColor: "black",
-            lineThickness: 5,
-            minimum: 0,
-            maximum: 15,
-            tickColor: "black",
-            gridColor: "white",
-            labelFontColor: "black",
-            labelFontSize: 20
-        }
-    });
-
-    var flowChart = new CanvasJS.Chart("flowChartContainer",{
-        toolTip:{
-            enabled: false
-        },
-        data: [{
-            type: "line",
-            dataPoints: flowData
-        }],
-        axisX:{
-            title : "Time (s)",
-            titleFontColor: "blue",
-            titleFontFamily: "arial",
-            labelFontFamily: "arial",
-            lineColor: "black",
-            lineThickness: 5,
-            tickColor: "black",
-            labelFontColor: "black",
-            // labelFontSize: 1
-        },
-        axisY:{
-            title : "Flow (L/min)",
-            titleFontColor: "blue",
-            titleFontFamily: "arial",
-            labelFontFamily: "arial",
-            lineColor: "black",
-            lineThickness: 5,
-            minimum: 0,
-            maximum: 10,
-            tickColor: "black",
-            gridColor: "white",
-            labelFontColor: "black",
-            labelFontSize: 20
-        }
-    });
-
-    var tVal = 0;
-    var updateInterval = 100;
-    var dataLength = 200; // number of dataPoints visible at any point
-
     var config = {
         apiKey: "AIzaSyCgUH5OSIKVmCNPJHkSQhCHgl66iM-7f_g",
         authDomain: "project-b10ed.firebaseapp.com",
@@ -90,7 +8,6 @@ window.onload = function () {
     firebase.initializeApp(config);
     var values = firebase.database().ref("values/");
 
-
     values.on('value', function(snapshot) {
         var output = snapshot.val();
 
@@ -99,41 +16,33 @@ window.onload = function () {
         document.getElementById("rpmVal").innerHTML = output.RPM;
         document.getElementById("flowRateVal").innerHTML = output.flowrate;
 
-        flowRate = parseFloat(output.flowrate);
-        power = parseFloat(output.power);
-        powerAmp = parseFloat(output.powerAmplitude);
-        flowAmp = parseFloat(output.flowAmplitude);
-
-        var updateChart = function (count) {
-            count = count || 1;
-            // count is number of times loop runs to generate dataPoints.
-
-            for (var j = 0; j < count; j++) {
-
-                flowData.push({
-                    x: tVal,
-                    y: flowAmp*Math.sin(2*tVal) + flowRate
-                });
-                powerData.push({
-                    x: tVal,
-                    y: powerAmp*Math.sin(2*tVal) + power
-                });
-                tVal = tVal + .3;
-                if (powerData.length > dataLength) {
-                    powerData.shift();
-                }
-                if (flowData.length > dataLength) {
-                    flowData.shift();
-                }
-            }
-
-            flowChart.render();
-            powerChart.render();
-        };
-        // generates first set of dataPoints
-        updateChart(dataLength);
-
-        // update chart after specified time.
-        window.setInterval(function(){updateChart()}, updateInterval);
     });
 };
+
+function Page(src, iconId, whiteIconImg, iconImg, displayed) {
+    this.src = src;
+    this.iconId = iconId;
+    this.iconImg = iconImg;
+    this.whiteIconImg = whiteIconImg;
+    this.displayed = displayed; 
+}
+
+var pages = [new Page("pages/homePage.html", "homeIcon", "images/homeIconWhite.png", "images/homeIcon.png", true),
+    new Page("pages/alarmPage.html", "alarmIcon", "images/alarmIconWhite.png", "images/alarmIcon.png", false),
+    new Page("pages/graphPage.html", "graphIcon", "images/graphIconWhite.png", "images/graphIcon.png", false),
+    new Page("pages/pumpPage.html", "pumpIcon", "images/pumpIconWhite.png", "images/pumpIcon.png", false),
+    new Page("pages/powerPage.html", "powerIcon", "images/powerIconWhite.png", "images/powerIcon.png", false)];
+
+function changePage(icon, pageNum) {
+    if (!pages[pageNum].displayed) {    //icon.src.substring(len-8, len) == "Icon.png") {
+        icon.src = pages[pageNum].whiteIconImg;
+        document.getElementById("pageFrame").src = pages[pageNum].src;
+        pages[pageNum].displayed = true;
+        pages.forEach(function(page) {
+            if (page !== pages[pageNum]) {
+                document.getElementById(page.iconId).src = page.iconImg;
+                page.displayed = false;
+            }
+        })
+    }     
+}

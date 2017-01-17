@@ -26,32 +26,31 @@
             <hr>
             <p class="FixedSx">Sx On</p>
         </div>
-        <div class="col-md-2" id="icons">
+
+        <div class="col-md-1" id="icons">
             <div class="container-cell">
-                <img class="iconimg" src="images/homeIcon.png">
+                <img class="iconimg" src="images/homeIconWhite.png" id="homeIcon" onclick="changePage(this, 0)">
             </div>
             <br>
             <div class="container-cell">
-                <img class="iconimg" src="images/bellIcon.png">
+                <img class="iconimg" src="images/alarmIcon.png" id="alarmIcon" onclick="changePage(this, 1)">
             </div>
             <br>
             <div class="container-cell">
-                <img class="iconimg" src="images/graphIcon.png">
+                <img class="iconimg" src="images/graphIcon.png" id="graphIcon" onclick="changePage(this, 2)">
             </div>
             <br>
             <div class="container-cell">
-                <img class="iconimg" src="images/pumpIcon.png">
+                <img class="iconimg" src="images/pumpIcon.png" id="pumpIcon" onclick="changePage(this, 3)">
             </div>
             <br>
             <div class="container-cell">
-                <img class="iconimg" src="images/powerIcon.png">
+                <img class="iconimg" src="images/powerIcon.png" id="powerIcon" onclick="changePage(this, 4)">
             </div>
         </div>
-        <div class="col-md-7" id="graphs">
-            <div id="powerChartContainer" style="height: 250px; width:75%;"></div>
-            <br><br>
-            <div id="flowChartContainer" style="height: 250px; width:75%;"></div>
-        </div>
+        <iframe src="pages/homePage.html" class="col-md-7" id="pageFrame" height="630">
+            Sorry your browser does not support inline frames.
+        </iframe>
     </div>
 
     <div class="row">
