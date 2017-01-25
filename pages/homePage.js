@@ -100,6 +100,9 @@ window.onload = function () {
         power = parseFloat(output.power);
         powerAmp = parseFloat(output.powerAmplitude);
         flowAmp = parseFloat(output.flowAmplitude);
+        var powerVals = [-0.2, -0.2, -0.1, 0, 0.2, 0.5, 0.6, 0.7, 0.5, 0.1, 0, -0.1];
+        var flowVals = [-0.9, -0.8, -0.7, -0.2, 0.3, 0.8, 1.2, 1.2, 0.8, 0.3, -0.2, -0.7];
+        var i = 0;
 
         var updateChart = function (count) {
             count = count || 1;
@@ -109,11 +112,11 @@ window.onload = function () {
 
                 flowData.push({
                     x: tVal,
-                    y: flowAmp*Math.sin(2*tVal) + flowRate
+                    y: flowRate + flowAmp*flowVals[i] + .15*Math.random()
                 });
                 powerData.push({
                     x: tVal,
-                    y: powerAmp*Math.sin(2*tVal) + power
+                    y: power + flowAmp*powerVals[i] + .2*Math.random()
                 });
                 tVal = tVal + .3;
                 if (powerData.length > dataLength) {
@@ -126,6 +129,11 @@ window.onload = function () {
 
             flowChart.render();
             powerChart.render();
+            if(i<11) {
+                i++;
+            } else {
+                i = 0;
+            }
         };
         // generates first set of dataPoints
         updateChart(dataLength);

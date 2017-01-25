@@ -10,7 +10,7 @@
     <script type="text/javascript" src="TraineeInterface.js"></script>
     <script type="text/javascript" src="canvasjs.min.js"></script>
 </head>
-<body>
+<body onload="startTime()">
 <div class="row">
     <div class="col-md-12" id="header">&nbsp;</div>
     <div class="row">
@@ -55,11 +55,17 @@
 
     <div class="row">
         <div class="col-md-12" id="footer">
-            <p style="float:left">HW1234567&nbsp;&nbsp;&nbsp;&nbsp;POD:&nbsp;&nbsp;&nbsp;8</p>
+            <img style="width:5%; height:5%; float:left" src="images/wifiIcon2.png">
+            <h3 style="float:left">
+                HW1234567&nbsp;&nbsp;&nbsp;&nbsp;POD:&nbsp;&nbsp;&nbsp;8
+                <br>
+                <div id="time"></div>
+            </h3>
+            <img style="width:5%; height:5%" src="images/circleOne.png">
             <img style="width:20%; height:20%; float:right" src="images/heartwareLogo.png">
             <img style="width:10%; height:10%; float:right;" src="images/batteryIcon.png">
-            <h2 style="color:black; float:right">&nbsp;2&nbsp;&nbsp;</h2>
-            <img style="width:5%; height:5%; float:right;" src="images/plugIcon.png">
+            <h2 style="color:black; float:right">&nbsp;<b>2</b>&nbsp;&nbsp;</h2>
+            <img style="width:5%; height:5%" src="images/plugIcon.png">
 
         </div>
     </div>
