@@ -3,8 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="pumpPage.css">
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <!--<script type="text/javascript" src="pumpPage.js"></script>-->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 </head>
 <body>
+<script>
+    $("li").click(function(e) {
+        e.preventDefault();
+        $("li").removeClass("selected");
+        $(this).addClass("selected");
+    });
+</script>
     <p>Pump Page</p>
+    <ul class="tabrow">
+        <li onclick="changeTab('Troubleshooting','AlarmLog')">TAB 1</li>
+        <li onclick="changeTab('Troubleshooting','AlarmLog')">TAB 2</li>
+    </ul>
 </body>
 </html>
