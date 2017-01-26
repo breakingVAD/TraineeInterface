@@ -82,10 +82,11 @@ window.onload = function () {
     var dataLength = 200; // number of dataPoints visible at any point
 
     var config = {
-        apiKey: "AIzaSyCgUH5OSIKVmCNPJHkSQhCHgl66iM-7f_g",
-        authDomain: "project-b10ed.firebaseapp.com",
-        databaseURL: "https://project-b10ed.firebaseio.com",
-        storageBucket: "project-b10ed.appspot.com"
+        apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
+        authDomain: "breaking-vad-online-simulation.firebaseapp.com",
+        databaseURL: "https://breaking-vad-online-simulation.firebaseio.com",
+        storageBucket: "breaking-vad-online-simulation.appspot.com",
+        messagingSenderId: "973903229310"
     };
     firebase.initializeApp(config);
     var values = firebase.database().ref("values/");
