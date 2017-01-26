@@ -85,8 +85,7 @@ window.onload = function () {
         apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
         authDomain: "breaking-vad-online-simulation.firebaseapp.com",
         databaseURL: "https://breaking-vad-online-simulation.firebaseio.com",
-        storageBucket: "breaking-vad-online-simulation.appspot.com",
-        messagingSenderId: "973903229310"
+        storageBucket: "breaking-vad-online-simulation.appspot.com"
     };
     firebase.initializeApp(config);
     var values = firebase.database().ref("values/");
