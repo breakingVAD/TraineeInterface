@@ -2,72 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>BreakingVAD: VAD Display Simulation</title>
-    <link rel="stylesheet" href="./TraineeInterface.css">
-    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <title>Join Session</title>
+    <script src="https://www.gstatic.com/firebasejs/3.6.8/firebase.js"></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script type="text/javascript" src="TraineeInterface.js"></script>
-    <script type="text/javascript" src="canvasjs.min.js"></script>
+    <script type="text/javascript" src="joinSession.js"></script>
 </head>
-<body onload="startTime()">
-<div class="row">
-    <div class="col-md-12" id="header">&nbsp;</div>
-    <div class="row">
-        <div class="col-md-3" id="values">
-            <h1 id="flowRateVal" class="values">0.0</h1>
-            <p class="units">L/min</p>
-            <h1 id="rpmVal" class="values">0</h1>
-            <p class="units">RPM</p>
-            <h1 id="powerVal" class="values">0.0</h1>
-            <p class="units">Watts</p>
-            <hr>
-            <p class="FixedSx">Fixed</p>
-            <hr>
-            <p class="FixedSx">Sx On</p>
-        </div>
-
-        <div class="col-md-1" id="icons">
-            <img class="iconimg" src="images/homeIconWhite.png" id="homeIcon" onclick="changePage(this, 0)">
-
-            <br>
-            <div class="container-cell">
-                <img class="iconimg" src="images/alarmIcon.png" id="alarmIcon" onclick="changePage(this, 1)">
-            </div>
-            <br>
-            <div class="container-cell">
-                <img class="iconimg" src="images/graphIcon.png" id="graphIcon" onclick="changePage(this, 2)">
-            </div>
-            <br>
-            <div class="container-cell">
-                <img class="iconimg" src="images/pumpIcon.png" id="pumpIcon" onclick="changePage(this, 3)">
-            </div>
-            <br>
-            <div class="container-cell">
-                <img class="iconimg" src="images/powerIcon.png" id="powerIcon" onclick="changePage(this, 4)">
-            </div>
-        </div>
-        <iframe src="pages/homePage.html" class="col-md-7" id="pageFrame" height="630">
-            Sorry your browser does not support inline frames.
-        </iframe>
-    </div>
-
-    <div class="row">
-        <div class="col-md-12" id="footer">
-            <img style="width:5%; height:5%; float:left" src="images/wifiIcon2.png">
-            <h3 style="float:left">
-                HW1234567&nbsp;&nbsp;&nbsp;&nbsp;POD:&nbsp;&nbsp;&nbsp;8
-                <br>
-                <div id="time"></div>
-            </h3>
-            <img style="width:5%; height:5%" src="images/circleOne.png">
-            <img style="width:20%; height:20%; float:right" src="images/heartwareLogo.png">
-            <img style="width:10%; height:10%; float:right;" src="images/batteryIcon.png">
-            <h2 style="color:black; float:right">&nbsp;<b>2</b>&nbsp;&nbsp;</h2>
-            <img style="width:5%; height:5%" src="images/plugIcon.png">
-
-        </div>
-    </div>
+<body>
+<div class="container" style="padding:50px">
+    <img src="images/breakingVADicon.jpg" width="150px">
+    <br>
+    <h3>Breaking VAD: Heartware LVAD Simulation System</h3>
+    <br>
+    <p>Input your instructor's code to join their simulation session:</p>
+    <input id="sessionCode" type="text" placeholder="Instructor Code">
+    <button id="joinSession" onclick="joinSession()">Join Session</button>
+    <p id="result"></p>
+    <p id="userData"></p>
 </div>
 </body>
 </html>
