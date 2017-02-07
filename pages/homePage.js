@@ -38,7 +38,7 @@ window.onload = function () {
             tickColor: "black",
             gridColor: "white",
             labelFontColor: "black",
-            labelFontSize: 20
+            labelFontSize: 10
         }
     });
 
@@ -73,7 +73,7 @@ window.onload = function () {
             tickColor: "black",
             gridColor: "white",
             labelFontColor: "black",
-            labelFontSize: 20
+            labelFontSize: 10
         }
     });
 
@@ -88,7 +88,8 @@ window.onload = function () {
         storageBucket: "breaking-vad-online-simulation.appspot.com"
     };
     firebase.initializeApp(config);
-    var values = firebase.database().ref("values/");
+    var uid = localStorage.getItem('uid');
+    var values = firebase.database().ref(uid + "/values/");
 
 
     values.on('value', function(snapshot) {

@@ -2,26 +2,80 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Pump Page</title>
     <link rel="stylesheet" href="pumpPage.css">
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <!--<script type="text/javascript" src="pumpPage.js"></script>-->
+    <script type="text/javascript" src="pumpPage.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../canvasjs.min.js"></script>
+    <script>
+        $(function() {
+            $("li.SSA").click(function(e) {
+                e.preventDefault();
+                $("li.SSA").removeClass("selected");
+                $(this).addClass("selected");
+            });
+        });
+        $(function() {
+            $("li.FP").click(function(e) {
+                e.preventDefault();
+                $("li.FP").removeClass("selected");
+                $(this).addClass("selected");
+            });
+        });
+    </script>
 </head>
 <body>
-<script>
-    $("li").click(function(e) {
-        e.preventDefault();
-        $("li").removeClass("selected");
-        $(this).addClass("selected");
-    });
-</script>
-    <p>Pump Page</p>
+<div id="outerTabs">
+    <div id="speedControl">
+        <div id="innerTabs">
+            <div id="flowChartContainer" style="height: 180px; width:100%; padding:0; margin:0; border:0"></div>
+        </div>
+        <ul class="tabrow">
+            <li class="FP" id="flowChart" onclick="changeFPTab('flowChartContainer', 'powerChartContainer')">Flow</li>
+            <li class="FP" id="powerChart" onclick="changeFPTab('powerChartContainer','flowChartContainer')">Power</li>
+        </ul>
+        <div class="container" style="padding:5px; margin:0; border:0">
+        <table style="width:100%;">
+            <col width="100">
+            <col width="80">
+            <tr>
+                <td>
+                    <div class="container" style="padding:20px">
+                        <h3 style="float:left">Set RPM:</h3>
+                        <button style="float:right" id="rpmButton"></button>
+                    </div>
+                </td>
+                <td>
+                    <div class="container" style="padding:20px">
+                        <table id="VADON" style="width:100%">
+                            <col width="50">
+                            <col width="50">
+                            <tr>
+                                <td>
+                                    <h3>VAD:<br>ON</h3>
+                                </td>
+                                <td>
+                                    <button style="float:left; padding:0" id="stopButton">
+                                        <img src="../images/vadStopButton.png" width="50px">
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        </div>
+    </div>
+</div>
     <ul class="tabrow">
-        <li onclick="changeTab('Troubleshooting','AlarmLog')">TAB 1</li>
-        <li onclick="changeTab('Troubleshooting','AlarmLog')">TAB 2</li>
+        <li class="SSA" id="defaultOpen" onclick="changeTab('speedControl')">Speed/Control</li>
+        <li class="SSA" onclick="changeTab(null)">Setup</li>
+        <li class="SSA" onclick="changeTab(null)">Alarm Settings</li>
     </ul>
+</div>
 </body>
 </html>

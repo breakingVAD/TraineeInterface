@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="alarmBanner.css">
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script type="text/javascript" src="alarmBanner.js"></script>
+    <script type="text/javascript" src="canvasjs.min.js"></script>
+</head>
+<body style="background-color:black">
+<div id="alarmBanner" style="visibility: hidden">
+    <table>
+        <tr>
+            <td>
+                <img src="images/alarmBellYellow.png" style="padding:0;" width="60px">
+            </td>
+            <td>
+                <div class="container-cell" id="alarmText" style="width:600px">
+                    <h3 id="alarmLine1">HIGH WATTS</h3>
+                    <h4 id="alarmLine2">Call</h4>
+                </div>
+            </td>
+            <td>
+                <button style="padding:2px" id="silence" onclick="silenceAlarm()">
+                    <img src="images/alarmOff.png" width="55px">
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>
