@@ -16,7 +16,9 @@ function joinSession() {
         var validCode = false;
 
         for (var uid in users) {
-            validCode = (code === users[uid].UserID);
+            if(code === users[uid].UserID) {
+                validCode = true;
+            }
         }
         if (!validCode) {
             document.getElementById('result').innerHTML = code + ' is not a valid user code.'
