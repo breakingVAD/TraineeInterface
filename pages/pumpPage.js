@@ -1,3 +1,16 @@
+var config = {
+    apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
+    authDomain: "breaking-vad-online-simulation.firebaseapp.com",
+    databaseURL: "https://breaking-vad-online-simulation.firebaseio.com",
+    storageBucket: "breaking-vad-online-simulation.appspot.com"
+};
+firebase.initializeApp(config);
+var uid = localStorage.getItem('uid');
+var values = firebase.database().ref(uid + "/values/");
+var rpmValues = firebase.database().ref(uid + "/values/RPM");
+
+
+
 function changeTab(id) {
     if (id) {
         document.getElementById(id).style.visibility = "visible";
@@ -18,21 +31,12 @@ window.onload = function () {
     document.getElementById("defaultOpen").click();
     document.getElementById("flowChart").click();
 
-    var config = {
-        apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
-        authDomain: "breaking-vad-online-simulation.firebaseapp.com",
-        databaseURL: "https://breaking-vad-online-simulation.firebaseio.com",
-        storageBucket: "breaking-vad-online-simulation.appspot.com"
-    };
-    firebase.initializeApp(config);
-    var uid = localStorage.getItem('uid');
-    var values = firebase.database().ref(uid + "/values/");
-
     flowPowerCharts('flowChartContainer');
 
     values.on('value', function(snapshot) {
         var output = snapshot.val();
         document.getElementById('rpmButton').innerHTML = output.RPM;
+        document.getElementById('rpmValBold').innerHTML = output.RPM;
     })
 };
 
@@ -111,8 +115,6 @@ function flowPowerCharts(idVis) {
     var updateInterval = 100;
     var dataLength = 200; // number of dataPoints visible at any point
 
-    var values = firebase.database().ref("values/");
-
     values.on('value', function(snapshot) {
         var output = snapshot.val();
 
@@ -152,4 +154,29 @@ function flowPowerCharts(idVis) {
         // update chart after specified time.
         window.setInterval(function(){updateChart()}, updateInterval);
     });
+}
+
+function openRPM() {
+    document.getElementById('changeRpmModal').style.display='block';
+}
+
+function cancelModal() {
+    document.getElementById('changeRpmModal').style.display = "none";
+}
+
+function increaseRPM() {
+    var rpm = document.getElementById('rpmValBold').innerHTML;
+    rpm++;
+    document.getElementById('rpmValBold').innerHTML = rpm;
+}
+
+function decreaseRPM() {
+    var rpm = document.getElementById('rpmValBold').innerHTML;
+    rpm--;
+    document.getElementById('rpmValBold').innerHTML = rpm;
+}
+
+function changeRPM() {
+    var rpm = document.getElementById('rpmValBold').innerHTML;
+    //TODO: SET IN FIREBASE
 }

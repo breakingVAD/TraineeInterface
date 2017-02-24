@@ -100,7 +100,7 @@
     border-radius: 7px
 }
 
-td {
+#grayTable td {
     border: 1px solid darkgray;
 }
 
@@ -109,74 +109,69 @@ td {
 }
 /*style from: https://css-tricks.com/better-tabs-with-round-out-borders/*/
 
-/*.tabrow {*/
-    /*text-align: center;*/
 
 
-/*.tabrow li {*/
-    /*border: 1px solid #AAA;*/
-    /*background: #D1D1D1;*/
-    /*background: linear-gradient(top, #ECECEC 50%, #D1D1D1 100%);*/
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    padding-top: 230px;
+}
 
-    /*z-index: 0;*/
-    /*border-bottom-left-radius: 6px;*/
-    /*border-bottom-right-radius: 6px;*/
-    /*box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 #FFF;*/
-    /*text-shadow: 0 1px #FFF;*/
-    /*margin: 0 -5px;*/
-    /*padding: 0 30px;*/
-/*}*/
+/* Modal Content/Box */
+.modal-content {
+    margin: 0 auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 600px;
+    height: 200px;
+}
 
-/*.tabrow a {*/
-    /*color: #555;*/
-    /*text-decoration: none;*/
-/*}*/
+.modal-content.animate {
+    background-color: #ffff99;
+    border: 3px solid gray;
+}
 
-/*.tabrow li.selected {*/
-    /*background: #ECECEC;*/
-    /*color: #333;*/
-    /*z-index: 2;*/
-    /*border-bottom-color: #FFF;*/
-/*}*/
 
-/*.tabrow:before {*/
-    /*position: absolute;*/
-    /*content: "";*/
-    /*width: 100%;*/
-    /*top: 0;*/
-    /*left: 0;*/
-    /*border-top: 1px solid #AAA;*/
-    /*z-index: 1;*/
-/*}*/
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
 
-/*.tabrow li:before,*/
-/*.tabrow li:after {*/
-    /*border: 1px solid #AAA;*/
-    /*position: absolute;*/
-    /*top: -1px;*/
-    /*width: 6px;*/
-    /*height: 6px;*/
-    /*content: "";*/
-/*}*/
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+}
 
-/*.tabrow li:before {*/
-    /*left: -7px;*/
-    /*border-top-right-radius: 6px;*/
-    /*border-width: 1px 1px 0px 0px;*/
-    /*box-shadow: 2px 0px 0 #ECECEC;*/
-/*}*/
+@keyframes animatezoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
 
-/*.tabrow li:after {*/
-    /*right: -7px;*/
-    /*border-top-left-radius: 6px;*/
-    /*border-width: 1px 0px 0px 1px;*/
-    /*box-shadow: -2px 0px 0 #ECECEC;*/
-/*}*/
+#change, #cancel {
+    border-radius: 5px;
+    width: 100px;
+    height:50px;
+}
 
-/*.tabrow li.selected:before {*/
-    /*box-shadow: 2px 0px 0 #FFF;*/
-/*}*/
+#rpmVal {
+    width:300px;
+    padding: 20px 20px 0 20px;
+}
 
-/*.tabrow li.selected:after {*/
-    /*box-shadow: -2px 0px 0 #FFF;*/
-/*}*/
+#rpmLabel {
+    padding: 0 20px 30px 0;
+}
+
+.arrowButtons {
+    padding: 10px;
+}
+
+.changeCancelButtons {
+    padding: 10px;
+}
