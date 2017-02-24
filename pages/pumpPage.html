@@ -38,14 +38,14 @@
             <li class="FP" id="powerChart" onclick="changeFPTab('powerChartContainer','flowChartContainer')">Power</li>
         </ul>
         <div class="container" style="padding:5px; margin:0; border:0">
-        <table style="width:100%;">
+        <table style="width:100%;" id="grayTable">
             <col width="100">
             <col width="80">
             <tr>
                 <td>
                     <div class="container" style="padding:20px">
                         <h3 style="float:left">Set RPM:</h3>
-                        <button style="float:right" id="rpmButton">di</button>
+                        <button style="float:right" onclick="openRPM()" id="rpmButton"></button>
                     </div>
                 </td>
                 <td>
@@ -76,6 +76,39 @@
         <li class="SSA" onclick="changeTab(null)">Setup</li>
         <li class="SSA" onclick="changeTab(null)">Alarm Settings</li>
     </ul>
+</div>
+<div id="changeRpmModal" class="modal">
+    <div class="modal-content animate">
+        <div class="container" id="popupBox">
+            <p style="font-size:22px"><b>Change Speed (NOTE: Disables Suction Detection)</b></p>
+            <table id="rpmControls">
+                <tr>
+                    <td align="right" id="rpmVal">
+                        <h1 style="margin:0; font-size:50px;"><b id="rpmValBold">2700</b></h1>
+                    </td>
+                    <td class="arrowButtons">
+                        <button style="padding:2px" onclick="increaseRPM()">
+                            <img src="../images/upArrow.png" width="50px">
+                        </button>
+                    </td>
+                    <td class="changeCancelButtons">
+                        <button id="change" onclick="changeRPM()">Change</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td align="right" id="rpmLabel"><p>RPM</p></td>
+                    <td class="arrowButtons">
+                        <button style="padding:2px" onclick="decreaseRPM()">
+                            <img src="../images/downArrow.png" width="50px">
+                        </button>
+                    </td>
+                    <td class="changeCancelButtons">
+                        <button id="cancel" onclick="cancelModal()">Cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
 </div>
 </body>
 </html>

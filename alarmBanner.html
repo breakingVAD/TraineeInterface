@@ -12,15 +12,16 @@
 </head>
 <body style="background-color:black">
 <div id="alarmBanner" style="visibility: hidden">
+    <audio src="alarmSound.wav" autoplay loop muted id="alarmNoise"></audio>
     <table>
         <tr>
             <td>
-                <img src="images/alarmBellYellow.png" style="padding:0;" width="60px">
+                <img id="bell" src="" style="padding:0;" width="60px">
             </td>
             <td>
                 <div class="container-cell" id="alarmText" style="width:600px">
-                    <h3 id="alarmLine1">HIGH WATTS</h3>
-                    <h4 id="alarmLine2">Call</h4>
+                    <h3 id="alarmLine1"></h3>
+                    <h4 id="alarmLine2"></h4>
                 </div>
             </td>
             <td>
