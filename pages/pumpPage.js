@@ -178,5 +178,5 @@ function decreaseRPM() {
 
 function changeRPM() {
     var rpm = document.getElementById('rpmValBold').innerHTML;
-    //TODO: SET IN FIREBASE
+    rpmValues.set(rpm);
 }

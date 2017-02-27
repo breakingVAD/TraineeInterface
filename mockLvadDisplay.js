@@ -1,7 +1,5 @@
-console.log('hello');
 window.onload = function () {
     startTime();
-    console.log('onload');
     var config = {
         apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
         authDomain: "breaking-vad-online-simulation.firebaseapp.com",
@@ -12,11 +10,10 @@ window.onload = function () {
     firebase.initializeApp(config);
     var uid = localStorage.getItem('uid');
     var values = firebase.database().ref(uid + "/values/");
-    console.log(uid);
 
     values.on('value', function(snapshot) {
         var output = snapshot.val();
-        console.log(output);
+
         $('#tempOutput').html("<b>Flow Rate: </b>"+output.flowrate + "<br/> <b>RPM:</b> " + output.RPM + "<br/> <b>Power:</b> " + output.power);
         document.getElementById("powerVal").innerHTML = output.power;
         document.getElementById("rpmVal").innerHTML = output.RPM;
