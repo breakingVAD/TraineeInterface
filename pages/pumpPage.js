@@ -96,8 +96,8 @@ function flowPowerCharts(idVis) {
     if (idVis == 'flowChartContainer') {var fp = 0;} else {fp = 1;}
 
     var data = []; // dataPoints
-    var flowOrPower;
-    var amplitude;
+    var flowOrPower = 5;
+    var amplitude = 1;
     var fpChart = new CanvasJS.Chart(idVis,{
         toolTip:{
             enabled: false
@@ -122,38 +122,39 @@ function flowPowerCharts(idVis) {
         flowOrPower = parseFloat(output[fpStrings[fp]]);
         fpStrings = ['flowAmplitude','powerAmplitude'];
         amplitude = parseFloat(output[fpStrings[fp]]);
-        var offsetVals = [[-0.9, -0.8, -0.7, -0.2, 0.3, 0.8, 1.2, 1.2, 0.8, 0.3, -0.2, -0.7],[-0.2, -0.2, -0.1, 0, 0.2, 0.5, 0.6, 0.7, 0.5, 0.1, 0, -0.1]];
-        var i = 0;
 
-        var updateChart = function (count) {
-            count = count || 1;
-            // count is number of times loop runs to generate dataPoints.
-
-            for (var j = 0; j < count; j++) {
-
-                data.push({
-                    x: tVal,
-                    y: flowOrPower + amplitude*offsetVals[fp][i] + .15*Math.random()
-                });
-                tVal = tVal + .3;
-                if (data.length > dataLength) {
-                    data.shift();
-                }
-            }
-
-            fpChart.render();
-            if(i<11) {
-                i++;
-            } else {
-                i = 0;
-            }
-        };
-        // generates first set of dataPoints
-        updateChart(dataLength);
-
-        // update chart after specified time.
-        window.setInterval(function(){updateChart()}, updateInterval);
     });
+
+    var offsetVals = [[-0.9, -0.8, -0.7, -0.2, 0.3, 0.8, 1.2, 1.2, 0.8, 0.3, -0.2, -0.7],[-0.2, -0.2, -0.1, 0, 0.2, 0.5, 0.6, 0.7, 0.5, 0.1, 0, -0.1]];
+    var i = 0;
+    var updateChart = function (count) {
+        count = count || 1;
+        // count is number of times loop runs to generate dataPoints.
+
+        for (var j = 0; j < count; j++) {
+
+            data.push({
+                x: tVal,
+                y: flowOrPower + amplitude*offsetVals[fp][i] + .15*Math.random()
+            });
+            tVal = tVal + .3;
+            if (data.length > dataLength) {
+                data.shift();
+            }
+        }
+
+        fpChart.render();
+        if(i<11) {
+            i++;
+        } else {
+            i = 0;
+        }
+    };
+    // generates first set of dataPoints
+    updateChart(dataLength);
+
+    // update chart after specified time.
+    window.setInterval(function(){updateChart()}, updateInterval);
 }
 
 function openRPM() {
@@ -166,12 +167,14 @@ function cancelModal() {
 
 function increaseRPM() {
     var rpm = document.getElementById('rpmValBold').innerHTML;
+    rpm = Number(rpm);
     rpm += 20;
     document.getElementById('rpmValBold').innerHTML = rpm;
 }
 
 function decreaseRPM() {
     var rpm = document.getElementById('rpmValBold').innerHTML;
+    rpm = Number(rpm);
     rpm -= 20;
     document.getElementById('rpmValBold').innerHTML = rpm;
 }

@@ -7,24 +7,26 @@ var config = {
 };
 firebase.initializeApp(config);
 
-var userIds = firebase.database().ref('Users/');
+var userIds = firebase.database().ref('Users Map/');
 
 function joinSession() {
     userIds.once('value', function(snapshot) {
-        var users = snapshot.val();
-        var code = document.getElementById('sessionCode').value;
-        var validCode = false;
+        var usersMap = snapshot.val();
+        var email = document.getElementById('email').value;
+        var valid = false;
+        var userId;
 
-        for (var uid in users) {
-            if(code === users[uid].UserID) {
-                validCode = true;
+        for (var uid in usersMap) {
+            if(email === usersMap[uid].email) {
+                valid = true;
+                userId = uid;
             }
         }
-        if (!validCode) {
-            document.getElementById('result').innerHTML = code + ' is not a valid user code.'
+        if (!valid) {
+            document.getElementById('result').innerHTML = email + ' is not a valid instructor email address.'
             document.getElementById('result').style = 'color:red';
         } else {
-            localStorage.setItem('uid', code);
+            localStorage.setItem('uid', userId);
             window.location = 'mockLvadDisplay.html';
         }
     });
