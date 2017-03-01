@@ -23,7 +23,7 @@ function joinSession() {
             }
         }
         if (!valid) {
-            document.getElementById('result').innerHTML = email + ' is not a valid instructor email address.'
+            document.getElementById('result').innerHTML = email + ' is not a valid instructor email address or this instructor is not currently logged in.'
             document.getElementById('result').style = 'color:red';
         } else {
             localStorage.setItem('uid', userId);
