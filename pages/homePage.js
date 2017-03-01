@@ -2,18 +2,6 @@ window.onload = function () {
 
     var powerData = []; // dataPoints
     var flowData = []; // dataPoints
-    // for (var j=0; j<60; j++) {
-    //     powerData.push({
-    //         x: j,
-    //         y: 5
-    //     });
-    //     flowData.push({
-    //         x: j,
-    //         y: 5
-    //     });
-    //     }
-    console.log(flowData);
-    console.log(powerData);
 
     var flowRate = 5;
     var power = 5;
@@ -90,12 +78,10 @@ window.onload = function () {
             labelFontSize: 10
         }
     });
-    console.log('start render');
+
     flowChart.render();
     powerChart.render();
-    console.log('stop render');
-    console.log(flowData);
-    console.log(powerData);
+
     var tVal = 0;
     var updateInterval = 100;
     var dataLength = 200; // number of dataPoints visible at any point
@@ -120,7 +106,7 @@ window.onload = function () {
         power = parseFloat(output.power);
         powerAmp = parseFloat(output.powerAmplitude);
         flowAmp = parseFloat(output.flowAmplitude);
-        console.log('got values');
+
         gotValues = true;
     });
 

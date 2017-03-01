@@ -24,12 +24,13 @@ window.onload = function () {
 
 
 // Get the modal
+var pwModal = document.getElementById('passwordPopup');
 var modal = document.getElementById('passwordPopup');
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
+    if (event.target == pwModal) {
+        pwModal.style.display = "none";
     }
 };
 
@@ -103,6 +104,10 @@ function cancelModal() {
     clearPW();
 }
 
+function cancelPowerModal() {
+    document.getElementById('powerPopup').style.display = "none";
+}
+
 function okayPW() {
     var pw = document.getElementById('password').value;
     if (pw === '123456') {
@@ -131,4 +136,5 @@ function goToEchoSim() {
 
 function powerOff() {
     console.log('poweroff');
+    document.getElementById('powerPopup').style.display='block';
 }

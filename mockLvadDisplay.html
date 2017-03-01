@@ -46,8 +46,8 @@
                 </iframe>
             </div>
             <div id="passwordPopup" class="modal">
-                <div class="modal-content animate">
-                    <div class="container" id="popupBox">
+                <div class="modal-content animate" id="popupBox">
+                    <div class="container">
                         <p><b>Enter Password:</b></p>
                         <input id="password" type="password" style="width:75px">
                         <button id="backspace" onclick="backspacePW()"><b>&#8592;</b></button>
@@ -107,6 +107,26 @@
                                     <div id="cancelContainer">
                                         <button id="cancel" onclick="cancelModal()">Cancel</button>
                                     </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div id="powerPopup" class="modal">
+                <div class="modal-content animate" id="powerBox">
+                    <div class="container">
+                        <table>
+                            <col width="300">
+                            <col width="100">
+                            <tr>
+                                <td>
+                                    <h2>Do you want to shutdown the monitor?</h2>
+                                </td>
+                                <td>
+                                    <button class="powerButtons">Yes</button>
+                                    <br><br>
+                                    <button onclick="cancelPowerModal()" class="powerButtons">No</button>
                                 </td>
                             </tr>
                         </table>
