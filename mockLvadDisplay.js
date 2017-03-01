@@ -44,8 +44,7 @@ function Page(src, iconId, whiteIconImg, iconImg, displayed) {
 var pages = [new Page("pages/homePage.html", "homeIcon", "images/homeIconWhite.png", "images/homeIcon.png", true),
     new Page("pages/alarmPage.html", "alarmIcon", "images/alarmIconWhite.png", "images/alarmIcon.png", false),
     new Page("pages/graphPage.html", "graphIcon", "images/graphIconWhite.png", "images/graphIcon.png", false),
-    new Page("pages/pumpPage.html", "pumpIcon", "images/pumpIconWhite.png", "images/pumpIcon.png", false),
-    new Page("pages/powerPage.html", "powerIcon", "images/powerIconWhite.png", "images/powerIcon.png", false)];
+    new Page("pages/pumpPage.html", "pumpIcon", "images/pumpIconWhite.png", "images/pumpIcon.png", false)];
 
 function changePage(icon, pageNum) {
     if (!pages[pageNum].displayed) {    //icon.src.substring(len-8, len) == "Icon.png") {
@@ -124,4 +123,12 @@ function okayPW() {
 function logOut() {
     localStorage.removeItem('uid');
     window.location = 'index.html';
+}
+
+function goToEchoSim() {
+    window.location = 'pages/echoSimulation.html';
+}
+
+function powerOff() {
+    console.log('poweroff');
 }

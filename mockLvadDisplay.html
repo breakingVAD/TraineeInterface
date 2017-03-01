@@ -39,7 +39,7 @@
                     <br>
                     <img class="iconimg" src="images/pumpIcon.png" id="pumpIcon" onclick="changePage(this, 3)">
                     <br>
-                    <img class="iconimg" style="padding-bottom: 17px" src="images/powerIcon.png" id="powerIcon" onclick="changePage(this, 4)">
+                    <img class="iconimg" style="padding-bottom: 17px" src="images/powerIcon.png" id="powerIcon" onclick="powerOff()">
                 </div>
                 <iframe src="pages/homePage.html" class="col-md-8" id="pageFrame" height="450">
                     Sorry your browser does not support inline frames.
@@ -138,7 +138,9 @@
         </div>
     </div>
     <div class="col-md-3" style="background-color:black">
-        <button onclick="logOut()">Log out of this session</button>
+        <button onclick="logOut()" style="width:116px">Log out</button>
+        <br>
+        <button onclick="goToEchoSim()">Echo Simulation</button>
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
 </div>
