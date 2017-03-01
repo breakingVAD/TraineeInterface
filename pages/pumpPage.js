@@ -166,17 +166,17 @@ function cancelModal() {
 
 function increaseRPM() {
     var rpm = document.getElementById('rpmValBold').innerHTML;
-    rpm++;
+    rpm += 20;
     document.getElementById('rpmValBold').innerHTML = rpm;
 }
 
 function decreaseRPM() {
     var rpm = document.getElementById('rpmValBold').innerHTML;
-    rpm--;
+    rpm -= 20;
     document.getElementById('rpmValBold').innerHTML = rpm;
 }
 
 function changeRPM() {
     var rpm = document.getElementById('rpmValBold').innerHTML;
-    //TODO: SET IN FIREBASE
+    rpmValues.set(rpm);
 }

@@ -1,7 +1,5 @@
-console.log('hello');
 window.onload = function () {
     startTime();
-    console.log('onload');
     var config = {
         apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
         authDomain: "breaking-vad-online-simulation.firebaseapp.com",
@@ -12,11 +10,10 @@ window.onload = function () {
     firebase.initializeApp(config);
     var uid = localStorage.getItem('uid');
     var values = firebase.database().ref(uid + "/values/");
-    console.log(uid);
 
     values.on('value', function(snapshot) {
         var output = snapshot.val();
-        console.log(output);
+
         $('#tempOutput').html("<b>Flow Rate: </b>"+output.flowrate + "<br/> <b>RPM:</b> " + output.RPM + "<br/> <b>Power:</b> " + output.power);
         document.getElementById("powerVal").innerHTML = output.power;
         document.getElementById("rpmVal").innerHTML = output.RPM;
@@ -47,8 +44,7 @@ function Page(src, iconId, whiteIconImg, iconImg, displayed) {
 var pages = [new Page("pages/homePage.html", "homeIcon", "images/homeIconWhite.png", "images/homeIcon.png", true),
     new Page("pages/alarmPage.html", "alarmIcon", "images/alarmIconWhite.png", "images/alarmIcon.png", false),
     new Page("pages/graphPage.html", "graphIcon", "images/graphIconWhite.png", "images/graphIcon.png", false),
-    new Page("pages/pumpPage.html", "pumpIcon", "images/pumpIconWhite.png", "images/pumpIcon.png", false),
-    new Page("pages/powerPage.html", "powerIcon", "images/powerIconWhite.png", "images/powerIcon.png", false)];
+    new Page("pages/pumpPage.html", "pumpIcon", "images/pumpIconWhite.png", "images/pumpIcon.png", false)];
 
 function changePage(icon, pageNum) {
     if (!pages[pageNum].displayed) {    //icon.src.substring(len-8, len) == "Icon.png") {
@@ -127,4 +123,12 @@ function okayPW() {
 function logOut() {
     localStorage.removeItem('uid');
     window.location = 'index.html';
+}
+
+function goToEchoSim() {
+    window.location = 'pages/echoSimulation.html';
+}
+
+function powerOff() {
+    console.log('poweroff');
 }
