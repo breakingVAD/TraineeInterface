@@ -10,7 +10,8 @@
     <script type="text/javascript" src="mockLvadDisplay.js"></script>
     <script type="text/javascript" src="canvasjs.min.js"></script>
 </head>
-<body>
+<body style="background-color:black">
+<div class="container" style="background-color:black; margin:0;padding:0">
 <div class="row" style="padding:0; margin:0; border:0">
     <div class="col-md-9" style="padding:0; margin:0; border:0">
 
@@ -31,15 +32,17 @@
                 </div>
 
                 <div class="col-md-2" id="icons">
-                    <img class="iconimg" src="images/homeIconWhite.png" id="homeIcon" onclick="changePage(this, 0)">
-                    <br>
-                    <img class="iconimg" src="images/alarmIcon.png" id="alarmIcon" onclick="changePage(this, 1)">
-                    <br>
-                    <img class="iconimg" src="images/graphIcon.png" id="graphIcon" onclick="changePage(this, 2)">
-                    <br>
-                    <img class="iconimg" src="images/pumpIcon.png" id="pumpIcon" onclick="changePage(this, 3)">
-                    <br>
-                    <img class="iconimg" style="padding-bottom: 17px" src="images/powerIcon.png" id="powerIcon" onclick="powerOff()">
+                    <div class="container" style="max-width:103px; margin:0">
+                        <img class="iconimg" src="images/homeIconWhite.png" id="homeIcon" onclick="changePage(this, 0)">
+                        <br>
+                        <img class="iconimg" src="images/alarmIcon.png" id="alarmIcon" onclick="changePage(this, 1)">
+                        <br>
+                        <img class="iconimg" src="images/graphIcon.png" id="graphIcon" onclick="changePage(this, 2)">
+                        <br>
+                        <img class="iconimg" src="images/pumpIcon.png" id="pumpIcon" onclick="changePage(this, 3)">
+                        <br>
+                        <img class="iconimg" style="padding-bottom: 17px" src="images/powerIcon.png" id="powerIcon" onclick="powerOff()">
+                    </div>
                 </div>
                 <iframe src="pages/homePage.html" class="col-md-8" id="pageFrame" height="450">
                     Sorry your browser does not support inline frames.
@@ -163,6 +166,7 @@
         <button onclick="goToEchoSim()">Echo Simulation</button>
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
+</div>
 </div>
 </body>
 </html>
