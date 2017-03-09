@@ -2,23 +2,22 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Join Session</title>
-    <script src="https://www.gstatic.com/firebasejs/3.6.8/firebase.js"></script>
-    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <title>Simulated Pediatric LVAD Training System</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script type="text/javascript" src="joinSession.js"></script>
+    <link rel="stylesheet" href="frontPage.css">
+    <script type="text/javascript" src="frontPage.js"></script>
 </head>
 <body>
-<div class="container" style="padding:50px">
-    <img src="images/breakingVADicon.jpg" width="150px">
-    <br>
-    <h3>Breaking VAD: Heartware LVAD Simulation System</h3>
-    <br>
-    <p>Input your instructor's email address to join their simulation session:</p>
-    <input id="email" type="text" placeholder="Instructor Email Address">
-    <button id="joinSession" onclick="joinSession()">Join Session</button>
-    <p id="result"></p>
-    <p id="userData"></p>
+<div class="container" style="margin:0; padding:10px">
+    <img src="images/breakingVADicon.png" width="100px" style="float:left">
+    <h1>Simulated Pediatric LVAD Training System</h1>
 </div>
+<div class="topnav" id="myTopnav">
+    <a class="tablinks active" href="#home" onclick="switchTabs(event, 'homePage')">Home</a>
+    <a class="tablinks" href="#instructor" onclick="switchTabs(event, 'instructorLogin')">Instructor Login</a>
+    <a class="tablinks" href="#trainee" onclick="switchTabs(event, 'traineeLogin')">Trainee Login</a>
+    <a class="tablinks" href="#about" onclick="switchTabs(event, 'aboutPage')">About</a>
+</div>
+<iframe id="tabIFrame" src="tabPages/homePage.html" width="100%" height="400px"></iframe>
 </body>
 </html>

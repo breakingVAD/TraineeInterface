@@ -42,10 +42,10 @@ function Page(src, iconId, whiteIconImg, iconImg, displayed) {
     this.displayed = displayed; 
 }
 
-var pages = [new Page("pages/homePage.html", "homeIcon", "images/homeIconWhite.png", "images/homeIcon.png", true),
-    new Page("pages/alarmPage.html", "alarmIcon", "images/alarmIconWhite.png", "images/alarmIcon.png", false),
-    new Page("pages/graphPage.html", "graphIcon", "images/graphIconWhite.png", "images/graphIcon.png", false),
-    new Page("pages/pumpPage.html", "pumpIcon", "images/pumpIconWhite.png", "images/pumpIcon.png", false)];
+var pages = [new Page("lvadPages/homePage.html", "homeIcon", "images/homeIconWhite.png", "images/homeIcon.png", true),
+    new Page("lvadPages/alarmPage.html", "alarmIcon", "images/alarmIconWhite.png", "images/alarmIcon.png", false),
+    new Page("lvadPages/graphPage.html", "graphIcon", "images/graphIconWhite.png", "images/graphIcon.png", false),
+    new Page("lvadPages/pumpPage.html", "pumpIcon", "images/pumpIconWhite.png", "images/pumpIcon.png", false)];
 
 function changePage(icon, pageNum) {
     if (!pages[pageNum].displayed) {    //icon.src.substring(len-8, len) == "Icon.png") {
@@ -127,11 +127,11 @@ function okayPW() {
 
 function logOut() {
     localStorage.removeItem('uid');
-    window.location = 'index.html';
+    window.location = '../tabPages/traineeLogin.html';
 }
 
 function goToEchoSim() {
-    window.location = 'pages/echoSimulation.html';
+    window.location = 'lvadPages/echoSimulation.html';
 }
 
 function powerOff() {
