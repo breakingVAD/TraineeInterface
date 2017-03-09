@@ -27,7 +27,7 @@ function joinSession() {
             document.getElementById('result').style = 'color:red';
         } else {
             localStorage.setItem('uid', userId);
-            window.location = 'mockLvadDisplay.html';
+            window.open('mockLvadDisplay.html');
         }
     });
 }
