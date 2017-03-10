@@ -96,7 +96,7 @@ window.onload = function() {
           email: firebaseUser.email
         });
         localStorage.setItem('userid', userID);
-        window.open('../instructorInterface/PresetPage.html');
+        window.open('../instructorInterface/presetPage.html');
       }else{
         console.log("Not Logged In");
       }

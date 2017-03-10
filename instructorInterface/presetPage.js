@@ -13,13 +13,13 @@ firebase.auth().onAuthStateChanged(function(firebaseUser) {
         userID=firebaseUser.uid;
     } else {
         console.log("Not Logged In -- ");
-        window.location='index.html';
+        window.location='../index.html';
     }
 });
 var users=firebase.database().ref("Users");
 var usersMap=firebase.database().ref("Users Map");
 
-$("#btnLogout").click(function(){
+function logout(){
     console.log("Button Clicked");
     users.set({
         random: true
@@ -44,4 +44,4 @@ $("#btnLogout").click(function(){
         }
     });
     firebase.auth().signOut();
-});
+}
