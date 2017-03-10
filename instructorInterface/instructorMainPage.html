@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Breaking VAD Instructor Interface</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../frontPage.css">
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <script src='presetPage.js'></script>
+    <script>
+        function switchTabs(evt) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            evt.currentTarget.className += " active";
+        }
+
+    </script>
+</head>
+<body>
+<div class="container" style="margin:0; padding:10px">
+    <img src="../images/breakingVADicon.png" width="100px" style="float:left">
+    <h1>Simulated Pediatric LVAD Training System</h1>
+</div>
+<div class="topnav" id="myTopnav">
+    <a class="tablinks active" target="iframeswitch" href="iframeValues.html" onclick="switchTabs(event)">LVAD Values</a>
+    <a class="tablinks" target="iframeswitch" href="instructorAlarmPage.html" onclick="switchTabs(event)">Alarms</a>
+    <a class="tablinks" target="iframeswitch" href="TestStorage.html" onclick="switchTabs(event)">Upload</a>
+    <a class="tablinks" onclick="logout()">Logout</a>
+</div>
+<iframe name="iframeswitch" src="iframeValues.html" width=100% height=1500px scrolling="no"></iframe>
+</body>
+</html>
