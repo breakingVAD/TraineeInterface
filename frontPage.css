@@ -39,3 +39,7 @@ p {
 iframe {
     border:0;
 }
+
+#forgotPW:hover {
+    cursor: hand;
+}
