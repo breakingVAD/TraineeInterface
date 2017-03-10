@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+<body>
+    <label> <b> Email <b> </label>
+    <br></br>
+    <input id="txtEmail" type="email" placeholder="Enter Email Address">
+    <br></br>
+    <label> <b> PassWord <b> </label>
+      <br></br>
+    <input id="txtPassword" type="password" placeholder="Enter Password">
+    <br></br>
+    <button id="btnLogin" class="btn btn-action"> Log In </button>
+    <button id="btnSignUp" class="btn btn-secondary"> Sign Up </button>
+
+</body>
+<script>
+var config = {
+    apiKey: "AIzaSyAHBIT3FVpsAjmRubNRJWG8aCSPIWvs9Gw",
+    authDomain: "project-eec56.firebaseapp.com",
+    databaseURL: "https://project-eec56.firebaseio.com",
+    storageBucket: "project-eec56.appspot.com",
+    messagingSenderId: "2186485207"
+  };
+firebase.initializeApp(config);
+const txtEmail = document.querySelectorAll("#txtEmail")[0];
+const txtPassword = document.querySelectorAll("#txtPassword")[0];
+const btnLogin = document.querySelectorAll("#btnLogin")[0];
+const btnSignUp = document.querySelectorAll("#btnSignUp")[0];
+var users = firebase.database().ref("Users");
+var userID;
+//const btnLogout = document.getElementById('btnLogout');
+
+btnLogin.addEventListener('click', e =>{
+  console.log(txtEmail.value)
+  //alert(txtPassword.value)
+  const email = txtEmail.value;
+  const password = txtPassword.value;
+  const auth = firebase.auth();
+  const promise = auth.signInWithEmailAndPassword(email, password);
+  promise.catch(e => alert(e.message));
+
+});
+btnSignUp.addEventListener('click', e =>{
+  const email = txtEmail.value;
+  const password = txtPassword.value;
+  const auth = firebase.auth();
+  const promise = auth.createUserWithEmailAndPassword(email, password);
+  promise.catch(e => console.log(e.message));
+
+});
+firebase.auth().onAuthStateChanged(firebaseUser => {
+  if(firebaseUser){
+    console.log(firebaseUser);
+    userID =  firebaseUser.uid;
+    users.push({
+      UserID: userID
+    });
+    window.location = 'PresetPage';
+  }else{
+    console.log("Not Logged In");
+  }
+});
+
+
+firebase.initializeApp(config);
+</script>
+</html>

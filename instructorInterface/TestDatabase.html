@@ -1,0 +1,53 @@
+<html>
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+<div>
+  Name: <input type="text" class = "format" id="alarmName" class = "font"><br>
+</div>
+<button type="button" id="test" onclick="buttonAction()" class = "font"> Add Alarms </button>
+<button type="button" id="test" onclick="buttonAction2()" class = "font"> Save Alarms </button>
+<button type="button" id="test" onclick="removeNode()" class = "font"> Delete Alarms </button>
+<script>
+var config = {
+    apiKey: "AIzaSyCgUH5OSIKVmCNPJHkSQhCHgl66iM-7f_g",
+    authDomain: "project-b10ed.firebaseapp.com",
+    databaseURL: "https://project-b10ed.firebaseio.com",
+    storageBucket: "project-b10ed.appspot.com",
+    messagingSenderId: "145606200232"
+};
+
+firebase.initializeApp(config);
+
+function buttonAction(){
+  var presetName = $('#alarmName').val();
+  alert(presetName);
+  var values = firebase.database().ref("alarmLog2");
+  values.push({
+    name: presetName
+  });
+}
+
+function buttonAction2(){
+  var presetName = $('#alarmName').val();
+  alert(presetName);
+  var values = firebase.database().ref("alarmLog2");
+  alert("alarm " + presetName);
+  values.once('value',function(snapshot){
+    var output = snapshot.val();
+    var alarmKeys = Object.keys(output);
+    for(var alarmKey in output) {
+      entry = output[alarmKey];
+      alert(entry['alarm']);
+    }
+  });
+}
+
+function removeNode(){
+  var values = firebase.database().ref("alarmLog2");
+  values.remove();
+}
+
+
+
+</script>
+</html>

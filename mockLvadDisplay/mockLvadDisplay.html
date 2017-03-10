@@ -8,9 +8,10 @@
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script type="text/javascript" src="mockLvadDisplay.js"></script>
-    <script type="text/javascript" src="canvasjs.min.js"></script>
+    <script type="text/javascript" src="../canvasjs.min.js"></script>
 </head>
-<body>
+<body style="background-color:black">
+<div class="container" style="background-color:black; margin:0;padding:0">
 <div class="row" style="padding:0; margin:0; border:0">
     <div class="col-md-9" style="padding:0; margin:0; border:0">
 
@@ -31,17 +32,19 @@
                 </div>
 
                 <div class="col-md-2" id="icons">
-                    <img class="iconimg" src="images/homeIconWhite.png" id="homeIcon" onclick="changePage(this, 0)">
-                    <br>
-                    <img class="iconimg" src="images/alarmIcon.png" id="alarmIcon" onclick="changePage(this, 1)">
-                    <br>
-                    <img class="iconimg" src="images/graphIcon.png" id="graphIcon" onclick="changePage(this, 2)">
-                    <br>
-                    <img class="iconimg" src="images/pumpIcon.png" id="pumpIcon" onclick="changePage(this, 3)">
-                    <br>
-                    <img class="iconimg" style="padding-bottom: 17px" src="images/powerIcon.png" id="powerIcon" onclick="powerOff()">
+                    <div class="container" style="max-width:103px; margin:0">
+                        <img class="iconimg" src="../images/homeIconWhite.png" id="homeIcon" onclick="changePage(this, 0)">
+                        <br>
+                        <img class="iconimg" src="../images/alarmIcon.png" id="alarmIcon" onclick="changePage(this, 1)">
+                        <br>
+                        <img class="iconimg" src="../images/graphIcon.png" id="graphIcon" onclick="changePage(this, 2)">
+                        <br>
+                        <img class="iconimg" src="../images/pumpIcon.png" id="pumpIcon" onclick="changePage(this, 3)">
+                        <br>
+                        <img class="iconimg" style="padding-bottom: 17px" src="../images/powerIcon.png" id="powerIcon" onclick="powerOff()">
+                    </div>
                 </div>
-                <iframe src="pages/homePage.html" class="col-md-8" id="pageFrame" height="450">
+                <iframe src="lvadPages/homePage.html" class="col-md-8" id="pageFrame" height="450">
                     Sorry your browser does not support inline frames.
                 </iframe>
             </div>
@@ -137,19 +140,19 @@
                 <div class="col-md-12" id="footer" style="padding: 0; margin: 0">
                     <div class="row" style="padding: 0; margin: 0; border: 0">
                         <div class="col-md-1">
-                            <img style="width:60%; height:auto; float:right; padding: 0; margin: 0; border: 0" src="images/wifiIcon2.png">
+                            <img style="width:60%; height:auto; float:right; padding: 0; margin: 0; border: 0" src="../images/wifiIcon2.png">
                         </div>
                         <div class="col-md-5" style="padding: 0; margin: 0; border: 0">
                             <div style="float: left; padding: 0; margin: 0; border: 0">
                                 <h4 style="padding-top: 5px; margin: 0; border: 0">HW1234567&nbsp;&nbsp;&nbsp;&nbsp;POD:&nbsp;&nbsp;&nbsp;8</h4>
                                 <h4 style="padding-top: 10px; padding-bottom: 0; border:0; margin: 0" id="time"></h4>
                             </div>
-                            <img style="width:18%; height:auto; padding-left:40px; padding-right:0; padding-top: 4px" src="images/circleOne.png">
-                            <img style="width:15%; height:auto; padding-right:10px; padding-left:0; padding-top: 8px" src="images/plugIcon.png">
+                            <img style="width:18%; height:auto; padding-left:40px; padding-right:0; padding-top: 4px" src="../images/circleOne.png">
+                            <img style="width:15%; height:auto; padding-right:10px; padding-left:0; padding-top: 8px" src="../images/plugIcon.png">
                         </div>
                         <div class="col-md-6" style="padding: 0; margin: 0; border: 0">
-                            <img style="width:50%; height:auto; float:right; padding:0; padding-right:20px" src="images/heartwareLogo.png">
-                            <img style="width:20%; height:auto; float:right; padding: 10px" src="images/batteryIcon.png">
+                            <img style="width:50%; height:auto; float:right; padding:0; padding-right:20px" src="../images/heartwareLogo.png">
+                            <img style="width:20%; height:auto; float:right; padding: 10px" src="../images/batteryIcon.png">
                             <p style="color:black;float:right; padding:15px; border:0; margin:0"><b>2</b></p>
                         </div>
                     </div>
@@ -163,6 +166,7 @@
         <button onclick="goToEchoSim()">Echo Simulation</button>
         <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
     </div>
+</div>
 </div>
 </body>
 </html>

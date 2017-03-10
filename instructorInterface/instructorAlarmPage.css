@@ -1,0 +1,65 @@
+#table {
+  display: block;
+}
+#table td {
+  width:200px;
+  display: inline-block;
+}
+#table th {
+  width:200px;
+  display: inline-block;
+}
+
+h1{
+  font-family: 'Julius Sans One', sans-serif;
+  font-size: 40px;
+}
+
+button{
+  font-family: 'Julius Sans One', sans-serif;
+  text-align: center;
+  border: 2px;
+  border-color: #4682B4;
+  border-style: solid;
+  color: #4682B4;
+  background-color: white;
+  padding: 10px 20px;
+}
+
+button:hover{
+  background-color:	#B0C4DE;
+}
+
+p{
+  font-family: 'Julius Sans One', sans-serif;
+  color: black;
+}
+
+.format{
+  border-top: 0;
+  border-left: 0;
+  border-right: 0;
+  border-bottom: 2px;
+  border-style: solid;
+  border-bottom-color: #4682B4;
+}
+
+.format:focus {
+  outline: none;
+}
+button.deleteButtonStyle{
+  font-family: 'Julius Sans One', sans-serif;
+  text-align: center;
+  border: 2px;
+  border-color: black;
+  border-style: solid;
+  color: black;
+  background-color: white;
+  font-size: 20px;
+  height: 40px;
+  padding: 2px 13px 0px 10px;
+}
+#styleOfDeleteBtn{
+  padding: 0px 10px 0px 10px;
+  display: inline-block;
+}

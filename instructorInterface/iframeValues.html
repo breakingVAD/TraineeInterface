@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<link rel="stylesheet" type="text/css" href="InstructorInterfaceCSS.css">
+<head>
+
+    <link href="https://fonts.googleapis.com/css?family=Julius+Sans+One" rel="stylesheet">
+    <meta charset="UTF-8">
+
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+
+</head>
+
+      <div class = "formatBeginning">
+        Name: <input type="text" id="name" class = "font"><br>
+      </div>
+      <div class = "format">
+        Flow Rate: <input type="text" id="flowrate" class = "font"><br>
+      </div>
+      <div class = "format">
+        RPM: <input type="text" id="rpm" class = "font"><br>
+      </div>
+      <div class = "format">
+        Power: <input type="text" id="power" class = "font"><br>
+      </div>
+      <div class = "format">
+        Power Amplitude: <input type="text" id="powerAmplitude" class = "font"><br>
+      </div>
+      <div class = "format">
+        Flowrate Amplitude: <input type="text" id="flowrateAmplitude" class = "font"><br>
+      </div>
+      <!--<div class = "formatEnding">
+        <button type="button" onclick="buttonAction2()" class = "font"> Save Simulation </button>
+      </div>-->
+      <div class = "formatEnding">
+        <button type="button" id="test" onclick="buttonAction2()" class = "font"> Save Simulation </button>
+      </div>
+      <div class = "formatEnding">
+        <button type="button" onclick="buttonAction()" class = "font"> Create Simulation </button>
+      </div>
+    <div>
+      <p>Preset Cases: <p>
+    </div>
+    <script>
+          /*$("#test").click(function(){
+            var presetName = $('#name').val();
+            var btn = document.createElement("BUTTON");
+            var t = document.createTextNode(presetName);
+            btn.appendChild(t);
+            document.body.appendChild(btn);
+            btn.setAttribute("id",presetName);
+            $("#" + presetName).click(function(){
+              alert("button press" + presetName);
+            });
+          });*/
+
+
+          var config = {
+            apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
+            authDomain: "breaking-vad-online-simulation.firebaseapp.com",
+            databaseURL: "https://breaking-vad-online-simulation.firebaseio.com",
+            storageBucket: "breaking-vad-online-simulation.appspot.com",
+          };
+
+        firebase.initializeApp(config);
+        var userID = localStorage.getItem('userid');
+
+        window.onload = function(){
+          //alert(firebase.database().ref(userID + "/Saved Values"));
+          //alert(firebase.database().ref(userID + "/Saved Values") != null);
+          if(firebase.database().ref(userID + "/Saved Values") != null){
+            var savedValues = firebase.database().ref(userID + "/Saved Values");
+            //alert(savedValues);
+            savedValues.once('value',function(snapshot){
+              var output = snapshot.val();
+              //alert("inside once");
+              for(var key in output){
+                var entry = output[key];
+                //alert(key);
+                var btn = document.createElement("BUTTON");
+                var t = document.createTextNode(key);
+                btn.appendChild(t);
+                document.body.appendChild(btn);
+                btn.setAttribute("id",key);
+                $("#" + key).click(function(){
+                  var name = firebase.database().ref(userID + "/Saved Values/" + key);
+                  var values = firebase.database().ref(userID + "/values");
+                  name.once('value', function(snapshot) {
+                      var output = snapshot.val();
+                      values.set(
+                          {
+                              flowrate: output.flowrate,
+                              RPM: output.RPM,
+                              power: output.power,
+                              powerAmplitude: output.powerAmplitude,
+                              flowAmplitude: output.flowAmplitude
+                          }
+                      );
+
+                  });
+
+                });
+                var divider = document.createElement("div");
+                divider.setAttribute("id","styleOfDeleteBtn");
+                var deleteButton = document.createElement("BUTTON");
+                var node = document.createTextNode("DELETE");
+                deleteButton.appendChild(node);
+                divider.appendChild(deleteButton);
+
+                document.body.appendChild(divider);
+                //alert(key);
+                deleteButton.setAttribute("id","id"+key);
+                deleteButton.setAttribute("class","deleteButtonStyle");
+                //alert(deleteButton.classList.contains(key));
+                //alert(deleteButton.classList.contains("deleteButtonStyle"));
+                //alert("GUHFENSJKDV");
+                $("#id"+key).click(function(){
+                    var values = firebase.database().ref(userID + "/Saved Values/" + key);
+                    values.remove();
+                    var elem = document.getElementById(key);
+                    elem.parentNode.removeChild(elem);
+                    var elem2 = document.querySelectorAll("#id"+key)[0];
+                    elem2.parentNode.removeChild(elem2);
+                });
+              }
+            });
+
+          }
+        }
+
+
+
+        console.log(userID);
+
+        $("#test").click(function(){
+          var presetName = $('#name').val();
+          var btn = document.createElement("BUTTON");
+          var t = document.createTextNode(presetName);
+          btn.appendChild(t);
+          document.body.appendChild(btn);
+          btn.setAttribute("id",presetName);
+          $("#" + presetName).click(function(){
+            var name = firebase.database().ref(userID + "/Saved Values/" + presetName);
+            var values = firebase.database().ref(userID + "/values");
+            name.once('value', function(snapshot) {
+                var output = snapshot.val();
+                values.set(
+                    {
+                        flowrate: output.flowrate,
+                        RPM: output.RPM,
+                        power: output.power,
+                        powerAmplitude: output.powerAmplitude,
+                        flowAmplitude: output.flowAmplitude
+                    }
+                );
+
+            });
+
+          });
+          var divider = document.createElement("div");
+          divider.setAttribute("id","styleOfDeleteBtn");
+          var deleteButton = document.createElement("BUTTON");
+          var node = document.createTextNode("DELETE");
+          deleteButton.appendChild(node);
+          divider.appendChild(deleteButton);
+
+          document.body.appendChild(divider);
+
+          var presetName = $('#name').val();
+          deleteButton.setAttribute("id","id"+presetName);
+          deleteButton.setAttribute("class","deleteButtonStyle");
+          $("#id"+presetName).click(function(){
+              var values = firebase.database().ref(userID + "/Saved Values/" + presetName);
+              values.remove();
+              var elem = document.getElementById(presetName);
+              elem.parentNode.removeChild(elem);
+              var elem2 = document.querySelectorAll("#id"+presetName)[0];
+              elem2.parentNode.removeChild(elem2);
+          });
+        });
+
+
+        function buttonAction2(){
+          var presetName = $('#name').val();
+          var values = firebase.database().ref(userID + "/Saved Values/" + presetName);
+          var valFlow = $('#flowrate').val();
+          var valRPM = $('#rpm').val();
+          var valPower = $('#power').val();
+          var valPowerAmp = $('#powerAmplitude').val();
+          var valFlowAmp = $('#flowrateAmplitude').val();
+          values.set(
+              {
+                  name: presetName,
+                  flowrate: valFlow,
+                  RPM: valRPM,
+                  power: valPower,
+                  powerAmplitude: valPowerAmp,
+                  flowAmplitude: valFlowAmp
+              }
+          );
+        }
+        var values = firebase.database().ref(userID + "/" +"values");
+
+        function buttonAction(){
+            var valFlow = $('#flowrate').val();
+            var valRPM = $('#rpm').val();
+            var valPower = $('#power').val();
+            var valPowerAmp = $('#powerAmplitude').val();
+            var valFlowAmp = $('#flowrateAmplitude').val();
+            values.set(
+                {
+                    flowrate: valFlow,
+                    RPM: valRPM,
+                    power: valPower,
+                    powerAmplitude: valPowerAmp,
+                    flowAmplitude: valFlowAmp
+                }
+            );
+          }
+
+    </script>
+</html>

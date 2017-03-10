@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--<link rel="stylesheet" type="text/css" href="../instructorInterface/InstructorInterfaceCSS.css">-->
+<head>
+    <!--<link href="https://fonts.googleapis.com/css?family=Julius+Sans+One" rel="stylesheet">-->
+    <meta charset="UTF-8">
+    <title>BreakingVAD</title>
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <script src ="instructorLogin.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../frontPage.css">
+</head>
+<style>
+/*p{*/
+  /*font-size: 15px;*/
+/*}*/
+/*p:hover{*/
+  /*color: #4682B4;*/
+  /*cursor: pointer;*/
+/*}*/
+</style>
+<body>
+<div class="container" style="padding:30px; margin:0">
+    <p>Log in or sign up for an instructor account in order to create your own LVAD training simulations.</p>
+    <input id="txtEmail" type="email" placeholder="Email" >
+    <br>
+    <input id="txtPassword" type="password" placeholder="Password" style="margin:8px 0">
+    <br>
+    <button id="btnLogin" onclick="login(e)"> Log In </button>
+    <button id="btnSignUp"> Sign Up </button>
+    <p id="forgotPW"> Forgot Password? </p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,355 @@
+<html>
+<link rel="stylesheet" type="text/css" href="InstructorInterfaceCSS.css">
+<link href="https://fonts.googleapis.com/css?family=Julius+Sans+One" rel="stylesheet">
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+<style media = "screen">
+  body{
+    /*display: flex;
+    min-height: 100vh;
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 0;
+    margin: 0;
+    align-items: center;
+    flex-direction: column;*/
+    text-align: center;
+    padding-top: 50px;
+    width: 100%;
+    margin: 0 auto;
+  }
+  /*#uploader{
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+  }*/
+
+  p{
+    font-size: 28px;
+    margin-bottom: 40px;
+  }
+  #uploader{
+    -webkit-appearance: progress;
+    display: inline-block;
+    width: 10em;
+    height: 1em;
+  }
+  input{
+    display: inline-block;
+    margin-right: 25px;
+    font-size: 20px;
+  }
+  #inputfile{
+    width: 100%;
+  }
+</style>
+<body>
+<div id = "inputfile">
+  <p> Select image for Suprasternal view: </p>
+  <input type="file" value = "upload" id="fileButton1" />
+  <progress value = "0" max = "100" id = "uploader1">0%</progress>
+  <br></br>
+
+  <p> Select image for Apical view: </p>
+  <input type="file" value = "upload" id="fileButton2" />
+  <progress value = "0" max = "100" id = "uploader2">0%</progress>
+  <br></br>
+
+  <p> Select image for Parasternal view: </p>
+  <input type="file" value = "upload" id="fileButton3" />
+  <progress value = "0" max = "100" id = "uploader3">0%</progress>
+  <br></br>
+
+  <p> Select image for Subxiphoid view: </p>
+  <input type="file" value = "upload" id="fileButton4" />
+  <progress value = "0" max = "100" id = "uploader4">0%</progress>
+  <br></br>
+
+  <p> Select image for generic tissue view: </p>
+  <input type="file" value = "upload" id="fileButton5" />
+  <progress value = "0" max = "100" id = "uploader5">0%</progress>
+  <br></br>
+
+  <p> Select image for probe not in contact view: </p>
+  <input type="file" value = "upload" id="fileButton6" />
+  <progress value = "0" max = "100" id = "uploader6">0%</progress>
+</div>
+</body>
+<script>
+  var config = {
+    apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
+    authDomain: "breaking-vad-online-simulation.firebaseapp.com",
+    databaseURL: "https://breaking-vad-online-simulation.firebaseio.com",
+    storageBucket: "breaking-vad-online-simulation.appspot.com",
+  };
+
+  firebase.initializeApp(config);
+  var userID = localStorage.getItem('userid');
+  // window.onload = function(){
+  //   if(firebase.database().ref(userID + "/Images") != null){
+  //     var savedValues = firebase.database().ref(userID + "/Images");
+  //     //alert(savedValues);
+  //     savedValues.once('value',function(snapshot){
+  //       var output = snapshot.val();
+  //       //alert("inside once");
+  //       for(var key in output){
+  //         var entry = output[key];
+  //         //alert(entry);
+  //         //alert(entry['name']);
+  //         var btn = document.createElement("BUTTON");
+  //         var t = document.createTextNode(entry['name']);
+  //         btn.appendChild(t);
+  //         document.body.appendChild(btn);
+  //         btn.setAttribute("id",entry['name']);
+  //         btn.setAttribute("class","imageButton");
+  //         var retrieveRef = firebase.database().ref(userID + '/Retrieve');
+  //         //alert(entry['name']);
+  //         document.getElementById(entry['name']).addEventListener('click',function(){
+  //           //alert(entry['name']);
+  //           retrieveRef.set({
+  //             name: entry['name']
+  //           });
+  //         });
+  //
+  //         var divider = document.createElement("div");
+  //         divider.setAttribute("id","styleOfDeleteBtn");
+  //         var deleteButton = document.createElement("BUTTON");
+  //         var node = document.createTextNode("DELETE");
+  //         deleteButton.appendChild(node);
+  //         divider.appendChild(deleteButton);
+  //         document.body.appendChild(divider);
+  //         deleteButton.setAttribute("id","id"+entry['name']);
+  //         deleteButton.setAttribute("class","id"+entry['name']);
+  //         deleteButton.setAttribute("class","deleteButtonStyle");
+  //         document.getElementById("id"+entry['name']).addEventListener('click',function(){
+  //             var values = firebase.database().ref(userID + '/Images');
+  //             values.once('value', function(snapshot){
+  //               var entries = snapshot.val();
+  //               var keys = Object.keys(entries);
+  //               for(var key1 in entries) {
+  //                   entry = entries[key1];
+  //                   alert(entry);
+  //                   alert(entry['name']);
+  //                   if(entry['name'] == entry['name']){
+  //                     var imageNameRef = firebase.database().ref(userID + "/Images/" + key1);
+  //                     imageNameRef.remove();
+  //                   }
+  //               }
+  //
+  //             });
+  //             var elem = document.getElementById(entry['name']);
+  //             //alert(elem);
+  //             elem.parentNode.removeChild(elem);
+  //             var elem2 = document.getElementById("id"+entry['name']);
+  //             //alert(elem2);
+  //             elem2.parentNode.removeChild(elem2);
+  //         });
+  //       }
+  //     });
+  //   }
+  // }
+
+  var uploader1 = document.getElementById('uploader1');
+  var fileUpload1 = document.getElementById('fileButton1');
+
+  fileUpload1.addEventListener('change', function(e){
+    var file = e.target.files[0];
+    var name = "1.gif";
+    var storageRef = firebase.storage().ref('Storage/' + name);
+    var databaseRef = firebase.database().ref(userID + '/Images');
+    var task = storageRef.put(file);
+    task.on('state_changed',
+        function progress(snapshot){
+          var percent = snapshot.bytesTransferred*100/snapshot.totalBytes;
+          uploader1.value = percent;
+        },
+        function error(err){
+
+        },
+        function complete(){
+
+        }
+    );
+    databaseRef.push({
+      name: file.name
+    });
+  });
+
+  var uploader2 = document.getElementById('uploader2');
+  var fileUpload2 = document.getElementById('fileButton2');
+  fileUpload2.addEventListener('change', function(e){
+    var file = e.target.files[0];
+    var name = "2.gif";
+    var storageRef = firebase.storage().ref('Storage/' + name);
+    var databaseRef = firebase.database().ref(userID + '/Images');
+    var task = storageRef.put(file);
+    task.on('state_changed',
+        function progress(snapshot){
+          var percent = snapshot.bytesTransferred*100/snapshot.totalBytes;
+          uploader2.value = percent;
+        },
+        function error(err){
+
+        },
+        function complete(){
+
+        }
+    );
+    databaseRef.push({
+      name: file.name
+    });
+  });
+
+  var uploader3 = document.getElementById('uploader3');
+  var fileUpload3 = document.getElementById('fileButton3');
+  fileUpload3.addEventListener('change', function(e){
+    var file = e.target.files[0];
+    var name = "3.gif";
+    var storageRef = firebase.storage().ref('Storage/' + name);
+    var databaseRef = firebase.database().ref(userID + '/Images');
+    var task = storageRef.put(file);
+    task.on('state_changed',
+        function progress(snapshot){
+          var percent = snapshot.bytesTransferred*100/snapshot.totalBytes;
+          uploader3.value = percent;
+        },
+        function error(err){
+
+        },
+        function complete(){
+
+        }
+    );
+    databaseRef.push({
+      name: file.name
+    });
+  });
+
+  var uploader4 = document.getElementById('uploader4');
+  var fileUpload4 = document.getElementById('fileButton4');
+  fileUpload4.addEventListener('change', function(e){
+    var file = e.target.files[0];
+    var name = "4.gif";
+    var storageRef = firebase.storage().ref('Storage/' + name);
+    var databaseRef = firebase.database().ref(userID + '/Images');
+    var task = storageRef.put(file);
+    task.on('state_changed',
+        function progress(snapshot){
+          var percent = snapshot.bytesTransferred*100/snapshot.totalBytes;
+          uploader4.value = percent;
+        },
+        function error(err){
+
+        },
+        function complete(){
+
+        }
+    );
+    databaseRef.push({
+      name: file.name
+    });
+    });
+
+    var uploader5 = document.getElementById('uploader5');
+    var fileUpload5 = document.getElementById('fileButton5');
+    fileUpload5.addEventListener('change', function(e){
+      var file = e.target.files[0];
+      var name = "5.gif";
+      var storageRef = firebase.storage().ref('Storage/' + name);
+      var databaseRef = firebase.database().ref(userID + '/Images');
+      var task = storageRef.put(file);
+      task.on('state_changed',
+          function progress(snapshot){
+            var percent = snapshot.bytesTransferred*100/snapshot.totalBytes;
+            uploader5.value = percent;
+          },
+          function error(err){
+
+          },
+          function complete(){
+
+          }
+      );
+      databaseRef.push({
+        name: file.name
+      });
+    });
+
+    var uploader6 = document.getElementById('uploader6');
+      var fileUpload6 = document.getElementById('fileButton6');
+      fileUpload6.addEventListener('change', function(e){
+        var file = e.target.files[0];
+        var name = "6.gif";
+        var storageRef = firebase.storage().ref('Storage/' + name);
+        var databaseRef = firebase.database().ref(userID + '/Images');
+        var task = storageRef.put(file);
+        task.on('state_changed',
+            function progress(snapshot){
+              var percent = snapshot.bytesTransferred*100/snapshot.totalBytes;
+              uploader6.value = percent;
+            },
+            function error(err){
+
+            },
+            function complete(){
+
+            }
+        );
+        databaseRef.push({
+          name: file.name
+        });
+      });
+
+    // var btn = document.createElement("BUTTON");
+    // var t = document.createTextNode(name);
+    // btn.appendChild(t);
+    // document.body.appendChild(btn);
+    // btn.setAttribute("id",name);
+    // btn.setAttribute("class","imageButton");
+    // var retrieveRef = firebase.database().ref(userID + '/Retrieve');
+    // //alert(name);
+    // document.getElementById(name).addEventListener('click',function(){
+    //   //alert(name);
+    //   retrieveRef.set({
+    //     name: file.name
+    //   });
+    // });
+    //
+    // var divider = document.createElement("div");
+    // divider.setAttribute("id","styleOfDeleteBtn");
+    // var deleteButton = document.createElement("BUTTON");
+    // var node = document.createTextNode("DELETE");
+    // deleteButton.appendChild(node);
+    // divider.appendChild(deleteButton);
+    // document.body.appendChild(divider);
+    // deleteButton.setAttribute("id","id"+name);
+    // deleteButton.setAttribute("class","id"+name);
+    // deleteButton.setAttribute("class","deleteButtonStyle");
+    // document.getElementById("id"+name).addEventListener('click',function(){
+    //     var values = firebase.database().ref(userID + '/Images');
+    //     values.once('value', function(snapshot){
+    //       var entries = snapshot.val();
+    //       var keys = Object.keys(entries);
+    //       for(var key in entries) {
+    //           entry = entries[key];
+    //           //alert(entry);
+    //           //alert(entry['name']);
+    //           if(entry['name'] == name){
+    //             var imageNameRef = firebase.database().ref(userID + "/Images/" + key);
+    //             imageNameRef.remove();
+    //           }
+    //       }
+    //
+    //     });
+    //     var elem = document.getElementById(name);
+    //     //alert(elem);
+    //     elem.parentNode.removeChild(elem);
+    //     var elem2 = document.getElementById("id"+name);
+    //     //alert(elem2);
+    //     elem2.parentNode.removeChild(elem2);
+    // });
+
+
+
+</script>
+</html>
