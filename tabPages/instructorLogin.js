@@ -16,7 +16,6 @@ window.onload = function() {
   const btnSignUp = document.querySelectorAll("#btnSignUp")[0];
   console.log(btnSignUp);
   var users = firebase.database().ref("Users");
-  //const btnLogout = document.getElementById('btnLogout');
 
   btnLogin.addEventListener('click', function(e){
     console.log(txtEmail.value);
@@ -24,7 +23,9 @@ window.onload = function() {
     const email = txtEmail.value;
     const password = txtPassword.value;
     const auth = firebase.auth();
-    const promise = auth.signInWithEmailAndPassword(email, password);
+    const promise = auth.signInWithEmailAndPassword(email, password).then(function() {
+      window.open('../instructorInterface/mainPage.html');
+    });
     promise.catch(function(e) {alert(e.message)});
 
   });
@@ -33,21 +34,13 @@ window.onload = function() {
     const email = txtEmail.value;
     const password = txtPassword.value;
     const auth = firebase.auth();
-    // auth.createUserWithEmailAndPassword(email, password).then(user =>{
-    //   const promise = user.sendEmailVerification();
-    //   promise.catch(e => alert(e.message));
-    // }, error =>{
-    //   alert(error.message);
-    // });
 
     const promise = auth.createUserWithEmailAndPassword(email, password);
     promise.catch(function(e){alert(e.message)});
 
   });
 
-  //btnLogout.addEventListener('click', e =>{
-    //firebase.auth().signOut();
-  //});
+
   const forgotPW = document.querySelectorAll("#forgotPW")[0];
   forgotPW.addEventListener('click', function(e){
     const email = txtEmail.value;
@@ -65,22 +58,6 @@ window.onload = function() {
         }
       });
   });
-  // function forgotPW(emailAddress) {
-  //   if(!email) {
-  //     alert('Please enter Email Address and re-click "Forgot password?" to get password recovery email.')
-  //   }
-  //   var auth = firebase.auth();
-  //   auth.sendPasswordResetEmail(emailAddress).then(function() {
-  //      alert('A password reset email has been sent to your email address.')
-  //   }, function(error) {
-  //     if(error.code == "auth/invalid-email") {
-  //       alert('Please enter your Email Address and re-click "Forgot password?" to get password recovery email.');
-  //     } else {
-  //       alert(error.message);
-  //     }
-  //   });
-  // }
-
 
   firebase.auth().onAuthStateChanged(function(firebaseUser) {
     if(firebaseUser.emailVerified){
@@ -96,7 +73,6 @@ window.onload = function() {
           email: firebaseUser.email
         });
         localStorage.setItem('userid', userID);
-        window.open('../instructorInterface/PresetPage.html');
       }else{
         console.log("Not Logged In");
       }

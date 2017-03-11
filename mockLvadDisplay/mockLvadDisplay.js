@@ -42,10 +42,10 @@ function Page(src, iconId, whiteIconImg, iconImg, displayed) {
     this.displayed = displayed; 
 }
 
-var pages = [new Page("lvadPages/homePage.html", "homeIcon", "images/homeIconWhite.png", "images/homeIcon.png", true),
-    new Page("lvadPages/alarmPage.html", "alarmIcon", "images/alarmIconWhite.png", "images/alarmIcon.png", false),
-    new Page("lvadPages/graphPage.html", "graphIcon", "images/graphIconWhite.png", "images/graphIcon.png", false),
-    new Page("lvadPages/pumpPage.html", "pumpIcon", "images/pumpIconWhite.png", "images/pumpIcon.png", false)];
+var pages = [new Page("lvadPages/homePage.html", "homeIcon", "../images/homeIconWhite.png", "../images/homeIcon.png", true),
+    new Page("lvadPages/alarmPage.html", "alarmIcon", "../images/alarmIconWhite.png", "../images/alarmIcon.png", false),
+    new Page("lvadPages/graphPage.html", "graphIcon", "../images/graphIconWhite.png", "../images/graphIcon.png", false),
+    new Page("lvadPages/pumpPage.html", "pumpIcon", "../images/pumpIconWhite.png", "../images/pumpIcon.png", false)];
 
 function changePage(icon, pageNum) {
     if (!pages[pageNum].displayed) {    //icon.src.substring(len-8, len) == "Icon.png") {

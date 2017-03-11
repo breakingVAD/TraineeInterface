@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VAD Values</title>
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <script src="vadValues.js"></script>
+    <link rel="stylesheet" type="text/css" href="../frontPage.css">
+</head>
+<body>
+<div class="container" style="padding:30px; margin:0">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Set Values on Mock LVAD Display:</h3>
+            <table>
+                <tr>
+                    <td>Flow Rate:</td>
+                    <td>
+                        <input type="number" id="flowrate" class="font" placeholder="Flow Rate">
+                    </td>
+                </tr>
+                <tr>
+                    <td>RPM:</td>
+                    <td>
+                        <input type="number" id="RPM" class="font" placeholder="RPM">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Power:</td>
+                    <td>
+                        <input type="number" id="power" class="font" placeholder="Power">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Power Amplitude:</td>
+                    <td>
+                        <input type="number" id="powerAmplitude" class="font" placeholder="Power Amplitude">
+                    </td>
+                </tr>
+                <tr>
+                    <td>Flow Amplitude:</td>
+                    <td>
+                        <input type="number" id="flowAmplitude" class="font" placeholder="Flow Rate Amplitude">
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button style="width:100%" type="button" onclick="buttonAction()" class="font"> Update Simulation </button>
+                    </td>
+                </tr>
+            </table>
+            <br>
+            <table>
+                <tr>
+                    <td>Save Simulation As:</td>
+                    <td>
+                        <input type="text" id="name" class="font" placeholder="Simulation Name">
+                    </td>
+                    <td>
+                        <button type="button" id="test" onclick="buttonAction2()" class="font"> Save Simulation </button>
+                    </td>
+                </tr>
+                </tr>
+            </table>
+            <br>
+        </div>
+        <div class="col-md-6">
+            <h3>Currently Displayed Values:</h3>
+            <table>
+                <tr>
+                    <td>Flow Rate:</td>
+                    <td id="flowrateCDV"></td>
+                </tr>
+                <tr>
+                    <td>RPM:</td>
+                    <td id="RPMCDV"></td>
+                </tr>
+                <tr>
+                    <td>Power:</td>
+                    <td id="powerCDV"></td>
+                </tr>
+                <tr>
+                    <td>Power Amplitude:</td>
+                    <td id="powerAmplitudeCDV"></td>
+                </tr>
+                <tr>
+                    <td>Flow Amplitude:</td>
+                    <td id="flowAmplitudeCDV"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <h3>Use Saved Simulations:</h3>
+            <table class="savedSims" style="float:left; width:20%"></table>
+            <table class="savedSims" style="float:left; width:20%"></table>
+            <table class="savedSims" style="float:left; width:20%"></table>
+            <table class="savedSims" style="float:left; width:20%"></table>
+            <table class="savedSims" style="float:left; width:20%"></table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

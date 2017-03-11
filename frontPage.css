@@ -43,3 +43,14 @@ iframe {
 #forgotPW:hover {
     cursor: hand;
 }
+
+table {
+    font-size: 15px;
+}
+
+td {
+    padding:2px;
+}
+h3 {
+    margin-top:0;
+}
