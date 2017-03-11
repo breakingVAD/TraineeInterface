@@ -34,12 +34,12 @@ window.onload = function () {
             var sortedEntry = sortedAlarms[index][0];
             row = table.insertRow(0);
             row.insertCell(0).innerHTML = moment(sortedEntry['date']).format('MM/DD/YY');
-            if(sortedEntry['onset']) {
+            if(!sortedEntry['onset']) {
                 row.insertCell(1).innerHTML = '--';
             } else {
                 row.insertCell(1).innerHTML = moment(sortedEntry['date'] + ',' + sortedEntry['onset']).format('HH:mm:ss');
             }
-            if(sortedEntry['resolved']) {
+            if(!sortedEntry['resolved']) {
                 row.insertCell(2).innerHTML = '--';
             } else {
                 row.insertCell(2).innerHTML = moment(sortedEntry['date'] + ',' + sortedEntry['resolved']).format('HH:mm:ss');
