@@ -4,148 +4,65 @@ var config = {
   databaseURL: "https://breaking-vad-online-simulation.firebaseio.com",
   storageBucket: "breaking-vad-online-simulation.appspot.com",
 };
+
 firebase.initializeApp(config);
+
 var userID = localStorage.getItem('userid');
+
 var alarmLog = firebase.database().ref(userID + "/alarmLog");
-window.onload = function () {
-  var config = {
-    apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
-    authDomain: "breaking-vad-online-simulation.firebaseapp.com",
-    databaseURL: "https://breaking-vad-online-simulation.firebaseio.com",
-    storageBucket: "breaking-vad-online-simulation.appspot.com",
-  };
-    firebase.initializeApp(config);
-    var userID = localStorage.getItem('userid');
-    var alarms = firebase.database().ref(userID + "/alarmLog");
-    var sortedAlarms = [];
 
-    var columns = ['alarm','rpm','Lmin','watts'];
+var savedAlarmLogs = firebase.database().ref(userID + "/Saved Alarm Logs");
 
-    alarms.on('value', function(snapshot) {
-        for(var j=0; j<sortedAlarms.length; j++) {
-            document.getElementById('alarmTable').deleteRow(0);
+savedAlarmLogs.on('value',function(snapshot){
+    var tables = document.getElementsByClassName("savedALs");
+    for (var i=0; i<tables.length; i++) {
+        table = tables[i];
+        while(table.rows.length>0) {
+            table.deleteRow(0);
         }
-        sortedAlarms = [];
-        var alarmEntries = snapshot.val();
-        var table = document.getElementById("alarmTable");
-        var row; var cell; var entry;
-        for(var entryKey in alarmEntries) {
-            entry = alarmEntries[entryKey];
-            entry.dbKey = entryKey;
-            sortedAlarms.push([entry, moment(entry['date'] + ',' + entry['onset'])]);
+    }
+
+    var output = snapshot.val();
+
+    var table; var row; var entry; var btn; var deleteButton; var node;
+    var tableInd = 0;
+    table = tables[0];
+    var keyNum = 0;
+    for(var key in output){
+        keyNum++;
+        if (table.rows.length>5) {
+            table = tables[++tableInd];
         }
-        sortedAlarms.sort(function(a,b) {
-            a = moment(a[1]);
-            b = moment(b[1]);
-            return a.diff(b);
-        });
-        for(var index in sortedAlarms) {
-            var sortedEntry = sortedAlarms[index][0];
-            row = table.insertRow(0);
-            row.insertCell(0).innerHTML = moment(sortedEntry['date']).format('MM/DD/YY');
-            row.insertCell(1).innerHTML = moment(sortedEntry['date'] + ',' + sortedEntry['onset']).format('HH:mm:ss');
-            row.insertCell(2).innerHTML = moment(sortedEntry['date'] + ',' + sortedEntry['resolved']).format('HH:mm:ss');
-            for(var i=0; i<columns.length; i++) {
-                row.insertCell(i+3).innerHTML = sortedEntry[columns[i]];
-            }
-            row.insertCell(7).innerHTML = '\<button style="color:white; background-color:grey" onclick="deleteEntry(\'' + sortedEntry.dbKey + '\'\)">x</button>';
-        }
-    });
+        entry = output[key];
+        row = table.insertRow();
+        btn = document.createElement("BUTTON");
+        btn.innerHTML = key;
+        btn.style = "width:100%";
+        btn.className = "grayBtn";
 
-};
+        row.insertCell(0).appendChild(btn);
 
-function deleteEntry(dbKey) {
-    firebase.database().ref(userID + "alarmLog/" + dbKey).remove();
-}
-
-window.onload = function(){
-  //alert("load");
-  //alert(firebase.database().ref(userID + "/Saved Alarms"));
-  //alert(firebase.database().ref(userID + "/Saved Alarms") != null);
-  if(firebase.database().ref(userID + "/Saved Alarms") != null){
-    var savedValues = firebase.database().ref(userID + "/Saved Alarms");
-    //alert(savedValues);
-    savedValues.once('value',function(snapshot){
-      var output = snapshot.val();
-      //alert("inside once");
-      for(var key in output){
-        var entry = output[key];
-        //alert(key);
-        var btn = document.createElement("BUTTON");
-        var t = document.createTextNode(key);
-        //alert(key);
-        btn.appendChild(t);
-        document.body.appendChild(btn);
         btn.setAttribute("id",key);
-        document.getElementById(key).addEventListener('click', function(){
-          var sortedAlarms = [];
-          var columns = ['alarm','rpm','Lmin','watts'];
-          var name = firebase.database().ref(userID + "/Saved Alarms/"+key);
-          var alarmLog = firebase.database().ref(userID + "/alarmLog");
-          alarmLog.remove();
-          name.once('value', function(snapshot) {
-              var output = snapshot.val();
-              for(var alarmKey in output) {
-                  entry = output[alarmKey];
-                  entry.dbKey = alarmKey;
-                  sortedAlarms.push([entry, moment(entry['date'] + ',' + entry['onset'])]);
-                  alarmLog.push({
-                    date: entry['date'],
-                    onset: entry['onset'],
-                    resolved: entry['resolved'],
-                    alarm: entry['alarm'],
-                    rpm: entry['rpm'],
-                    Lmin: entry['Lmin'],
-                    watts: entry['watts']
-                  })
-              }
-              sortedAlarms.sort(function(a,b) {
-                  a = moment(a[1]);
-                  b = moment(b[1]);
-                  return a.diff(b);
-              });
-              for(var index in sortedAlarms) {
-                  var sortedEntry = sortedAlarms[index][0];
-                  row = table.insertRow(0);
-                  row.insertCell(0).innerHTML = moment(sortedEntry['date']).format('MM/DD/YY');
-                  row.insertCell(1).innerHTML = moment(sortedEntry['date'] + ',' + sortedEntry['onset']).format('HH:mm:ss');
-                  row.insertCell(2).innerHTML = moment(sortedEntry['date'] + ',' + sortedEntry['resolved']).format('HH:mm:ss');
-                  for(var i=0; i<columns.length; i++) {
-                      row.insertCell(i+3).innerHTML = sortedEntry[columns[i]];
-                  }
-                  row.insertCell(7).innerHTML = '\<button style="color:white; background-color:grey" onclick="deleteEntry(\'' + sortedEntry.dbKey + '\'\)">x</button>';
-              }
+        btn.onclick = useSavedAL;
 
-          });
+        deleteButton = document.createElement("BUTTON");
+        deleteButton.innerHTML = "x";
+        deleteButton.className = "redBtn";
+        row.insertCell(1).appendChild(deleteButton);
 
-        });
-        //alert("stuff");
-        var divider = document.createElement("div");
-        divider.setAttribute("id","styleOfDeleteBtn");
-        var deleteButton = document.createElement("BUTTON");
-        var node = document.createTextNode("DELETE");
-        deleteButton.appendChild(node);
-        divider.appendChild(deleteButton);
-
-        document.body.appendChild(divider);
         deleteButton.setAttribute("id","id"+key);
-        deleteButton.setAttribute("class","deleteButtonStyle");
+        deleteButton.setAttribute("onclick", "deleteALFunc(event)");
+        console.log(key);
+    }
+    console.log(keyNum);
+    if (!keyNum) {
+        document.getElementById("savedAlarmLogs").style.visibility = "hidden";
+    }
+});
 
-        $("#id"+key).click(function(){
-            var values = firebase.database().ref(userID + "/Saved Alarms/"+key);
-            values.remove();
-            var elem = document.getElementById(key);
-            elem.parentNode.removeChild(elem);
-            var elem2 = document.querySelectorAll("#id"+key)[0];
-            elem2.parentNode.removeChild(elem2);
-        });
-      }
-    });
 
-  }
-}
 function addToLog() {
-    firebase.database().ref(userID + '/alarmLog').push({
+    alarmLog.push({
         date: $('#date').val(),
         onset: $('#onset').val(),
         resolved: $('#resolved').val(),
@@ -168,7 +85,6 @@ function Alarm(line1, lowercase, line2, color) {
 }
 
 function sendToTrainee(){
-
   var activeAlarm = firebase.database().ref(userID + "/Active Alarms");
   var values = firebase.database().ref(userID + "/values");
   var alarmTypes = {
@@ -220,112 +136,46 @@ function sendToTrainee(){
           entry.Lmin = output.flowrate;
           entry.rpm = output.RPM;
           entry.watts = output.power;
-          var alarmLog = firebase.database().ref(userID + "/alarmLog");
           alarmLog.push(entry);
         });
     }
 
   });
 }
-function createButton(presetName){
-var btn = document.createElement("BUTTON");
-var t = document.createTextNode(presetName);
-btn.appendChild(t);
-document.body.appendChild(btn);
-btn.setAttribute("id",presetName);
-$("#" + presetName).click(function(){
-  var sortedAlarms = [];
-  var columns = ['alarm','rpm','Lmin','watts'];
-  var name = firebase.database().ref(userID + "/Saved Alarms/"+presetName);
-  var alarmLog = firebase.database().ref(userID + "/alarmLog");
-  alarmLog.remove();
-  name.once('value', function(snapshot) {
-      var output = snapshot.val();
-      var alarmKeys = Object.keys(output);
-      for(var alarmKey in output) {
-          entry = output[alarmKey];
-          entry.dbKey = alarmKey;
-          sortedAlarms.push([entry, moment(entry['date'] + ',' + entry['onset'])]);
-          alarmLog.push({
-            date: entry['date'],
-            onset: entry['onset'],
-            resolved: entry['resolved'],
-            alarm: entry['alarm'],
-            rpm: entry['rpm'],
-            Lmin: entry['Lmin'],
-            watts: entry['watts']
-          })
-          console.log(sortedAlarms);
-      }
-      sortedAlarms.sort(function(a,b) {
-          a = moment(a[1]);
-          b = moment(b[1]);
-          return a.diff(b);
-      });
-      for(var index in sortedAlarms) {
-          var sortedEntry = sortedAlarms[index][0];
-          row = table.insertRow(0);
-          row.insertCell(0).innerHTML = moment(sortedEntry['date']).format('MM/DD/YY');
-          row.insertCell(1).innerHTML = moment(sortedEntry['date'] + ',' + sortedEntry['onset']).format('HH:mm:ss');
-          row.insertCell(2).innerHTML = moment(sortedEntry['date'] + ',' + sortedEntry['resolved']).format('HH:mm:ss');
-          for(var i=0; i<columns.length; i++) {
-              row.insertCell(i+3).innerHTML = sortedEntry[columns[i]];
-          }
-          row.insertCell(7).innerHTML = '\<button style="color:white; background-color:grey" onclick="deleteEntry(\'' + sortedEntry.dbKey + '\'\)">x</button>';
-      }
 
-  });
-
-});
-//alert("stuff");
-var divider = document.createElement("div");
-divider.setAttribute("id","styleOfDeleteBtn");
-var deleteButton = document.createElement("BUTTON");
-var node = document.createTextNode("DELETE");
-deleteButton.appendChild(node);
-divider.appendChild(deleteButton);
-
-document.body.appendChild(divider);
-deleteButton.setAttribute("id","id"+presetName);
-deleteButton.setAttribute("class","deleteButtonStyle");
-
-$("#id"+presetName).click(function(){
-    var values = firebase.database().ref(userID + "/Saved Alarms/"+presetName);
-    values.remove();
-    var elem = document.getElementById(presetName);
-    elem.parentNode.removeChild(elem);
-    var elem2 = document.querySelectorAll("#id"+presetName)[0];
-    elem2.parentNode.removeChild(elem2);
-});
-}
-
-
-function buttonAction2(){
-var value = firebase.database().ref(userID +"/alarmLog");
-var presetName = $('#alarmName').val();
-if(presetName == ""){
-  alert("Name cannot be blank!");
-  return;
-}
-value.once('value',function(snapshot){
-    var output = snapshot.val();
-    var values = firebase.database().ref(userID +"/Saved Alarms/"+presetName);
-    values.remove();
-    var alarmKeys = Object.keys(output);
-    for(var alarmKey in output) {
-      entry = output[alarmKey];
-      values.push({
-        name: "alarm "+presetName,
-        date: entry['date'],
-        onset: entry['onset'],
-        resolved: entry['resolved'],
-        alarm: entry['alarm'],
-        rpm: entry['rpm'],
-        Lmin: entry['Lmin'],
-        watts: entry['watts']
-      });
+function saveAlarmLog(){
+    document.getElementById("savedAlarmLogs").style.visibility = "visible";
+    var presetName = $('#ALname').val();
+    if (presetName) {
+        var values = firebase.database().ref(userID + "/Saved Alarm Logs/" + presetName);
+        alarmLog.once('value', function(snapshot) {
+            var output = snapshot.val();
+            values.set(output);
+        });
+        document.getElementById('ALname').value = "";
     }
+}
 
-});
-createButton(presetName);
+
+function useSavedAL(event) {
+    var id = event.target.id;
+    var name = firebase.database().ref(userID + "/Saved Alarm Logs/" + id);
+    name.once('value', function(snapshot) {
+        var output = snapshot.val();
+        alarmLog.set(output);
+    });
+}
+
+function deleteALFunc(event){
+    var id = event.target.id;
+    var key = id.substring(2,id.length);
+    var saved = firebase.database().ref(userID + "/Saved Alarm Logs/" + key);
+    saved.remove();
+}
+
+function deleteAEFunc(event){
+    var id = event.target.id;
+    var key = id.substring(2,id.length);
+    var saved = firebase.database().ref(userID + "/Saved Alarms/" + key);
+    saved.remove();
 }

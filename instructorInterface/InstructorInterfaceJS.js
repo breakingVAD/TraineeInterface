@@ -1,6 +1,3 @@
-/**
- * Created by juliazhang on 11/17/16.
- */
 
 class NameForm extends React.Component {
     constructor(props) {

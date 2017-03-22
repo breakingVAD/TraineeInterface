@@ -16,7 +16,7 @@ window.onload = function () {
             document.getElementById('alarmLine1').style.color = activeAlarm[key].color;
             document.getElementById('alarmLine2').innerHTML = activeAlarm[key].line2;
             document.getElementById('alarmLine2').style.color = activeAlarm[key].color;
-            document.getElementById('bell').src = 'images/' + activeAlarm[key].color + 'AlarmBell.png';
+            document.getElementById('bell').src = '../images/' + activeAlarm[key].color + 'AlarmBell.png';
             document.getElementById('alarmBanner').style.visibility = 'visible';
             document.getElementById('alarmNoise').muted = false;
             //http://www.audiocheck.net/audiocheck_dtmf.php <-- this is where I made the alarm noise file

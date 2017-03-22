@@ -12,95 +12,135 @@
 <body>
 <div class="container" style="padding:30px; margin:0">
     <div class="row">
-        <div class="col-md-6">
-            <h3>Set Values on Mock LVAD Display:</h3>
-            <table>
-                <tr>
-                    <td>Flow Rate:</td>
-                    <td>
-                        <input type="number" id="flowrate" class="font" placeholder="Flow Rate">
-                    </td>
-                </tr>
-                <tr>
-                    <td>RPM:</td>
-                    <td>
-                        <input type="number" id="RPM" class="font" placeholder="RPM">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Power:</td>
-                    <td>
-                        <input type="number" id="power" class="font" placeholder="Power">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Power Amplitude:</td>
-                    <td>
-                        <input type="number" id="powerAmplitude" class="font" placeholder="Power Amplitude">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Flow Amplitude:</td>
-                    <td>
-                        <input type="number" id="flowAmplitude" class="font" placeholder="Flow Rate Amplitude">
-                    </td>
-                </tr>
-                <tr>
-                    <td></td>
-                    <td>
-                        <button style="width:100%" type="button" onclick="buttonAction()" class="font"> Update Simulation </button>
-                    </td>
-                </tr>
-            </table>
-            <br>
-            <table>
-                <tr>
-                    <td>Save Simulation As:</td>
-                    <td>
-                        <input type="text" id="name" class="font" placeholder="Simulation Name">
-                    </td>
-                    <td>
-                        <button type="button" id="test" onclick="buttonAction2()" class="font"> Save Simulation </button>
-                    </td>
-                </tr>
-                </tr>
-            </table>
-            <br>
+        <div class="col-md-5" style="padding:7px">
+            <div class="box">
+                <h3>Set Values on Mock LVAD Display:</h3>
+                <table class="vadValues" id="inputVals" width="100%">
+                    <tr>
+                        <td>Flow Rate:</td>
+                        <td>
+                            <input type="number" id="flowrate" class="font" placeholder="Flow Rate">
+                        </td>
+                        <td>L/min</td>
+                    </tr>
+                    <tr>
+                        <td>Pump Speed:</td>
+                        <td>
+                            <input type="number" id="RPM" class="font" placeholder="RPM">
+                        </td>
+                        <td>RPM</td>
+                    </tr>
+                    <tr>
+                        <td>Power:</td>
+                        <td>
+                            <input type="number" id="power" class="font" placeholder="Power">
+                        </td>
+                        <td>Watts</td>
+                    </tr>
+                    <tr>
+                        <td>Power Amplitude:</td>
+                        <td>
+                            <input type="number" id="powerAmplitude" class="font" placeholder="Power Amplitude">
+                        </td>
+                        <td>Watts</td>
+                    </tr>
+                    <tr>
+                        <td>Flow Amplitude:</td>
+                        <td>
+                            <input type="number" id="flowAmplitude" class="font" placeholder="Flow Rate Amplitude">
+                        </td>
+                        <td>L/min</td>
+                    </tr>
+                </table>
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <button style="float:right; margin:5px 0 0 0; width:100%;" class="blueBtn" type="button" onclick="updateSimulation()" class="font"> Update Simulation </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="col-md-6">
-            <h3>Currently Displayed Values:</h3>
-            <table>
-                <tr>
-                    <td>Flow Rate:</td>
-                    <td id="flowrateCDV"></td>
-                </tr>
-                <tr>
-                    <td>RPM:</td>
-                    <td id="RPMCDV"></td>
-                </tr>
-                <tr>
-                    <td>Power:</td>
-                    <td id="powerCDV"></td>
-                </tr>
-                <tr>
-                    <td>Power Amplitude:</td>
-                    <td id="powerAmplitudeCDV"></td>
-                </tr>
-                <tr>
-                    <td>Flow Amplitude:</td>
-                    <td id="flowAmplitudeCDV"></td>
-                </tr>
-            </table>
+        <div class="col-md-5" style="padding:7px">
+            <div class="box" id="currentVals">
+                <h3>Currently Displayed Values:</h3>
+                <table id="CDVs" class="vadValues">
+                    <col width="140px">
+                    <col width="90px">
+                    <col>
+                    <tr>
+                        <td>Flow Rate:</td>
+                        <td id="flowrateCDV" class="currentVal"></td>
+                        <td>L/min</td>
+                    </tr>
+                    <tr>
+                        <td>Pump Speed:</td>
+                        <td id="RPMCDV" class="currentVal"></td>
+                        <td>RPM</td>
+                    </tr>
+                    <tr>
+                        <td>Power:</td>
+                        <td id="powerCDV" class="currentVal"></td>
+                        <td>Watts</td>
+                    </tr>
+                    <tr>
+                        <td>Power Amplitude:</td>
+                        <td id="powerAmplitudeCDV" class="currentVal"></td>
+                        <td>Watts</td>
+                    </tr>
+                    <tr>
+                        <td>Flow Amplitude:</td>
+                        <td id="flowAmplitudeCDV" class="currentVal"></td>
+                        <td>Watts</td>
+                    </tr>
+                </table>
+                <br>
+                <table style="margin-bottom:4px">
+                    <tr>
+                        <td>Save This Simulation As:</td>
+                        <td>
+                            <input type="text" id="name" class="font" placeholder="Simulation Name">
+                        </td>
+                        <td>
+                            <button type="button" id="test" onclick="saveSimulation()" class="blueBtn"> Save </button>
+                        </td>
+                    </tr>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <h3>Use Saved Simulations:</h3>
-            <table class="savedSims" style="float:left; width:20%"></table>
-            <table class="savedSims" style="float:left; width:20%"></table>
-            <table class="savedSims" style="float:left; width:20%"></table>
-            <table class="savedSims" style="float:left; width:20%"></table>
-            <table class="savedSims" style="float:left; width:20%"></table>
+    <div class="row" id="useSavedSims">
+        <div class="col-md-10" style="padding:7px">
+            <div class="box">
+                <h3>Use Saved Simulations:</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <table class="savedSims" style="float:left; width:20%">
+                                <col width="130px">
+                                <col width="40px">
+                            </table>
+                            <table class="savedSims" style="float:left; width:20%">
+                                <col width="130px">
+                                <col width="40px">
+                            </table>
+                            <table class="savedSims" style="float:left; width:20%">
+                                <col width="130px">
+                                <col width="40px">
+                            </table>
+                            <table class="savedSims" style="float:left; width:20%">
+                                <col width="130px">
+                                <col width="40px">
+                            </table>
+                            <table class="savedSims" style="float:left; width:20%">
+                                <col width="130px">
+                                <col width="40px">
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </div>
 </div>

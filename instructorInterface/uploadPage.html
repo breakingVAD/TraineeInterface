@@ -1,0 +1,109 @@
+<html>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="../frontPage.css">
+<script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+<script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+<script src="uploadPage.js"></script>
+<body>
+<div class="container" style="padding:30px; margin:0">
+    <h3>Upload Images for Echocardiogram Simulation:</h3>
+    <p>Select images for the following echocardiogram views: </p>
+    <div class="box" style="margin:14px; padding:10px; width:700px">
+        <table>
+            <col width="210px">
+            <col width="210px">
+            <col width="210px">
+            <tr>
+                <td>Suprasternal (Arch):</td>
+                <td><input type="file" value="upload" id="SPA" class="imageUpload"></td>
+                <td><progress value="0" max="100" id="SPAuploader">0%</progress></td>
+            </tr>
+        </table>
+    </div>
+    <div class="box" style="margin:14px; padding:10px; width:700px">
+        <table>
+            <col width="210px">
+            <col width="210px">
+            <col width="210px">
+            <tr>
+                <td>Apical (4 Chamber):</td>
+                <td><input type="file" value="upload" id="A4C" class="imageUpload"></td>
+                <td><progress value="0" max="100" id="A4Cuploader">0%</progress></td>
+            </tr>
+        </table>
+    </div>
+    <div class="box" style="margin:14px; padding:10px; width:700px">
+        <table>
+            <col width="210px">
+            <col width="210px">
+            <col width="210px">
+            <tr>
+                <td>Apical (2 Chamber):</td>
+                <td><input type="file" value="upload" id="A2C" class="imageUpload"></td>
+                <td><progress value="0" max="100" id="A2Cuploader">0%</progress></td>
+            </tr>
+        </table>
+    </div>
+    <div class="box" style="margin:14px; padding:10px; width:700px">
+        <table>
+            <col width="210px">
+            <col width="210px">
+            <col width="210px">
+            <tr>
+                <td>Parasternal (Long Axis):</td>
+                <td><input type="file" value="upload" id="PLA" class="imageUpload"></td>
+                <td><progress value="0" max="100" id="PLAuploader">0%</progress></td>
+            </tr>
+        </table>
+    </div>
+    <div class="box" style="margin:14px; padding:10px; width:700px">
+        <table>
+            <col width="210px">
+            <col width="210px">
+            <col width="210px">
+            <tr>
+                <td>Parasternal (Short Axis):</td>
+                <td><input type="file" value="upload" id="PSA" class="imageUpload"></td>
+                <td><progress value="0" max="100" id="PSAuploader">0%</progress></td>
+            </tr>
+        </table>
+    </div>
+    <div class="box" style="margin:14px; padding:10px; width:700px">
+        <table>
+            <col width="210px">
+            <col width="210px">
+            <col width="210px">
+            <tr>
+                <td>Subxiphoid (4 Chamber/Outlets):</td>
+                <td><input type="file" value="upload" id="SX4" class="imageUpload"></td>
+                <td><progress value="0" max="100" id="SX4uploader">0%</progress></td>
+            </tr>
+        </table>
+    </div>
+    <div class="box" style="margin:14px; padding:10px; width:700px">
+        <table>
+            <col width="210px">
+            <col width="210px">
+            <col width="210px">
+            <tr>
+                <td>Other Tissue:</td>
+                <td><input type="file" value="upload" id="TIS" class="imageUpload"></td>
+                <td><progress value="0" max="100" id="TISuploader">0%</progress></td>
+            </tr>
+        </table>
+    </div>
+    <div class="box" style="margin:14px; padding:10px; width:700px">
+        <table>
+            <col width="210px">
+            <col width="210px">
+            <col width="210px">
+            <tr>
+                <td>Probe Not In Contact:</td>
+                <td><input type="file" value="upload" id="NIC" class="imageUpload"></td>
+                <td><progress value="0" max="100" id="NICuploader">0%</progress></td>
+            </tr>
+        </table>
+    </div>
+</div>
+</body>
+</html>

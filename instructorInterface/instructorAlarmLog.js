@@ -41,7 +41,7 @@ window.onload = function () {
             for(var i=0; i<columns.length; i++) {
                 row.insertCell(i+3).innerHTML = sortedEntry[columns[i]];
             }
-            row.insertCell(7).innerHTML = '\<button style="color:white; background-color:grey" onclick="deleteEntry(\'' + sortedEntry.dbKey + '\'\)">x</button>';
+            row.insertCell(7).innerHTML = '\<button style="color:white;" class="redBtn" onclick="deleteEntry(\'' + sortedEntry.dbKey + '\'\)">x</button>';
         }
     });
 
