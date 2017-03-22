@@ -1,12 +1,25 @@
+var flowRate; var power; var powerAmp; var flowAmp; var smoothingFunc;
+
+var config = {
+    apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
+    authDomain: "breaking-vad-online-simulation.firebaseapp.com",
+    databaseURL: "https://breaking-vad-online-simulation.firebaseio.com",
+    storageBucket: "breaking-vad-online-simulation.appspot.com"
+};
+firebase.initializeApp(config);
+var uid = localStorage.getItem('uid');
+var values = firebase.database().ref(uid + "/values/");
+
+
 window.onload = function () {
 
     var powerData = []; // dataPoints
     var flowData = []; // dataPoints
 
-    var flowRate = 5;
-    var power = 5;
-    var powerAmp = 1;
-    var flowAmp = 1;
+    flowRate = parseFloat(1);
+    power = parseFloat(1);
+    powerAmp = parseFloat(1);
+    flowAmp = parseFloat(1);
 
     var powerChart = new CanvasJS.Chart("powerChartContainer",{
         toolTip:{
@@ -86,30 +99,6 @@ window.onload = function () {
     var updateInterval = 100;
     var dataLength = 200; // number of dataPoints visible at any point
 
-    var config = {
-        apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
-        authDomain: "breaking-vad-online-simulation.firebaseapp.com",
-        databaseURL: "https://breaking-vad-online-simulation.firebaseio.com",
-        storageBucket: "breaking-vad-online-simulation.appspot.com"
-    };
-    firebase.initializeApp(config);
-    var uid = localStorage.getItem('uid');
-    var values = firebase.database().ref(uid + "/values/");
-
-    var gotValues = false;
-    values.on('value', function(snapshot) {
-        var output = snapshot.val();
-
-        $('#tempOutput').html("<b>Flow Rate: </b>"+output.flowrate + "<br/> <b>RPM:</b> " + output.RPM + "<br/> <b>Power:</b> " + output.power);
-
-        flowRate = parseFloat(output.flowrate);
-        power = parseFloat(output.power);
-        powerAmp = parseFloat(output.powerAmplitude);
-        flowAmp = parseFloat(output.flowAmplitude);
-
-        gotValues = true;
-    });
-
     var powerVals = [-0.2, -0.2, -0.1, 0, 0.2, 0.5, 0.6, 0.7, 0.5, 0.1, 0, -0.1];
     var flowVals = [-0.9, -0.8, -0.7, -0.2, 0.3, 0.8, 1.2, 1.2, 0.8, 0.3, -0.2, -0.7];
     var i = 0;
@@ -151,3 +140,35 @@ window.onload = function () {
     // update chart after specified time.
     window.setInterval(function(){updateChart()}, updateInterval);
 };
+
+values.on('value', function(snapshot) {
+    var output = snapshot.val();
+
+    var powerDiff = parseFloat(output.power) - power;
+    var flowDiff = parseFloat(output.flowrate) - flowRate;
+    var powerAmpDiff = parseFloat(output.powerAmplitude) - powerAmp;
+    var flowAmpDiff = parseFloat(output.flowAmplitude) - flowAmp;
+
+    smoothingFunc = window.setInterval(function() {
+        incrementPF(powerDiff, output.power, flowDiff, output.flowrate, powerAmpDiff, output.powerAmplitude, flowAmpDiff, output.flowAmplitude);
+    }, 200);
+});
+
+
+function incrementPF(powerDiff, setPower, flowDiff, setFlow, powerAmpDiff, setPowerAmp, flowAmpDiff, setFlowAmp) {
+    power += powerDiff / 30;
+    flowRate += flowDiff / 30;
+    powerAmp += powerAmpDiff / 30;
+    flowAmp += flowAmpDiff / 30;
+    console.log('incrementPF()');
+    console.log(power);
+    
+    if ((powerDiff > 0 && power >= setPower) || (powerDiff <= 0 && power <= setPower)) {
+        power = parseFloat(setPower);
+        flowRate = parseFloat(setFlow);
+        powerAmp = parseFloat(setPowerAmp);
+        flowAmp = parseFloat(setFlowAmp);
+
+        clearTimeout(smoothingFunc);
+    }
+}

@@ -66,7 +66,7 @@ window.onload = function() {
         var userID =  firebaseUser.uid;
         var userEmail = firebaseUser.email;
         users.set({
-          UserID: userID
+          UserEmail: userEmail
         });
         var usersMap = firebase.database().ref("Users Map/" + userID);
         usersMap.set({

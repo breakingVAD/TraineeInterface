@@ -54,3 +54,105 @@ td {
 h3 {
     margin-top:0;
 }
+
+.box {
+    padding:20px;
+    background-color: #e2e2e2;
+    box-shadow: 0.5px 0.5px 3px 3px #adabab;
+}
+
+.currentVal {
+    text-align: right;
+    font-weight: bolder;
+    font-size:20px !important;
+    padding:2px 15px;
+}
+
+.vadValues {
+    box-shadow: 0.5px 0.5px 1px 1px #adabab;
+}
+
+#CDVs td {
+    padding:1px 10px;
+}
+
+#inputVals td {
+    padding:5px 10px;
+}
+
+
+.vadValues tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+.vadValues tr:nth-child(odd) {
+    background-color: #e8e5e5;
+}
+
+button {
+    -webkit-border-radius: 5;
+    -moz-border-radius: 5;
+    border-radius: 5px;
+    color: #ffffff;
+    font-size: 15px;
+    padding:2px 10px;
+    text-decoration: none;
+}
+
+.blueBtn {
+    background: #70a7cc;
+    background-image: -webkit-linear-gradient(top, #70a7cc, #2980b9);
+    background-image: -moz-linear-gradient(top, #70a7cc, #2980b9);
+    background-image: -ms-linear-gradient(top, #70a7cc, #2980b9);
+    background-image: -o-linear-gradient(top, #70a7cc, #2980b9);
+    background-image: linear-gradient(to bottom, #70a7cc, #2980b9);
+}
+
+.blueBtn:hover {
+    background: #6db3de;
+    background-image: -webkit-linear-gradient(top, #6db3de, #3498db);
+    background-image: -moz-linear-gradient(top, #6db3de, #3498db);
+    background-image: -ms-linear-gradient(top, #6db3de, #3498db);
+    background-image: -o-linear-gradient(top, #6db3de, #3498db);
+    background-image: linear-gradient(to bottom, #6db3de, #3498db);
+    text-decoration: none;
+}
+
+
+.grayBtn {
+    background: #bfbfbf;
+    background-image: -webkit-linear-gradient(top, #bfbfbf, #9c9c9c);
+    background-image: -moz-linear-gradient(top, #bfbfbf, #9c9c9c);
+    background-image: -ms-linear-gradient(top, #bfbfbf, #9c9c9c);
+    background-image: -o-linear-gradient(top, #bfbfbf, #9c9c9c);
+    background-image: linear-gradient(to bottom, #bfbfbf, #9c9c9c);
+}
+
+.grayBtn:hover {
+    background: #d9d9d9;
+    background-image: -webkit-linear-gradient(top, #d9d9d9, #c7c7c7);
+    background-image: -moz-linear-gradient(top, #d9d9d9, #c7c7c7);
+    background-image: -ms-linear-gradient(top, #d9d9d9, #c7c7c7);
+    background-image: -o-linear-gradient(top, #d9d9d9, #c7c7c7);
+    background-image: linear-gradient(to bottom, #d9d9d9, #c7c7c7);
+    text-decoration: none;
+}
+
+.redBtn {
+    background: #db6771;
+    background-image: -webkit-linear-gradient(top, #db6771, #9e2020);
+    background-image: -moz-linear-gradient(top, #db6771, #9e2020);
+    background-image: -ms-linear-gradient(top, #db6771, #9e2020);
+    background-image: -o-linear-gradient(top, #db6771, #9e2020);
+    background-image: linear-gradient(to bottom, #db6771, #9e2020);
+}
+
+.redBtn:hover {
+    background: #e87e7e;
+    background-image: -webkit-linear-gradient(top, #e87e7e, #e64e4e);
+    background-image: -moz-linear-gradient(top, #e87e7e, #e64e4e);
+    background-image: -ms-linear-gradient(top, #e87e7e, #e64e4e);
+    background-image: -o-linear-gradient(top, #e87e7e, #e64e4e);
+    background-image: linear-gradient(to bottom, #e87e7e, #e64e4e);
+    text-decoration: none;
+}

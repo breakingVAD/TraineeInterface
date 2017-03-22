@@ -25,7 +25,9 @@ savedValues.on('value',function(snapshot){
     var table; var row; var entry; var btn; var deleteButton; var node;
     var tableInd = 0;
     table = tables[0];
+    var keyNum = 0;
     for(var key in output){
+        keyNum++;
         if (table.rows.length>4) {
             table = tables[++tableInd];
         }
@@ -33,41 +35,52 @@ savedValues.on('value',function(snapshot){
         row = table.insertRow();
         btn = document.createElement("BUTTON");
         btn.innerHTML = key;
+        btn.className = "grayBtn";
         btn.style = "width:100%";
 
         row.insertCell(0).appendChild(btn);
 
         btn.setAttribute("id",key);
-        $("#" + key).click(function(){
-            var name = firebase.database().ref(userID + "/Saved Values/" + key);
-            name.once('value', function(snapshot) {
-                var output = snapshot.val();
-                values.set(
-                    {
-                        flowrate: output.flowrate,
-                        RPM: output.RPM,
-                        power: output.power,
-                        powerAmplitude: output.powerAmplitude,
-                        flowAmplitude: output.flowAmplitude
-                    }
-                );
-
-            });
-
-        });
+        btn.onclick = useSavedSim;
 
         deleteButton = document.createElement("BUTTON");
-        deleteButton.innerHTML = "X";
-        deleteButton.style = "background-color: red";
+        deleteButton.innerHTML = "x";
+        deleteButton.className = "redBtn";
         deleteButton.style.color = "white";
         row.insertCell(1).appendChild(deleteButton);
 
         deleteButton.setAttribute("id","id"+key);
         deleteButton.setAttribute("onclick", "deleteFunc(event)");
-
-
+    }
+    if (!keyNum) {
+        document.getElementById("useSavedSims").style.visibility = "hidden";
     }
 });
+
+values.on('value', function(snapshot) {
+    var output = snapshot.val();
+    var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowAmplitude'];
+    for (var i=0; i<valueIds.length; i++) {
+        document.getElementById(valueIds[i] + "CDV").innerHTML = output[valueIds[i]];
+    }
+});
+
+function useSavedSim(event){
+    var id = event.target.id;
+    var name = firebase.database().ref(userID + "/Saved Values/" + id);
+    name.once('value', function(snapshot) {
+        var output = snapshot.val();
+        values.set(
+            {
+                flowrate: output.flowrate,
+                RPM: output.RPM,
+                power: output.power,
+                powerAmplitude: output.powerAmplitude,
+                flowAmplitude: output.flowAmplitude
+            }
+        );
+    });
+}
 
 function deleteFunc(event){
     var id = event.srcElement.id;
@@ -79,7 +92,7 @@ function deleteFunc(event){
 console.log(userID);
 
 
-function buttonAction(){
+function updateSimulation(){
     var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowAmplitude'];
     var setValues = {};
     for (var i=0; i<valueIds.length; i++) {
@@ -95,15 +108,8 @@ function buttonAction(){
     values.set(setValues);
 }
 
-values.on('value', function(snapshot) {
-    var output = snapshot.val();
-    var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowAmplitude'];
-    for (var i=0; i<valueIds.length; i++) {
-        document.getElementById(valueIds[i] + "CDV").innerHTML = output[valueIds[i]];
-    }
-});
-
-function buttonAction2(){
+function saveSimulation(){
+    document.getElementById("useSavedSims").style.visibility = "visible";
     var presetName = $('#name').val();
     if (presetName) {
         var values = firebase.database().ref(userID + "/Saved Values/" + presetName);

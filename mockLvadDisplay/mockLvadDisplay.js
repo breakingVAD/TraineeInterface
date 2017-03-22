@@ -1,3 +1,8 @@
+var power;
+var RPM;
+var flow;
+var smoothingFunc;
+
 window.onload = function () {
     startTime();
     var config = {
@@ -15,13 +20,40 @@ window.onload = function () {
         var output = snapshot.val();
 
         $('#tempOutput').html("<b>Flow Rate: </b>"+output.flowrate + "<br/> <b>RPM:</b> " + output.RPM + "<br/> <b>Power:</b> " + output.power);
-        document.getElementById("powerVal").innerHTML = output.power;
-        document.getElementById("rpmVal").innerHTML = output.RPM;
-        document.getElementById("flowRateVal").innerHTML = output.flowrate;
+        var oldPower = Number(document.getElementById("powerVal").innerHTML);
+        var powerDiff = output.power - oldPower;
+        var oldRPM = Number(document.getElementById("rpmVal").innerHTML);
+        var RPMDiff = output.RPM - oldRPM;
+        var oldFlow = Number(document.getElementById("flowRateVal").innerHTML);
+        var flowDiff = output.flowrate - oldFlow;
 
+        power = oldPower;
+        RPM = oldRPM;
+        flow = oldFlow;
+        smoothingFunc = window.setInterval(function() {
+            incrementPRF(powerDiff, output.power, RPMDiff, output.RPM, flowDiff, output.flowrate);
+        }, 200);
     });
 };
 
+
+function incrementPRF(powerDiff, setPower, RPMDiff, setRPM, flowDiff, setFlow) {
+    power += powerDiff / 30;
+    RPM += RPMDiff / 30;
+    flow += flowDiff / 30;
+
+    document.getElementById("powerVal").innerHTML = power.toFixed(1);
+    document.getElementById("rpmVal").innerHTML = Math.ceil(RPM);
+    document.getElementById("flowRateVal").innerHTML = flow.toFixed(1);
+    console.log('incrementPRF(' + power + ',' + RPM + ',' + flow + ')');
+    if ((powerDiff > 0 && power >= setPower) || (powerDiff <= 0 && power <= setPower)) {
+        document.getElementById("powerVal").innerHTML = Number(setPower).toFixed(1);
+        document.getElementById("rpmVal").innerHTML = Math.ceil(setRPM);
+        document.getElementById("flowRateVal").innerHTML = Number(setFlow).toFixed(1);
+        console.log('if statement');
+        clearTimeout(smoothingFunc);
+    }
+}
 
 // Get the modal
 var pwModal = document.getElementById('passwordPopup');

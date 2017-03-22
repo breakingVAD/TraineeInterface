@@ -7,34 +7,23 @@
     <link rel="stylesheet" href="../frontPage.css">
     <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
     <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
-    <script src='presetPage.js'></script>
-    <script>
-        function switchTabs(evt) {
-            // Declare all variables
-            var i, tabcontent, tablinks;
-
-            // Get all elements with class="tablinks" and remove the class "active"
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
-
-            evt.currentTarget.className += " active";
-        }
-
-    </script>
+    <script src='mainPage.js'></script>
 </head>
 <body>
-<div class="container" style="margin:0; padding:10px">
-    <img src="../images/breakingVADicon.png" width="100px" style="float:left">
-    <h1><b>Simulated Pediatric LVAD Training System</b></h1>
-</div>
-<div class="topnav" id="myTopnav">
-    <a class="tablinks active" target="iframeswitch" href="iframeValues.html" onclick="switchTabs(event)">LVAD Values</a>
-    <a class="tablinks" target="iframeswitch" href="instructorAlarmPage.html" onclick="switchTabs(event)">Alarms</a>
-    <a class="tablinks" target="iframeswitch" href="TestStorage.html" onclick="switchTabs(event)">Upload</a>
-    <a class="tablinks" onclick="logout()">Logout</a>
-</div>
-<iframe name="iframeswitch" src="vadValues.html" width=100% height=530px scrolling="no"></iframe>
+<nav>
+    <div class="container" style="margin:0; padding:10px">
+        <img src="../images/breakingVADicon.png" width="100px" style="float:left">
+        <h1 style="margin:0"><b>Simulated Pediatric LVAD Training System</b></h1>
+        <h3 style="margin:0"><b>Instructor Interface</b></h3>
+    </div>
+    <div class="topnav" id="myTopnav">
+        <a class="tablinks active" target="iframeswitch" href="vadValues.html" onclick="switchTabs(event)">LVAD Values</a>
+        <a class="tablinks" target="iframeswitch" href="instructorAlarmPage.html" onclick="switchTabs(event)">Alarms</a>
+        <a class="tablinks" target="iframeswitch" href="uploadPage.html" onclick="switchTabs(event)">Upload</a>
+        <a class="tablinks" target="iframeswitch" href="../mockLvadDisplay/mockLvadDisplay.html" onclick="switchTabs(event)">View Simulation</a>
+        <a class="tablinks" onclick="logout()">Logout</a>
+    </div>
+</nav>
+<iframe name="iframeswitch" src="vadValues.html" width="100%" height="800px" id="pageContent">Page Content</iframe>
 </body>
 </html>

@@ -20,7 +20,7 @@ window.onload = function () {
           var name = alarmObject.alarm.lowercase;
           row = table.insertRow(0);
           row.insertCell(0).innerHTML = name;
-          row.insertCell(1).innerHTML = '\<button style="color:white; background-color:grey" onclick="deleteEntry()">x</button>';
+          row.insertCell(1).innerHTML = '\<button class="redBtn" onclick="deleteEntry()">Resolve</button>';
       }
     });
 
