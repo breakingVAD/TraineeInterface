@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Simulation</title>
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js'></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="../frontPage.css">
+    <style>
+        #wrapper { width: 100%; height: 500px; padding: 0; overflow: hidden; }
+        #scaled-frame { width: 1000px; height: 2000px; border: 0px; }
+        #scaled-frame {
+            zoom: 0.71;
+            -moz-transform: scale(0.8);
+            -moz-transform-origin: 0 0;
+            -o-transform: scale(0.8);
+            -o-transform-origin: 0 0;
+            -webkit-transform: scale(0.8);
+            -webkit-transform-origin: 0 0;
+        }
+
+        @media screen and (-webkit-min-device-pixel-ratio:0) {
+            #scaled-frame  { zoom: 1;  }
+        }
+    </style>
+</head>
+<body>
+<div class="container" style="padding:0 30px; margin:30px; width:100%">
+    <div class="row" style="width:100%">
+        <div class="col-md-6" style="padding:5px">
+            <h3>Mock LVAD Display:</h3>
+            <div id="wrapper" style="float:left"><iframe id="scaled-frame" src="../mockLvadDisplay/mockLvadDisplay.html"></iframe></div>
+        </div>
+        <div class="col-md-6" style="padding:5px">
+            <h3>Echocardiogram Simulation:</h3>
+            <div><iframe src="../mockLvadDisplay/lvadPages/echoSimulation.html" width="100%" height="500px"></iframe></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

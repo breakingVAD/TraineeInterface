@@ -5,6 +5,9 @@ var smoothingFunc;
 
 window.onload = function () {
     startTime();
+    if (localStorage.getItem('instructor')) {
+        document.getElementById('buttonsTable').style.visibility = 'hidden';
+    }
     var config = {
         apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
         authDomain: "breaking-vad-online-simulation.firebaseapp.com",
@@ -45,7 +48,6 @@ function incrementPRF(powerDiff, setPower, RPMDiff, setRPM, flowDiff, setFlow) {
     document.getElementById("powerVal").innerHTML = power.toFixed(1);
     document.getElementById("rpmVal").innerHTML = Math.ceil(RPM);
     document.getElementById("flowRateVal").innerHTML = flow.toFixed(1);
-    console.log('incrementPRF(' + power + ',' + RPM + ',' + flow + ')');
     if ((powerDiff > 0 && power >= setPower) || (powerDiff <= 0 && power <= setPower)) {
         document.getElementById("powerVal").innerHTML = Number(setPower).toFixed(1);
         document.getElementById("rpmVal").innerHTML = Math.ceil(setRPM);
@@ -163,7 +165,7 @@ function logOut() {
 }
 
 function goToEchoSim() {
-    window.location = 'lvadPages/echoSimulation.html';
+    window.open('lvadPages/echoSimulation.html');
 }
 
 function powerOff() {

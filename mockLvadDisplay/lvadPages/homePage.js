@@ -160,8 +160,6 @@ function incrementPF(powerDiff, setPower, flowDiff, setFlow, powerAmpDiff, setPo
     flowRate += flowDiff / 30;
     powerAmp += powerAmpDiff / 30;
     flowAmp += flowAmpDiff / 30;
-    console.log('incrementPF()');
-    console.log(power);
     
     if ((powerDiff > 0 && power >= setPower) || (powerDiff <= 0 && power <= setPower)) {
         power = parseFloat(setPower);
