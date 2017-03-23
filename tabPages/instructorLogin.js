@@ -19,7 +19,6 @@ window.onload = function() {
 
   btnLogin.addEventListener('click', function(e){
     console.log(txtEmail.value);
-    //alert(txtPassword.value)
     const email = txtEmail.value;
     const password = txtPassword.value;
     const auth = firebase.auth();
@@ -73,6 +72,7 @@ window.onload = function() {
           email: firebaseUser.email
         });
         localStorage.setItem('userid', userID);
+        localStorage.setItem('instructor', true);
       }else{
         console.log("Not Logged In");
       }

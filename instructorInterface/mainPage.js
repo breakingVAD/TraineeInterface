@@ -36,7 +36,7 @@ var users = firebase.database().ref("Users");
 var usersMap = firebase.database().ref("Users Map");
 
 function logout(){
-    users.set({ //TODO: IS THIS NECESSARY?
+    users.set({ 
         random: true
     });
     users.once('value').then(function(snapshot) {
@@ -59,5 +59,10 @@ function logout(){
         }
     });
     firebase.auth().signOut();
+    localStorage.setItem('instructor',false);
+}
+
+function openNewTab(path) {
+    window.open(path);
 }
 

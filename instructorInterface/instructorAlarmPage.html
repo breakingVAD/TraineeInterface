@@ -17,7 +17,7 @@
         <div class="col-md-5" style="padding:7px">
             <div class="box" class="container">
                 <h3>Add Alarm Entry to Alarm Log:</h3>
-                <table>
+                <table align="center" class="vadValues" id="addAlarm" width="100%">
                     <tr>
                         <td>Date:</td>
                         <td><input type="date" id="date" style="width:100%"></td>
@@ -63,9 +63,10 @@
                         <td>Watts:</td>
                         <td><input placeholder="Power" type="number" id="watts" style="width:100%"></td>
                     </tr>
+                </table>
+                <table width="100%">
                     <tr>
-                        <td></td>
-                        <td><button style="width:100%" onclick="addToLog()" class="blueBtn">Add to Log</button></td>
+                        <td><button style="width:100%;  margin:5px 0 0 0;" onclick="addToLog()" class="blueBtn">Add to Log</button></td>
                     </tr>
                 </table>
             </div>
@@ -95,43 +96,11 @@
                 </table>
                 <iframe src="instructorAlarmLog.html" width="100%" height="212px"></iframe>
                 <br>
-                <button onclick="clearAllEntries()" class="redBtn">Clear All</button>
+                <button style="float:left;  margin:5px 0 0 0;" onclick="clearAllEntries()" class="redBtn">Clear All</button>
+                <div style="float:right; margin:5px 0 0 0;">
+                    <p>Save Alarm Log As: <input placeholder="Alarm Log Name" type="text" id="ALname"><button class="blueBtn" type="button" id="test" onclick="saveAlarmLog()">Save Alarm Log</button></p>
+                </div>
                 <br><br>
-                <p>Save Alarm Log As: <input placeholder="Alarm Log Name" type="text" id="ALname"><button class="blueBtn" type="button" id="test" onclick="saveAlarmLog()">Save Alarm Log</button></p>
-
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12" style="padding:7px">
-            <div class="box" id="savedAlarmLogs" style="margin:14px 0 0 0;">
-                <h4>Use Saved Alarm Logs:</h4>
-                <table width="100%">
-                    <tr>
-                        <td>
-                            <table class="savedALs" style="float:left; width:20%">
-                                <col width="130px">
-                                <col width="40px">
-                            </table>
-                            <table class="savedALs" style="float:left; width:20%">
-                                <col width="130px">
-                                <col width="40px">
-                            </table>
-                            <table class="savedALs" style="float:left; width:20%">
-                                <col width="130px">
-                                <col width="40px">
-                            </table>
-                            <table class="savedALs" style="float:left; width:20%">
-                                <col width="130px">
-                                <col width="40px">
-                            </table>
-                            <table class="savedALs" style="float:left; width:20%">
-                                <col width="130px">
-                                <col width="40px">
-                            </table>
-                        </td>
-                    </tr>
-                </table>
             </div>
         </div>
     </div>
@@ -176,7 +145,39 @@
             </div>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-md-12" style="padding:7px">
+            <div class="box" id="savedAlarmLogs">
+                <h3>Use Saved Alarm Logs:</h3>
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <table class="savedALs" style="float:left; width:20%">
+                                <col width="130px">
+                                <col width="40px">
+                            </table>
+                            <table class="savedALs" style="float:left; width:20%">
+                                <col width="130px">
+                                <col width="40px">
+                            </table>
+                            <table class="savedALs" style="float:left; width:20%">
+                                <col width="130px">
+                                <col width="40px">
+                            </table>
+                            <table class="savedALs" style="float:left; width:20%">
+                                <col width="130px">
+                                <col width="40px">
+                            </table>
+                            <table class="savedALs" style="float:left; width:20%">
+                                <col width="130px">
+                                <col width="40px">
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
 
 </div>
 </body>

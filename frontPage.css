@@ -26,13 +26,13 @@ p {
 
 /* Change the color of links on hover */
 .topnav a:hover {
-    background-color: #9198e2;
+    background-color: #6db3de;
     color: black;
 }
 
 /* Add a color to the active/current link */
 .topnav a.active {
-    background-color: #3240db;
+    background-color: #2980b9;
     color: white;
 }
 
@@ -73,13 +73,16 @@ h3 {
 }
 
 #CDVs td {
-    padding:1px 10px;
+    padding:2px 10px;
 }
 
 #inputVals td {
     padding:5px 10px;
 }
 
+#addAlarm td {
+    padding:5px 10px;
+}
 
 .vadValues tr:nth-child(even) {
     background-color: #f2f2f2;
