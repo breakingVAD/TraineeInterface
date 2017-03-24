@@ -109,19 +109,39 @@ function updateSimulation(){
 }
 
 function saveSimulation(){
-    document.getElementById("useSavedSims").style.visibility = "visible";
-    var presetName = $('#name').val();
-    if (presetName) {
-        var values = firebase.database().ref(userID + "/Saved Values/" + presetName);
+    savedValues.once('value', function(snapshot) {
+        var output = snapshot.val();
+        var keys = Object.keys(output);
+        if (keys.length < 25) {
+            document.getElementById("useSavedSims").style.visibility = "visible";
+            var presetName = $('#name').val();
+            if (presetName) {
+                var nameExists = false;
+                for (var key in output) {
+                    if (key === presetName) {
+                        nameExists = true;
+                    }
+                }
+                if (!nameExists) {
+                    var values = firebase.database().ref(userID + "/Saved Values/" + presetName);
 
-        var setValues = {name: presetName};
+                    var setValues = {name: presetName};
 
-        var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowAmplitude'];
-        for (var i=0; i<valueIds.length; i++) {
-            setValues[valueIds[i]] = document.getElementById(valueIds[i] + "CDV").innerHTML;
+                    var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowAmplitude'];
+                    for (var i=0; i<valueIds.length; i++) {
+                        setValues[valueIds[i]] = document.getElementById(valueIds[i] + "CDV").innerHTML;
+                    }
+                    values.set(setValues);
+                    document.getElementById('name').value = "";
+                } else {
+                    alert("You already have a simulation saved under this name. Please choose a different name.");
+                }
+            } else {
+                alert("Please input a name before saving your simulation.");
+            }
+        } else {
+            alert("You have the maximum number of simulations saved. Please delete other saved simulations before saving a new one.");
         }
-        values.set(setValues);
-        document.getElementById('name').value = "";
-    }
+    });
 }
 

@@ -30,7 +30,7 @@ savedAlarmLogs.on('value',function(snapshot){
     var keyNum = 0;
     for(var key in output){
         keyNum++;
-        if (table.rows.length>5) {
+        if (table.rows.length>4) {
             table = tables[++tableInd];
         }
         entry = output[key];
@@ -52,9 +52,7 @@ savedAlarmLogs.on('value',function(snapshot){
 
         deleteButton.setAttribute("id","id"+key);
         deleteButton.setAttribute("onclick", "deleteALFunc(event)");
-        console.log(key);
     }
-    console.log(keyNum);
     if (!keyNum) {
         document.getElementById("savedAlarmLogs").style.visibility = "hidden";
     }
@@ -106,21 +104,17 @@ function sendToTrainee(){
   };
   var alarmType = document.getElementById("activeAlarm").value;
   var alarm = alarmTypes[alarmType];
-  console.log("active alarm preset");
   activeAlarm.set({
     alarm: alarm
   });
 
   var  sortedAlarms = [];
   var columns = ['alarm','rpm','Lmin','watts'];
-  console.log("active alarm set");
   activeAlarm.once('value', function(snapshot) {
     var alarmObject = snapshot.val();
-    console.log("active alarm on");
     if (alarmObject != null){
         var entry;
         var name = alarmObject.alarm.lowercase;
-        console.log(name);
         var date = moment(new Date());
         var entry = {
           alarm: name,
@@ -144,16 +138,37 @@ function sendToTrainee(){
 }
 
 function saveAlarmLog(){
-    document.getElementById("savedAlarmLogs").style.visibility = "visible";
-    var presetName = $('#ALname').val();
-    if (presetName) {
-        var values = firebase.database().ref(userID + "/Saved Alarm Logs/" + presetName);
-        alarmLog.once('value', function(snapshot) {
-            var output = snapshot.val();
-            values.set(output);
-        });
-        document.getElementById('ALname').value = "";
-    }
+    savedAlarmLogs.once('value', function(snapshot) {
+        var output = snapshot.val();
+        var keys = Object.keys(output);
+        if (keys.length < 25) {
+            document.getElementById("savedAlarmLogs").style.visibility = "visible";
+            var presetName = $('#ALname').val();
+            console.log(presetName);
+            if (presetName) {
+                var nameExists = false;
+                for (var key in output) {
+                    if (key === presetName) {
+                        nameExists = true;
+                    }
+                }
+                if (!nameExists) {
+                    var values = firebase.database().ref(userID + "/Saved Alarm Logs/" + presetName);
+                    alarmLog.once('value', function(snapshot) {
+                        var output = snapshot.val();
+                        values.set(output);
+                    });
+                    document.getElementById('ALname').value = "";
+                } else {
+                    alert("You already have an Alarm Log saved under this name. Please choose a different name.");
+                }
+            } else {
+                alert("Please input a name before saving your Alarm Log.");
+            }
+        } else {
+            alert("You have the maximum number of Alarm Logs saved. Please delete other saved Alarm Logs before saving a new one.");
+        }
+    });
 }
 
 
