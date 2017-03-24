@@ -20,12 +20,10 @@ window.onload = function () {
         var alarmEntries = snapshot.val();
         var table = document.getElementById("alarmTable");
         var row; var cell; var entry;
-        console.log(alarmEntries);
         for(var entryKey in alarmEntries) {
             entry = alarmEntries[entryKey];
             entry.dbKey = entryKey;
             sortedAlarms.push([entry, moment(entry['date'] + ',' + entry['onset'])]);
-            console.log(sortedAlarms);
         }
         sortedAlarms.sort(function(a,b) {
             a = moment(a[1]);
