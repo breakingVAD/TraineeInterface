@@ -44,8 +44,18 @@
             <tr>
                 <td>
                     <div class="container" style="padding:20px">
-                        <h3 style="float:left">Set RPM:</h3>
-                        <button style="float:right" onclick="openRPM()" id="rpmButton"></button>
+                        <table width="100%" id="invisTable">
+                            <col width="50%">
+                            <col width="50%">
+                            <tr>
+                                <td>
+                                    <h3>Set RPM:</h3>
+                                </td>
+                                <td>
+                                    <button onclick="openRPM()" id="rpmButton"></button>
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                 </td>
                 <td>
@@ -88,7 +98,7 @@
                     </td>
                     <td class="arrowButtons">
                         <button style="padding:2px" onclick="increaseRPM()">
-                            <img src="../images/upArrow.png" width="50px">
+                            <img src="../../images/upArrow.png" width="50px">
                         </button>
                     </td>
                     <td class="changeCancelButtons">
@@ -99,7 +109,7 @@
                     <td align="right" id="rpmLabel"><p>RPM</p></td>
                     <td class="arrowButtons">
                         <button style="padding:2px" onclick="decreaseRPM()">
-                            <img src="../images/downArrow.png" width="50px">
+                            <img src="../../images/downArrow.png" width="50px">
                         </button>
                     </td>
                     <td class="changeCancelButtons">
