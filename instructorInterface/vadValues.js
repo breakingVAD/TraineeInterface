@@ -59,6 +59,7 @@ savedValues.on('value',function(snapshot){
 
 values.on('value', function(snapshot) {
     var output = snapshot.val();
+    console.log(output);
     var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowAmplitude'];
     for (var i=0; i<valueIds.length; i++) {
         document.getElementById(valueIds[i] + "CDV").innerHTML = output[valueIds[i]];
@@ -111,36 +112,61 @@ function updateSimulation(){
 function saveSimulation(){
     savedValues.once('value', function(snapshot) {
         var output = snapshot.val();
-        var keys = Object.keys(output);
-        if (keys.length < 25) {
-            document.getElementById("useSavedSims").style.visibility = "visible";
-            var presetName = $('#name').val();
-            if (presetName) {
-                var nameExists = false;
-                for (var key in output) {
-                    if (key === presetName) {
-                        nameExists = true;
+        var presetName = $('#name').val();
+        var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowAmplitude'];
+
+        if (output) {
+            var keys = Object.keys(output);
+            if (keys.length < 25) {
+                document.getElementById("useSavedSims").style.visibility = "visible";
+
+                if (presetName) {
+                    var nameExists = false;
+                    for (var key in output) {
+                        if (key === presetName) {
+                            nameExists = true;
+                        }
                     }
+                    if (!nameExists) {
+                        try {
+                            var values = firebase.database().ref(userID + "/Saved Values/" + presetName);
+                            var setValues = {name: presetName};
+                            for (var i=0; i<valueIds.length; i++) {
+                                setValues[valueIds[i]] = document.getElementById(valueIds[i] + "CDV").innerHTML;
+                            }
+                            values.set(setValues);
+                            document.getElementById('name').value = "";
+                        } catch (e) {
+                            alert("Invalid simulation name. Paths must be non-empty strings and can't contain \".\", \"#\", \"$\", \"[\", or \"]\"");
+                            console.log(e.message);
+                        }
+                    } else {
+                        alert("You already have a simulation saved under this name. Please choose a different name.");
+                    }
+                } else {
+                    alert("Please input a name before saving your simulation.");
                 }
-                if (!nameExists) {
-                    var values = firebase.database().ref(userID + "/Saved Values/" + presetName);
-
-                    var setValues = {name: presetName};
-
-                    var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowAmplitude'];
-                    for (var i=0; i<valueIds.length; i++) {
+            } else {
+                alert("You have the maximum number of simulations saved. Please delete other saved simulations before saving a new one.");
+            }
+        } else {
+            if (presetName) {
+                try {
+                    document.getElementById("useSavedSims").style.visibility = "visible";
+                    values = firebase.database().ref(userID + "/Saved Values/" + presetName);
+                    setValues = {name: presetName};
+                    for (i=0; i<valueIds.length; i++) {
                         setValues[valueIds[i]] = document.getElementById(valueIds[i] + "CDV").innerHTML;
                     }
                     values.set(setValues);
                     document.getElementById('name').value = "";
-                } else {
-                    alert("You already have a simulation saved under this name. Please choose a different name.");
+                } catch (e) {
+                    alert("Invalid simulation name. Paths must be non-empty strings and can't contain \".\", \"#\", \"$\", \"[\", or \"]\"");
+                    console.log(e.message);
                 }
             } else {
                 alert("Please input a name before saving your simulation.");
             }
-        } else {
-            alert("You have the maximum number of simulations saved. Please delete other saved simulations before saving a new one.");
         }
     });
 }
