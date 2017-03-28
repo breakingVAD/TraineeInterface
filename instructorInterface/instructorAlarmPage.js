@@ -140,33 +140,58 @@ function sendToTrainee(){
 function saveAlarmLog(){
     savedAlarmLogs.once('value', function(snapshot) {
         var output = snapshot.val();
-        var keys = Object.keys(output);
-        if (keys.length < 25) {
-            document.getElementById("savedAlarmLogs").style.visibility = "visible";
-            var presetName = $('#ALname').val();
-            console.log(presetName);
-            if (presetName) {
-                var nameExists = false;
-                for (var key in output) {
-                    if (key === presetName) {
-                        nameExists = true;
+        var presetName = $('#ALname').val();
+
+        if (output) {
+            var keys = Object.keys(output);
+            if (keys.length < 25) {
+                document.getElementById("savedAlarmLogs").style.visibility = "visible";
+                console.log(presetName);
+                if (presetName) {
+                    var nameExists = false;
+                    for (var key in output) {
+                        if (key === presetName) {
+                            nameExists = true;
+                        }
                     }
+                    if (!nameExists) {
+                        try {
+                            var values = firebase.database().ref(userID + "/Saved Alarm Logs/" + presetName);
+                            alarmLog.once('value', function(snapshot) {
+                                var output = snapshot.val();
+                                values.set(output);
+                            });
+                            document.getElementById('ALname').value = "";
+                        } catch (e) {
+                            alert("Invalid alarm log name. Paths must be non-empty strings and can't contain \".\", \"#\", \"$\", \"[\", or \"]\"");
+                            console.log(e.message);
+                        }
+                    } else {
+                        alert("You already have an Alarm Log saved under this name. Please choose a different name.");
+                    }
+                } else {
+                    alert("Please input a name before saving your Alarm Log.");
                 }
-                if (!nameExists) {
-                    var values = firebase.database().ref(userID + "/Saved Alarm Logs/" + presetName);
+            } else {
+                alert("You have the maximum number of Alarm Logs saved. Please delete other saved Alarm Logs before saving a new one.");
+            }
+        } else {
+            if (presetName) {
+                try {
+                    document.getElementById("savedAlarmLogs").style.visibility = "visible";
+                    values = firebase.database().ref(userID + "/Saved Alarm Logs/" + presetName);
                     alarmLog.once('value', function(snapshot) {
                         var output = snapshot.val();
                         values.set(output);
                     });
                     document.getElementById('ALname').value = "";
-                } else {
-                    alert("You already have an Alarm Log saved under this name. Please choose a different name.");
+                } catch (e) {
+                    alert("Invalid alarm log name. Paths must be non-empty strings and can't contain \".\", \"#\", \"$\", \"[\", or \"]\"");
+                    console.log(e.message);
                 }
             } else {
                 alert("Please input a name before saving your Alarm Log.");
             }
-        } else {
-            alert("You have the maximum number of Alarm Logs saved. Please delete other saved Alarm Logs before saving a new one.");
         }
     });
 }
