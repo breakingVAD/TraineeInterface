@@ -16,7 +16,8 @@ for (var i=0; i<fileUploaders.length; i++) {
 
 function upload(e) {
     var file = e.target.files[0];
-    var name = e.target.id + ".gif";
+    var names = ["PSA","SPA","A4C","A2C","PLA","SX4","Tissue","No Contact"];
+    var name = names[e.target.id] + ".gif";
     var storageRef = firebase.storage().ref('Storage/' + name);
     var databaseRef = firebase.database().ref(userID + '/Images');
     var task = storageRef.put(file);
