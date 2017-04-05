@@ -1,23 +1,29 @@
-var config = {
-    apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
-    authDomain: "breaking-vad-online-simulation.firebaseapp.com",
-    databaseURL: "https://breaking-vad-online-simulation.firebaseio.com",
-    storageBucket: "breaking-vad-online-simulation.appspot.com",
+var userID;
+window.onload = function() {
+    var config = {
+        apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
+        authDomain: "breaking-vad-online-simulation.firebaseapp.com",
+        databaseURL: "https://breaking-vad-online-simulation.firebaseio.com",
+        storageBucket: "breaking-vad-online-simulation.appspot.com",
+    };
+
+    firebase.initializeApp(config);
+
+    userID = localStorage.getItem('userid');
+    console.log(userID);
+
+    var fileUploaders = document.getElementsByClassName("imageUpload");
+    console.log(fileUploaders);
+    for (var i=0; i<fileUploaders.length; i++) {
+        fileUploaders[i].addEventListener('change', upload);
+    }
 };
 
-firebase.initializeApp(config);
-
-var userID = localStorage.getItem('userid');
-
-var fileUploaders = document.getElementsByClassName("imageUpload");
-for (var i=0; i<fileUploaders.length; i++) {
-    fileUploaders[i].addEventListener('change', upload);
-}
-
 function upload(e) {
+    console.log('upload');
     var file = e.target.files[0];
-    var names = ["PSA","SPA","A4C","A2C","PLA","SX4","Tissue","No Contact"];
-    var name = names[e.target.id] + ".gif";
+    var name = e.target.id + ".gif";
+    console.log(name);
     var storageRef = firebase.storage().ref('Storage/' + name);
     var databaseRef = firebase.database().ref(userID + '/Images');
     var task = storageRef.put(file);
