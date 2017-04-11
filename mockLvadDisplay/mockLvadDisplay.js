@@ -5,7 +5,7 @@ var smoothingFunc;
 
 window.onload = function () {
     startTime();
-    if (localStorage.getItem('instructor')) {
+    if (!localStorage.getItem('trainee')) {
         document.getElementById('buttonsTable').style.visibility = 'hidden';
     }
     var config = {
