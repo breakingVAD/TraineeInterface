@@ -19,12 +19,14 @@ window.onload = function() {
     }
 };
 
+var userID = localStorage.getItem('userid');
+
 function upload(e) {
     console.log('upload');
     var file = e.target.files[0];
     var name = e.target.id + ".gif";
     console.log(name);
-    var storageRef = firebase.storage().ref('Storage/' + name);
+    var storageRef = firebase.storage().ref('Storage/' + userID + '/' + name);
     var databaseRef = firebase.database().ref(userID + '/Images');
     var task = storageRef.put(file);
     var uploader = document.getElementById(e.target.id + "uploader");
