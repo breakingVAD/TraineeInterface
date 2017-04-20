@@ -1,4 +1,4 @@
-var flowRate; var power; var powerAmp; var flowAmp; var smoothingFunc;
+var flowRate; var power; var powerAmp; var flowMin; var flowMax; var flowAmp; var smoothingFunc;
 
 var config = {
     apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
@@ -19,6 +19,8 @@ window.onload = function () {
     flowRate = parseFloat(1);
     power = parseFloat(1);
     powerAmp = parseFloat(1);
+    flowMin = parseFloat(1);
+    flowMax = parseFloat(1);
     flowAmp = parseFloat(1);
 
     var powerChart = new CanvasJS.Chart("powerChartContainer",{
@@ -100,7 +102,7 @@ window.onload = function () {
     var dataLength = 200; // number of dataPoints visible at any point
 
     var powerVals = [-0.2, -0.2, -0.1, 0, 0.2, 0.5, 0.6, 0.7, 0.5, 0.1, 0, -0.1];
-    var flowVals = [-0.9, -0.8, -0.7, -0.2, 0.3, 0.8, 1.2, 1.2, 0.8, 0.3, -0.2, -0.7];
+    var flowVals = [0, 0.05, 0.1, 0.35, 0.6, 0.85, 1, 1, 0.85, 0.6, 0.35, 0.1];
     var i = 0;
 
     var updateChart = function (count) {
@@ -111,11 +113,11 @@ window.onload = function () {
 
             flowData.push({
                 x: tVal,
-                y: flowRate + flowAmp*flowVals[i] + .15*Math.random()
+                y: flowMin + flowAmp*flowVals[i] + .15*Math.random()
             });
             powerData.push({
                 x: tVal,
-                y: power + flowAmp*powerVals[i] + .2*Math.random()
+                y: power + powerAmp*powerVals[i] + .2*Math.random()
             });
             tVal = tVal + .3;
             if (powerData.length > dataLength) {
@@ -145,28 +147,32 @@ values.on('value', function(snapshot) {
     var output = snapshot.val();
 
     var powerDiff = parseFloat(output.power) - power;
-    var flowDiff = parseFloat(output.flowrate) - flowRate;
     var powerAmpDiff = parseFloat(output.powerAmplitude) - powerAmp;
-    var flowAmpDiff = parseFloat(output.flowAmplitude) - flowAmp;
+    var flowMinDiff = parseFloat(output.flowMinVal) - flowMin;
+    var newFlowAmp = parseFloat(output.flowMaxVal - output.flowMinVal);
+    var flowAmpDiff = newFlowAmp - flowAmp;
 
+    console.log('on');
     smoothingFunc = window.setInterval(function() {
-        incrementPF(powerDiff, output.power, flowDiff, output.flowrate, powerAmpDiff, output.powerAmplitude, flowAmpDiff, output.flowAmplitude);
+        console.log('calling increment');
+        incrementPF(powerDiff, output.power, powerAmpDiff, output.powerAmplitude, flowMinDiff, output.flowMinVal, flowAmpDiff, newFlowAmp);
     }, 200);
 });
 
 
-function incrementPF(powerDiff, setPower, flowDiff, setFlow, powerAmpDiff, setPowerAmp, flowAmpDiff, setFlowAmp) {
+function incrementPF(powerDiff, setPower, powerAmpDiff, setPowerAmp, flowMinDiff, setFlowMin, flowAmpDiff, setFlowAmp) {
     power += powerDiff / 30;
-    flowRate += flowDiff / 30;
+    flowMin += flowMinDiff / 30;
     powerAmp += powerAmpDiff / 30;
     flowAmp += flowAmpDiff / 30;
+    console.log('incrementing');
     
-    if ((powerDiff > 0 && power >= setPower) || (powerDiff <= 0 && power <= setPower)) {
+    if ((powerDiff > 0 && power >= setPower) || (powerDiff < 0 && power <= setPower) || (powerAmpDiff > 0 && powerAmp >= setPowerAmp) || (powerAmpDiff < 0 && powerAmp <= setPowerAmp) || (flowMinDiff > 0 && flowMin >= setFlowMin) || (flowMinDiff < 0 && flowMin <= setFlowMin) || (flowAmpDiff > 0 && flowAmp >= setFlowAmp) || (flowAmpDiff < 0 && flowAmp <= setFlowAmp)) {
         power = parseFloat(setPower);
-        flowRate = parseFloat(setFlow);
+        flowMin = parseFloat(setFlowMin);
         powerAmp = parseFloat(setPowerAmp);
         flowAmp = parseFloat(setFlowAmp);
-
+        console.log('finished incrementing');
         clearTimeout(smoothingFunc);
     }
 }

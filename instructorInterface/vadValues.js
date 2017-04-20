@@ -10,6 +10,8 @@ var userID = localStorage.getItem('userid');
 
 var values = firebase.database().ref(userID + "/" +"values");
 var savedValues = firebase.database().ref(userID + "/Saved Values");
+var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowMinVal', 'flowMaxVal'];
+
 
 savedValues.on('value',function(snapshot){
     var tables = document.getElementsByClassName("savedSims");
@@ -60,7 +62,7 @@ savedValues.on('value',function(snapshot){
 values.on('value', function(snapshot) {
     var output = snapshot.val();
     console.log(output);
-    var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowAmplitude'];
+    var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowMinVal', 'flowMaxVal'];
     for (var i=0; i<valueIds.length; i++) {
         document.getElementById(valueIds[i] + "CDV").innerHTML = output[valueIds[i]];
     }
@@ -77,7 +79,8 @@ function useSavedSim(event){
                 RPM: output.RPM,
                 power: output.power,
                 powerAmplitude: output.powerAmplitude,
-                flowAmplitude: output.flowAmplitude
+                flowMinVal: output.flowMinVal,
+                flowMaxVal: output.flowMaxVal
             }
         );
     });
@@ -94,26 +97,33 @@ console.log(userID);
 
 
 function updateSimulation(){
-    var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowAmplitude'];
+    var cdv = document.getElementById('flowrateCDV').innerHTML;
+    console.log(cdv);
     var setValues = {};
-    for (var i=0; i<valueIds.length; i++) {
-        var val = $('#' + valueIds[i]).val();
-        if (val) {
-            setValues[valueIds[i]] = val;
-            document.getElementById(valueIds[i]).value = '';
+    if (($('#flowrate').val() && ($('#flowrate').val() < $('#flowMinVal').val() || $('#flowrate').val() > $('#flowMaxVal').val())) || (!$('#flowrate').val() && (cdv < $('#flowMinVal').val() || cdv > $('#flowMaxVal').val()))) {
+        alert('The inputted Flow Rate is outside of the range of the Flow Min Value and Flow Max Value.');
+    } else if ($('#flowMinVal').val() >  $('#flowMaxVal').val()) {
+        alert('The inputted Flow Min Value is greater than the inputted Flow Max Value.');
+    } else {
+        for (var i=0; i<valueIds.length; i++) {
+            var val = $('#' + valueIds[i]).val();
+            if (val) {
+                setValues[valueIds[i]] = val;
+                document.getElementById(valueIds[i]).value = '';
 
-        } else {
-            setValues[valueIds[i]] = document.getElementById(valueIds[i] + 'CDV').innerHTML;
+            } else {
+                setValues[valueIds[i]] = document.getElementById(valueIds[i] + 'CDV').innerHTML;
+            }
         }
+        values.set(setValues);
     }
-    values.set(setValues);
 }
 
 function saveSimulation(){
     savedValues.once('value', function(snapshot) {
         var output = snapshot.val();
         var presetName = $('#name').val();
-        var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowAmplitude'];
+        var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowMinVal', 'flowMaxVal'];
 
         if (output) {
             var keys = Object.keys(output);
