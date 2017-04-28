@@ -100,30 +100,28 @@ function updateSimulation(){
     var cdv = document.getElementById('flowrateCDV').innerHTML;
     var minCDV = document.getElementById('flowMinValCDV').innerHTML;
     var maxCDV = document.getElementById('flowMaxValCDV').innerHTML;
+    var newFR = $('#flowrate').val();
+    var newMin = $('#flowMinVal').val();
+    var newMax = $('#flowMaxVal').val();
+    var flow; var min; var max;
+    if (newFR) {
+        flow = newFR;
+    } else {
+        flow = cdv;
+    }
+    if (newMin) {
+        min = newMin;
+    } else {
+        min = minCDV;
+    }
+    if (newMax) {
+        max = newMax;
+    } else {
+        max = maxCDV;
+    }
     var setValues = {};
-    var valid = true;
-    if ($('#flowrate').val()) {
-        if (($('#flowrate').val() && ($('#flowrate').val() < $('#flowMinVal').val() || $('#flowrate').val() > $('#flowMaxVal').val())) || (!$('#flowrate').val() && (cdv < $('#flowMinVal').val() || cdv > $('#flowMaxVal').val()))) {
-            alert('The inputted Flow Rate is outside of the range of the Flow Min Value and Flow Max Value.');
-            valid = false;
-        }    
-    }
-    if ($('#flowMinVal').val() || $('#flowMaxVal').val()) {
-        if (($('#flowMinVal').val() && $('#flowMaxVal').val()) && $('#flowMinVal').val() >  $('#flowMaxVal').val()) {
-            alert('The inputted Flow Min Value is greater than the inputted Flow Max Value.');
-            valid = false;
-        } else if ((!$('#flowMinVal').val() && $('#flowMaxVal').val()) && minCDV >  $('#flowMaxVal').val()) {
-            alert('The inputted Flow Max Value is less than the current Flow Min Value.');
-            valid = false;
-        } else if (($('#flowMinVal').val() && !$('#flowMaxVal').val()) && $('#flowMinVal').val() >  maxCDV) {
-            alert('The inputted Flow Min Value is greater than the current Flow Max Value.');
-            valid = false;
-        } else if (($('#flowMinVal').val() && $('#flowMaxVal').val() && !$('#flowrate').val()) && !(cdv > $('#flowMinVal').val() && cdv < $('#flowMaxVal').val())) {
-            alert('Please change the Flow Rate so that it is within the range of your inputted values for Flow Min Value and Flow Max Value.');
-            valid = false;
-        }
-    }
-    if (valid) {
+
+    if (flow < max && flow > min) {
         for (var i=0; i<valueIds.length; i++) {
             var val = $('#' + valueIds[i]).val();
             if (val) {
@@ -135,6 +133,8 @@ function updateSimulation(){
             }
         }
         values.set(setValues);
+    } else {
+        alert('The inputted change would make the Flow Rate outside the range of the Flow Min Value and Flow Max Value.')
     }
 }
 
