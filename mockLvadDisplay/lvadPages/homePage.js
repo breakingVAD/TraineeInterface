@@ -152,9 +152,7 @@ values.on('value', function(snapshot) {
     var newFlowAmp = parseFloat(output.flowMaxVal - output.flowMinVal);
     var flowAmpDiff = newFlowAmp - flowAmp;
 
-    console.log('on');
     smoothingFunc = window.setInterval(function() {
-        console.log('calling increment');
         incrementPF(powerDiff, output.power, powerAmpDiff, output.powerAmplitude, flowMinDiff, output.flowMinVal, flowAmpDiff, newFlowAmp);
     }, 200);
 });
@@ -165,14 +163,12 @@ function incrementPF(powerDiff, setPower, powerAmpDiff, setPowerAmp, flowMinDiff
     flowMin += flowMinDiff / 30;
     powerAmp += powerAmpDiff / 30;
     flowAmp += flowAmpDiff / 30;
-    console.log('incrementing');
     
     if ((powerDiff > 0 && power >= setPower) || (powerDiff < 0 && power <= setPower) || (powerAmpDiff > 0 && powerAmp >= setPowerAmp) || (powerAmpDiff < 0 && powerAmp <= setPowerAmp) || (flowMinDiff > 0 && flowMin >= setFlowMin) || (flowMinDiff < 0 && flowMin <= setFlowMin) || (flowAmpDiff > 0 && flowAmp >= setFlowAmp) || (flowAmpDiff < 0 && flowAmp <= setFlowAmp)) {
         power = parseFloat(setPower);
         flowMin = parseFloat(setFlowMin);
         powerAmp = parseFloat(setPowerAmp);
         flowAmp = parseFloat(setFlowAmp);
-        console.log('finished incrementing');
         clearTimeout(smoothingFunc);
     }
 }

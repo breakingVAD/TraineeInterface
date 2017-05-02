@@ -7,29 +7,81 @@ var config = {
 firebase.initializeApp(config);
 var uid = localStorage.getItem('uid');
 var values = firebase.database().ref(uid + "/values/");
+var pValues = firebase.database().ref(uid + "/patientValues/");
 var rpmValues = firebase.database().ref(uid + "/values/RPM");
+var hemValues = firebase.database().ref(uid + "/patientValues/hematocrit");
 
+function changeTab(evt, tabName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
 
-
-function changeTab(id) {
-    if (id) {
-        document.getElementById(id).style.visibility = "visible";
-    } else {
-        document.getElementById('speedControl').style.visibility = "hidden";
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
     }
+
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
+}
+
+function changePVCMTab(event, tabName) {
+    // Declare all variables
+    var i, PVCMcontent;
+
+    // Get all elements with class="tabcontent" and hide them
+    PVCMcontent = document.getElementsByClassName("PVCMcontent");
+    for (i = 0; i < PVCMcontent.length; i++) {
+        PVCMcontent[i].style.display = "none";
+    }
+
+   // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
 }
 
 function changeFPTab(idVis, idHide) {
     if (document.getElementById(idHide)) {
-        console.log('if statement');
         document.getElementById(idHide).id = idVis;
         flowPowerCharts(idVis);
     }
 }
 
+function openHematocrit() {
+    document.getElementById('hemaPopup').style.display='block';
+}
+
+function cancelHemaModal() {
+    document.getElementById('hemaPopup').style.display = "none";
+}
+
+function keypadPush(number) {
+    var hema = document.getElementById('hematocrit').value;
+    if (hema.length<2) {
+        document.getElementById('hematocrit').value = hema + String(number);
+    }
+}
+
+function backspaceHema() {
+    var hema = document.getElementById('hematocrit').value;
+    if (hema.length) {
+        document.getElementById('hematocrit').value = hema.substring(0,hema.length-1);
+    }
+}
+
+function clearHema() {
+    document.getElementById('hematocrit').value = '';
+}
+
+function okayHema() {
+    cancelHemaModal();
+    hemValues.set(document.getElementById('hematocrit').value);
+    clearHema();
+}
+
 window.onload = function () {
     document.getElementById("defaultOpen").click();
     document.getElementById("flowChart").click();
+    document.getElementById("defaultPVCM").click();
 
     flowPowerCharts('flowChartContainer');
 
@@ -37,6 +89,11 @@ window.onload = function () {
         var output = snapshot.val();
         document.getElementById('rpmButton').innerHTML = output.RPM;
         document.getElementById('rpmValBold').innerHTML = output.RPM;
+    });
+    pValues.on('value', function(snapshot) {
+        var output = snapshot.val();
+        document.getElementById('hematocritBtn').innerHTML = String(output.hematocrit) + "%";
+        document.getElementById('implantDateBtn').innerHTML = moment(output.implantDate).format("MM/DD/YY");
     })
 };
 
@@ -118,14 +175,19 @@ function flowPowerCharts(idVis) {
     values.on('value', function(snapshot) {
         var output = snapshot.val();
 
-        var fpStrings = ['flowrate','power'];
-        flowOrPower = parseFloat(output[fpStrings[fp]]);
-        fpStrings = ['flowAmplitude','powerAmplitude'];
-        amplitude = parseFloat(output[fpStrings[fp]]);
+        if (fp == 0) {
+            flowOrPower = parseFloat(output.flowMinVal);
+            amplitude = parseFloat(output.flowMaxVal - output.flowMinVal);
+        } else {
+            flowOrPower = parseFloat(output.power);
+            amplitude = parseFloat(output['powerAmplitude']);
+        }
+        console.log(flowOrPower);
+        console.log(amplitude);
 
     });
 
-    var offsetVals = [[-0.9, -0.8, -0.7, -0.2, 0.3, 0.8, 1.2, 1.2, 0.8, 0.3, -0.2, -0.7],[-0.2, -0.2, -0.1, 0, 0.2, 0.5, 0.6, 0.7, 0.5, 0.1, 0, -0.1]];
+    var offsetVals = [[0, 0.05, 0.1, 0.35, 0.6, 0.85, 1, 1, 0.85, 0.6, 0.35, 0.1], [-0.2, -0.2, -0.1, 0, 0.2, 0.5, 0.6, 0.7, 0.5, 0.1, 0, -0.1]];
     var i = 0;
     var updateChart = function (count) {
         count = count || 1;

@@ -12,13 +12,19 @@ var storage = firebase.storage();
 var databaseRef = firebase.database().ref(userID + '/ProbeData');
 
 databaseRef.on('value',function(snapshot){
-    var pathReference = storage.ref('Storage/' + userID + '/' + snapshot.val().region + ".gif");
+    var pathReference = storage.ref('Storage/' + userID + '/' + snapshot.val().region + '.gif');
 
     pathReference.getDownloadURL().then(function(url) {
         var img = document.getElementById('image');
         img.src = url;
     }).catch(function(error){
-        console.log(error);
+        var defaultRef = storage.ref('Storage/' + snapshot.val().region + ".gif");
+        defaultRef.getDownloadURL().then(function(url) {
+            var img = document.getElementById('image');
+            img.src = url;
+        }).catch(function(error){
+            console.log(error);
+        });
     });
 });
 

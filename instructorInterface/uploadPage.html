@@ -13,10 +13,12 @@
             <col width="210px">
             <col width="210px">
             <col width="210px">
+            <col width="160px">
             <tr>
                 <td>Suprasternal (Arch):</td>
                 <td><input type="file" value="upload" id="SPA" class="imageUpload"></td>
                 <td><progress value="0" max="100" id="SPAuploader">0%</progress></td>
+                <td><button onclick="useDefault(0)" class="grayBtn">Use Default</button></td>
             </tr>
         </table>
     </div>
@@ -25,10 +27,12 @@
             <col width="210px">
             <col width="210px">
             <col width="210px">
+            <col width="160px">
             <tr>
                 <td>Apical (4 Chamber):</td>
                 <td><input type="file" value="upload" id="A4C" class="imageUpload"></td>
                 <td><progress value="0" max="100" id="A4Cuploader">0%</progress></td>
+                <td><button onclick="useDefault(1)" class="grayBtn">Use Default</button></td>
             </tr>
         </table>
     </div>
@@ -37,10 +41,12 @@
             <col width="210px">
             <col width="210px">
             <col width="210px">
+            <col width="160px">
             <tr>
                 <td>Apical (2 Chamber):</td>
                 <td><input type="file" value="upload" id="A2C" class="imageUpload"></td>
                 <td><progress value="0" max="100" id="A2Cuploader">0%</progress></td>
+                <td><button onclick="useDefault(2)" class="grayBtn">Use Default</button></td>
             </tr>
         </table>
     </div>
@@ -49,10 +55,12 @@
             <col width="210px">
             <col width="210px">
             <col width="210px">
+            <col width="160px">
             <tr>
                 <td>Parasternal (Long Axis):</td>
                 <td><input type="file" value="upload" id="PLA" class="imageUpload"></td>
                 <td><progress value="0" max="100" id="PLAuploader">0%</progress></td>
+                <td><button onclick="useDefault(3)" class="grayBtn">Use Default</button></td>
             </tr>
         </table>
     </div>
@@ -61,10 +69,12 @@
             <col width="210px">
             <col width="210px">
             <col width="210px">
+            <col width="160px">
             <tr>
                 <td>Parasternal (Short Axis):</td>
                 <td><input type="file" value="upload" id="PSA" class="imageUpload"></td>
                 <td><progress value="0" max="100" id="PSAuploader">0%</progress></td>
+                <td><button onclick="useDefault(4)" class="grayBtn">Use Default</button></td>
             </tr>
         </table>
     </div>
@@ -73,10 +83,12 @@
             <col width="210px">
             <col width="210px">
             <col width="210px">
+            <col width="160px">
             <tr>
                 <td>Subxiphoid (4 Chamber/Outlets):</td>
                 <td><input type="file" value="upload" id="SX4" class="imageUpload"></td>
                 <td><progress value="0" max="100" id="SX4uploader">0%</progress></td>
+                <td><button onclick="useDefault(5)" class="grayBtn">Use Default</button></td>
             </tr>
         </table>
     </div>
@@ -85,10 +97,12 @@
             <col width="210px">
             <col width="210px">
             <col width="210px">
+            <col width="160px">
             <tr>
                 <td>Other Tissue:</td>
                 <td><input type="file" value="upload" id="TIS" class="imageUpload"></td>
                 <td><progress value="0" max="100" id="TISuploader">0%</progress></td>
+                <td><button onclick="useDefault(6)" class="grayBtn">Use Default</button></td>
             </tr>
         </table>
     </div>
@@ -97,15 +111,41 @@
             <col width="210px">
             <col width="210px">
             <col width="210px">
+            <col width="160px">
             <tr>
                 <td>Probe Not In Contact:</td>
                 <td><input type="file" value="upload" id="NIC" class="imageUpload"></td>
                 <td><progress value="0" max="100" id="NICuploader">0%</progress></td>
+                <td><button onclick="useDefault(7)" class="grayBtn">Use Default</button></td>
             </tr>
         </table>
     </div>
-    <p>If you do not have your own images to upload, you can use default images.</p>
-    <button onclick="useDefault()" class="grayBtn">Use Default</button>
+    <div class="box" style="margin:14px; padding:10px; width:700px">
+        <h3>Manually Control Echo Simulation:</h3>
+        <table width="100%">
+            <tr>
+                <td>
+                    <p>Select echocardiogram view to display:</p>
+                </td>
+                <td>
+                    <select id="chooseView">
+                        <option value="" selected disabled>Select view</option>
+                        <option value="SPA">Suprasternal (Arch)</option>
+                        <option value="A4C">Apical (4 Chamber)</option>
+                        <option value="A2C">Apical (2 Chamber)</option>
+                        <option value="PLA">Parasternal (Long Axis)</option>
+                        <option value="PSA">Parasternal (Short Axis)</option>
+                        <option value="SX4">Subxiphoid (4 Chamber)</option>
+                        <option value="TIS">Other Tissue</option>
+                        <option value="NIC">Probe Not In Contact</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="blueBtn" onclick="displayView()">Display This View</button>
+                </td>
+            </tr>
+        </table>
+    </div>
 </div>
 </body>
 </html>

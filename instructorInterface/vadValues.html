@@ -15,7 +15,7 @@
         <div class="col-md-5" style="padding:7px">
             <div class="box">
                 <h3>Set Values on Mock LVAD Display:</h3>
-                <table class="vadValues" id="inputVals" width="100%">
+                <table class="vadValues" width="100%">
                     <tr>
                         <td>Flow Rate:</td>
                         <td>
@@ -150,6 +150,56 @@
                                 <col width="40px">
                             </table>
                         </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-5" style="padding:7px">
+            <div class="box">
+                <h3>Set Patient Values for Simulation:</h3>
+                <table class="vadValues" id="inputVals" width="100%">
+                    <tr>
+                        <td>Hematocrit:</td>
+                        <td>
+                            <input type="number" min=0 max=100 id="hematocrit" class="font" placeholder="Hematocrit" style="width:100%">
+                        </td>
+                        <td>%</td>
+                    </tr>
+                    <tr>
+                        <td>Implant Date:</td>
+                        <td>
+                            <input type="date" id="implantDate" class="font" placeholder="Implant Date" style="width:100%">
+                        </td>
+                        <td></td>
+                    </tr>
+                </table>
+                <table width="100%">
+                    <tr>
+                        <td>
+                            <button style="float:right; margin:5px 0 0 0; width:100%;" class="blueBtn" type="button" onclick="updatePatientVals()" class="font"> Update Simulation </button>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        <div class="col-md-5" style="padding:7px">
+            <div class="box" id="currentPVals">
+                <h3>Currently Displayed Values:</h3>
+                <table id="CDVs" class="vadValues" align="center" width="100%">
+                    <col width="100px">
+                    <col width="100px">
+                    <col width="20">
+                    <tr>
+                        <td>Hematocrit:</td>
+                        <td id="hematocritCDV" class="currentVal"></td>
+                        <td>%</td>
+                    </tr>
+                    <tr>
+                        <td>Implant Date:</td>
+                        <td id="implantDateCDV" class="currentVal"></td>
+                        <td></td>
                     </tr>
                 </table>
             </div>
