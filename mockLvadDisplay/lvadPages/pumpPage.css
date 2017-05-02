@@ -9,12 +9,64 @@
     border: 1px solid #AAAAAA;
 }
 
-#speedControl {
+.tabcontent {
     background-color: #ECECEC;
     padding: 10px;
     border: 1px solid #AAAAAA;
     margin: 0;
 }
+
+#setup {
+    display: none;
+    padding: 0;
+}
+
+#keypad td {
+    background-color: darkgray;
+    height: 50px;
+    width: 50px;
+    text-align: center;
+}
+
+.modal-content#hemaPopupBox {
+    margin: 5px auto; /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: 300px;
+    height: 340px;
+}
+
+#okCancel {
+    background-color: transparent;
+    width: 100px;
+    text-align: center;
+}
+
+#ok, #cancelHema {
+    border-radius: 5px;
+}
+
+#ok {
+    padding: 10px 20px 10px 20px;
+}
+
+#cancelHema {
+    padding: 10px;
+}
+
+
+.keypadButton {
+    padding:3px 30px 20px 3px;
+    border-radius:7px;
+    border: 1px solid gray;
+}
+
+.PVCMcontent {
+    background-color: #ECECEC;
+    display: none;
+    border-top: 1px solid #AAAAAA;
+    margin: 0;
+}
+
 
 .tabrow {
     margin: 0;
@@ -29,27 +81,36 @@
 .tabrow li {
     border: 1px solid #AAA;
     background: #D1D1D1;
-    background: -o-linear-gradient(bottom, #ECECEC 50%, #D1D1D1 100%);
-    background: -ms-linear-gradient(bottom, #ECECEC 50%, #D1D1D1 100%);
-    background: -moz-linear-gradient(bottom, #ECECEC 50%, #D1D1D1 100%);
-    background: -webkit-linear-gradient(bottom, #ECECEC 50%, #D1D1D1 100%);
-    background: linear-gradient(bottom, #ECECEC 50%, #D1D1D1 100%);
     display: inline-block;
     position: relative;
     z-index: 0;
     border-bottom-left-radius: 6px;
     border-bottom-right-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4), inset 0 1px 0 #FFF;
     text-shadow: 0 1px #FFF;
     margin: 0 2px;
     padding:2px 10px;
     color: #7c7c7c;
 }
+
+#PVCMtabrow li {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
 .tabrow li.selected {
     background: #ECECEC;
     color: #333;
     z-index: 2;
     border-top-color: #ECECEC;
+}
+.tabrow li.selected.PVCM {
+    background: #ECECEC;
+    color: #333;
+    z-index: 2;
+    border-top-color: #AAA;
+    border-bottom-color: #ECECEC;
 }
 .tabrow li.selected.FP {
     background: white;
@@ -57,44 +118,14 @@
     z-index: 2;
     border-top-color: white;
 }
-.tabrow:before {
-    position: absolute;
-    content: " ";
-    width: 100%;
-    top: 0;
-    left: 0;
-    border-top: 1px solid #AAA;
-    z-index: 1;
-}
-.tabrow li:before,
-.tabrow li:after {
-    border: 1px solid #AAA;
-    position: absolute;
-    top: -1px;
-    width: 6px;
-    height: 6px;
-    content: " ";
-}
-.tabrow li:before {
-    left: -7px;
-    border-top-right-radius: 6px;
-    border-width: 1px 1px 0 0;
-    box-shadow: 2px 0 0 #D1D1D1;
-}
-.tabrow li:after {
-    right: -7px;
-    border-top-left-radius: 6px;
-    border-width: 1px 0 0 1px;
-    box-shadow: -2px 0 0 #D1D1D1;
-}
-.tabrow li.selected:before {
-    box-shadow: 2px 0 0 #FFF;
-}
-.tabrow li.selected:after {
-    box-shadow: -2px 0  0 #FFF;
-}
 
 #rpmButton {
+    width: 100%;
+    height: 60px;
+    border-radius: 7px
+}
+
+.patientButtons {
     width: 100%;
     height: 60px;
     border-radius: 7px
@@ -120,6 +151,9 @@
     width: 100%; /* Full width */
     height: 100%; /* Full height */
     overflow: auto; /* Enable scroll if needed */
+}
+
+.modal#changeRpmModal {
     padding-top: 230px;
 }
 

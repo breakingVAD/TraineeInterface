@@ -1,4 +1,4 @@
-var userID;
+var userID; var probeData;
 window.onload = function() {
     var config = {
         apiKey: "AIzaSyDHQ1wGhiNYdzBHIdb_mzMXfnyp0GdGnR8",
@@ -11,6 +11,7 @@ window.onload = function() {
 
     userID = localStorage.getItem('userid');
     console.log(userID);
+    probeData = firebase.database().ref(userID + "/ProbeData/");
 
     var fileUploaders = document.getElementsByClassName("imageUpload");
     console.log(fileUploaders);
@@ -24,8 +25,7 @@ function upload(e) {
     var file = e.target.files[0];
     var name = e.target.id + ".gif";
     console.log(name);
-    var storageRef = firebase.storage().ref('Storage/' + name);
-    var databaseRef = firebase.database().ref(userID + '/Images');
+    var storageRef = firebase.storage().ref('Storage/' + userID + '/' + name);
     var task = storageRef.put(file);
     var uploader = document.getElementById(e.target.id + "uploader");
     task.on('state_changed',
@@ -37,7 +37,23 @@ function upload(e) {
         },
         function complete() {}
     );
-    databaseRef.push({
-        name: file.name
+}
+
+function useDefault(i) {
+    var imageNames = ['SPA', 'A4C', 'A2C', 'PLA', 'PSA', 'SX4', 'TIS', 'NIC'];
+    console.log(imageNames[i]);
+    var storageRef = firebase.storage().ref('Storage/' + userID + '/');
+
+    storageRef.child(imageNames[i] + '.gif').delete().then(function() {
+        console.log('deleted' + imageNames[i]);
+    }).catch(function(error) {
+        console.log(error);
+    });
+}
+
+function displayView() {
+    var viewToDisplay = document.getElementById("chooseView").value;
+    probeData.set({
+        region: viewToDisplay
     });
 }

@@ -10,6 +10,7 @@
     <script type="text/javascript" src="pumpPage.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script type="text/javascript" src="../../canvasjs.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment.js"></script>
     <script>
         $(function() {
             $("li.SSA").click(function(e) {
@@ -25,11 +26,18 @@
                 $(this).addClass("selected");
             });
         });
+        $(function() {
+            $("li.PVCM").click(function(e) {
+                e.preventDefault();
+                $("li.PVCM").removeClass("selected");
+                $(this).addClass("selected");
+            });
+        });
     </script>
 </head>
 <body>
 <div id="outerTabs">
-    <div id="speedControl">
+    <div id="speedControl" style="display: block" class="tabcontent">
         <div id="innerTabs">
             <div id="flowChartContainer" style="height: 180px; width:100%; padding:0; margin:0; border:0"></div>
         </div>
@@ -80,11 +88,71 @@
         </table>
         </div>
     </div>
+    <div id="setup" class="tabcontent">
+        <ul class="tabrow" id="PVCMtabrow">
+            <li class="PVCM" id="defaultPVCM" onclick="changePVCMTab(event, 'patient')">Patient</li>
+            <li class="PVCM" onclick="changePVCMTab(event, 'vad')">VAD</li>
+            <li class="PVCM" onclick="changePVCMTab(event, 'controller')">Controller</li>
+            <li class="PVCM" onclick="changePVCMTab(event, 'monitor')">Monitor</li>
+        </ul>
+        <div id="patient" class="PVCMcontent">
+            <div class="container" style="padding:20px; margin:0">
+                <table width="450">
+                    <col width="100">
+                    <col width="60">
+                    <col width="10">
+                    <col width="60">
+                    <tr style="height:10px"></tr>
+                    <tr>
+                        <td><h4><b>Patient ID:</b></h4></td>
+                        <td>
+                            <button class="patientButtons"><b>AB124</b></button>
+                        </td>
+                        <td></td>
+                        <td>
+                           <button disabled class="patientButtons" style="color: gray"><b>Log Files</b></button>
+                        </td>
+                    </tr>
+                    <tr style="height:20px"></tr>
+                    <tr>
+                        <td><h4><b>Implant Date:</b></h4></td>
+                        <td>
+                            <button class="patientButtons"><b id="implantDateBtn"></b></button>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr style="height:20px"></tr>
+                    <tr>
+                        <td><h4><b>Hematocrit:</b></h4></td>
+                        <td>
+                           <button class="patientButtons" onclick="openHematocrit()"><b id="hematocritBtn"></b></button>
+                        </td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                    <tr style="height: 90px;"></tr>
+                </table>
+            </div>
+        </div>
+        <div id="vad" class="PVCMcontent">
+            <table style="height:360px"></table>
+        </div>
+        <div id="controller" class="PVCMcontent">
+            <table style="height:360px"></table>
+        </div>
+        <div id="monitor" class="PVCMcontent">
+            <table style="height:360px"></table>
+        </div>
+    </div>
+    <div id="alarmSettings" style="display:none" class="tabcontent">
+        <table style="height:370px"></table>
+    </div>
 </div>
     <ul class="tabrow">
-        <li class="SSA" id="defaultOpen" onclick="changeTab('speedControl')">Speed/Control</li>
-        <li class="SSA" onclick="changeTab(null)">Setup</li>
-        <li class="SSA" onclick="changeTab(null)">Alarm Settings</li>
+        <li class="SSA" id="defaultOpen" onclick="changeTab(event, 'speedControl')">Speed/Control</li>
+        <li class="SSA" onclick="changeTab(event, 'setup')">Setup</li>
+        <li class="SSA" onclick="changeTab(event, 'alarmSettings')">Alarm Settings</li>
     </ul>
 </div>
 <div id="changeRpmModal" class="modal">
@@ -114,6 +182,74 @@
                     </td>
                     <td class="changeCancelButtons">
                         <button id="cancel" onclick="cancelModal()">Cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div id="hemaPopup" class="modal">
+    <div class="modal-content animate" id="hemaPopupBox">
+        <div class="container" style="padding:20px">
+            <p><b>Enter Hematocrit Value (%)</b></p>
+            <input id="hematocrit" type="number" style="width:75px" min="0" max="100">
+            <button id="backspace" onclick="backspaceHema()"><b>&#8592;</b></button>
+            <button id="clear" onclick="clearHema()">Clear</button><br><br>
+            <table>
+                <tr>
+                    <td>
+                        <div id="tableContainer">
+                            <table id="keypad" cellpadding="30">
+                                <tr>
+                                    <td>
+                                        <button class="keypadButton" onclick="keypadPush(1)">1</button>
+                                    </td>
+                                    <td>
+                                        <button class="keypadButton" onclick="keypadPush(2)">2</button>
+                                    </td>
+                                    <td>
+                                        <button class="keypadButton" onclick="keypadPush(3)">3</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button class="keypadButton" onclick="keypadPush(4)">4</button>
+                                    </td>
+                                    <td>
+                                        <button class="keypadButton" onclick="keypadPush(5)">5</button>
+                                    </td>
+                                    <td>
+                                        <button class="keypadButton" onclick="keypadPush(6)">6</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <button class="keypadButton" onclick="keypadPush(7)">7</button>
+                                    </td>
+                                    <td>
+                                        <button class="keypadButton" onclick="keypadPush(8)">8</button>
+                                    </td>
+                                    <td>
+                                        <button class="keypadButton" onclick="keypadPush(9)">9</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td></td>
+                                    <td>
+                                        <button class="keypadButton" onclick="keypadPush(0)">0</button>
+                                    </td>
+                                    <td></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </td>
+                    <td id="okCancel">
+                        <div id="okContainer">
+                            <button id="ok" onclick="okayHema()">OK</button><br>
+                        </div>
+                        <div id="cancelContainer">
+                            <button id="cancelHema" onclick="cancelHemaModal()">Cancel</button>
+                        </div>
                     </td>
                 </tr>
             </table>

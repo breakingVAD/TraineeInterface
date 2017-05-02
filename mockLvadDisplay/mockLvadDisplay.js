@@ -52,14 +52,12 @@ function incrementPRF(powerDiff, setPower, RPMDiff, setRPM, flowDiff, setFlow) {
         document.getElementById("powerVal").innerHTML = Number(setPower).toFixed(1);
         document.getElementById("rpmVal").innerHTML = Math.ceil(setRPM);
         document.getElementById("flowRateVal").innerHTML = Number(setFlow).toFixed(1);
-        console.log('if statement');
         clearTimeout(smoothingFunc);
     }
 }
 
 // Get the modal
 var pwModal = document.getElementById('passwordPopup');
-var modal = document.getElementById('passwordPopup');
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function(event) {
@@ -169,6 +167,5 @@ function goToEchoSim() {
 }
 
 function powerOff() {
-    console.log('poweroff');
     document.getElementById('powerPopup').style.display='block';
 }

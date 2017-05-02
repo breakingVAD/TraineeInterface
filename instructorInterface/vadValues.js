@@ -9,9 +9,11 @@ firebase.initializeApp(config);
 var userID = localStorage.getItem('userid');
 
 var values = firebase.database().ref(userID + "/" +"values");
+var pValues = firebase.database().ref(userID + "/" +"patientValues");
 var savedValues = firebase.database().ref(userID + "/Saved Values");
+var savedPValues = firebase.database().ref(userID + "/Saved Patient Values");
 var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowMinVal', 'flowMaxVal'];
-
+var pValueIds = ['hematocrit', 'implantDate'];
 
 savedValues.on('value',function(snapshot){
     var tables = document.getElementsByClassName("savedSims");
@@ -62,9 +64,16 @@ savedValues.on('value',function(snapshot){
 values.on('value', function(snapshot) {
     var output = snapshot.val();
     console.log(output);
-    var valueIds = ['flowrate', 'RPM', 'power','powerAmplitude','flowMinVal', 'flowMaxVal'];
     for (var i=0; i<valueIds.length; i++) {
         document.getElementById(valueIds[i] + "CDV").innerHTML = output[valueIds[i]];
+    }
+});
+
+pValues.on('value', function(snapshot) {
+    var output = snapshot.val();
+    console.log(output);
+    for (var i=0; i<pValueIds.length; i++) {
+        document.getElementById(pValueIds[i] + "CDV").innerHTML = output[pValueIds[i]];
     }
 });
 
@@ -136,6 +145,21 @@ function updateSimulation(){
     } else {
         alert('The inputted change would make the Flow Rate outside the range of the Flow Min Value and Flow Max Value.')
     }
+}
+
+function updatePatientVals() {
+    var setValues = {};
+    for (var i=0; i<pValueIds.length; i++) {
+        var val = $('#' + pValueIds[i]).val();
+        if (val) {
+            setValues[pValueIds[i]] = val;
+            document.getElementById(pValueIds[i]).value = '';
+
+        } else {
+            setValues[pValueIds[i]] = document.getElementById(pValueIds[i] + 'CDV').innerHTML;
+        }
+    }
+    pValues.set(setValues);
 }
 
 function saveSimulation(){
