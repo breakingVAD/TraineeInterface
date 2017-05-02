@@ -20,6 +20,8 @@ window.onload = function() {
     }
 };
 
+var userID = localStorage.getItem('userid');
+
 function upload(e) {
     console.log('upload');
     var file = e.target.files[0];
