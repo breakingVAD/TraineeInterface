@@ -43,5 +43,10 @@ if [[ "$_java" ]]; then
     fi
 fi
 
+if [ ! -d /var/lock ]; then
+	sudo mkdir /var/lock
+	sudo chmod a+rw /var/lock
+fi
+
 # Run the application
-exec $_java $VM_ARGS -Dapple.laf.useScreenMenuBar=true -Dcom.apple.macos.use-file-dialog-packages=true -Xdock:name="$APP_NAME" -Xdock:icon="$DIR/../Resources/application.icns" -cp ".;$DIR;" -jar "$DIR/$APP_JAR"
+exec $_java $VM_ARGS -Dapple.laf.useScreenMenuBar=true -Dcom.apple.macos.use-file-dialog-packages=true -Xdock:name="$APP_NAME" -Xdock:icon="$DIR/../Resources/application.icns" -cp ".;$DIR;" -Djava.library.path="." -Djava.io.tmpdir="." -jar "$DIR/$APP_JAR"
