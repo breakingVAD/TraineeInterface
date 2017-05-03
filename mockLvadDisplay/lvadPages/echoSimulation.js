@@ -12,22 +12,28 @@ var storage = firebase.storage();
 var databaseRef = firebase.database().ref(userID + '/ProbeData');
 
 databaseRef.on('value',function(snapshot){
-    var pathReference = storage.ref('Storage/' + userID + '/' + snapshot.val().region + '.gif');
+    var pathReference = storage.ref('Storage/' + userID + '/' + snapshot.val().region);
+    console.log('Storage/' + userID + '/' + snapshot.val().region);
 
     pathReference.getDownloadURL().then(function(url) {
-        var img = document.getElementById('image');
-        img.src = url;
+        var vid = document.getElementById('video');
+        var source = document.getElementById('source');
+        source.src = url;
+        console.log(url);
+        vid.load();
+        vid.play();
     }).catch(function(error){
-        var defaultRef = storage.ref('Storage/' + snapshot.val().region + ".gif");
+        var defaultRef = storage.ref('Storage/' + snapshot.val().region + '.mp4');
         defaultRef.getDownloadURL().then(function(url) {
-            var img = document.getElementById('image');
-            img.src = url;
+            var vid = document.getElementById('video');
+            var source = document.getElementById('source');
+            source.src = url;
+            console.log(url);
+            vid.load();
+            vid.play();
         }).catch(function(error){
             console.log(error);
         });
     });
 });
 
-function backToLVAD() {
-    window.location = "../mockLvadDisplay.html";
-}

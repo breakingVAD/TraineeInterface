@@ -25,7 +25,7 @@ var userID = localStorage.getItem('userid');
 function upload(e) {
     console.log('upload');
     var file = e.target.files[0];
-    var name = e.target.id + ".gif";
+    var name = e.target.id;
     console.log(name);
     var storageRef = firebase.storage().ref('Storage/' + userID + '/' + name);
     var task = storageRef.put(file);
