@@ -28,7 +28,7 @@ function joinSession() {
         } else {
             localStorage.setItem('uid', userId);
             localStorage.setItem('trainee', true);
-            window.open('../mockLvadDisplay/mockLvadDisplay.html');
+            window.top.location = '../mockLvadDisplay/mockLvadDisplay.html';
         }
     });
 }

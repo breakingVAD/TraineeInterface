@@ -28,7 +28,7 @@ firebase.auth().onAuthStateChanged(function(firebaseUser) {
         userID = firebaseUser.uid;
     } else {
         console.log("Not Logged In -- ");
-        window.location = '../index.html';
+        window.top.location = '../index.html';
     }
 });
 
@@ -63,6 +63,6 @@ function logout(){
 }
 
 function openNewTab(path) {
-    window.open(path);
+    window.top.location = path;
 }
 

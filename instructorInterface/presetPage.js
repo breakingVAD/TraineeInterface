@@ -13,7 +13,7 @@ firebase.auth().onAuthStateChanged(function(firebaseUser) {
         userID=firebaseUser.uid;
     } else {
         console.log("Not Logged In -- ");
-        window.location='../index.html';
+        window.top.location='../index.html';
     }
 });
 var users=firebase.database().ref("Users");

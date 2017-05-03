@@ -159,11 +159,11 @@ function okayPW() {
 
 function logOut() {
     localStorage.removeItem('uid');
-    window.location = '../tabPages/traineeLogin.html';
+    window.top.location = '../index.html';
 }
 
 function goToEchoSim() {
-    window.open('lvadPages/echoSimulation.html');
+    window.top.location = 'lvadPages/echoSimulation.html';
 }
 
 function powerOff() {
