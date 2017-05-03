@@ -23,7 +23,7 @@ window.onload = function() {
     const password = txtPassword.value;
     const auth = firebase.auth();
     const promise = auth.signInWithEmailAndPassword(email, password).then(function() {
-      window.open('../instructorInterface/mainPage.html');
+      window.top.location = '../instructorInterface/mainPage.html';
     });
     promise.catch(function(e) {alert(e.message)});
 
